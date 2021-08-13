@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>My first three.js app</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="tooltip"></div>
+<script src="js/three.js"></script>
+<script>
+    let renderer, scene, camera, raycaster;
+
+    let line;
+    const MAX_POINTS = 50;
+    let drawCount;
+
+    // this will be 2D coordinates of the current mouse position, [0,0] is middle of the screen.
+    const mouse = new THREE.Vector2();
+
+    let latestMouseProjection; // this is the latest projection of the mouse on object (i.e. intersection with ray)
+    let hoveredObj; // this objects is ho
+
+    init();
+
+    // animate();
+
+    function init() {
+
+        // info
+        const info = document.createElement('div');
+        info.style.position = 'absolute';
+        info.style.top = '30px';
+        info.style.width = '100%';
+        info.style.textAlign = 'center';
+        info.style.color = '#fff';
+        info.style.fontWeight = 'bold';
+        info.style.backgroundColor = 'transparent';
+        info.style.zIndex = '1';
+        info.style.fontFamily = 'Monospace';
+        info.innerHTML = "three.js animataed line using BufferGeometry";
+
+        document.body.appendChild(info);
+
+        // renderer
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        raycaster = new THREE.Raycaster();
+
+
+        // scene
+        scene = new THREE.Scene();
+
+        // camera
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.set(0, 0, 1000);
+
+        // geometry
+        const geometry = new THREE.BufferGeometry();
+
+        // attributes
+        const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
+        geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+        //
+        // // drawcalls
+        // drawCount = 2; // draw the first 2 points, only
+        // geometry.setDrawRange(0, drawCount);
+
+        // material
+        const material = new THREE.LineBasicMaterial({color: "grey"});
+
+        // line
+        line = new THREE.Line(geometry, material);
+        scene.add(line);
+        console.log(line)
+        // update positions
+        updatePositions();
+        animate()
+    }
+
+
+    // update positions
+    function updatePositions() {
+
+        const positions = line.geometry.attributes.position.array;
+
+        let x, y, z, index;
+        x = y = z = index = 0;
+
+        for (let i = 0, l = 2; i < l; i++) {
+            x += (Math.random() - 0.5) * 130;
+            y += (Math.random() - 0.5) * 130;
+            z += (Math.random() - 0.5) * 130;
+
+            positions[index++] = x;
+            positions[index++] = y;
+            positions[index++] = z;
+
+            addDot(0, 0, 0)
+            addDot(x, y, z)
+
+            console.log(x, y, z)
+            line.geometry.setDrawRange(0, index);
+        }
+    }
+
+    function addDot(x, y, z) {
+        var size = 5;
+        var vertGeometry = new THREE.CircleGeometry(size, 32);
+        var vertMaterial = new THREE.MeshBasicMaterial({
+            color: "white",
+            transparent: false,
+
+        });
+        var vertMarker = new THREE.Mesh(vertGeometry, vertMaterial);
+        vertMarker.applyMatrix4(new THREE.Matrix4().makeTranslation(x, y, z));
+        scene.add(vertMarker);
+    }
+
+    // render
+    function render() {
+        renderer.render(scene, camera);
+    }
+
+    function animate() {
+        //requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+
+    // animate
+    function animate2() {
+        if (drawCount === 0) {
+            return
+        }
+
+
+        requestAnimationFrame(animate);
+
+        drawCount = (drawCount + 1) % MAX_POINTS;
+
+        console.log(line)
+        if (drawCount === 0) {
+            return
+        }
+
+        line.geometry.setDrawRange(0, drawCount);
+
+
+        if (drawCount === 0) {
+
+
+            // periodically, generate new data
+
+            // updatePositions();
+            //
+            // line.geometry.attributes.position.needsUpdate = true; // required after the first render
+            //
+            // line.material.color.setHSL( Math.random(), 1, 0.5 );
+
+        }
+
+        render();
+    }
+
+    function onMouseMove(event) {
+        updateMouseCoords(event, mouse);
+        latestMouseProjection = undefined;
+        hoveredObj = undefined;
+        handleManipulationUpdate();
+    }
+
+    function handleManipulationUpdate() {
+        raycaster.setFromCamera(mouse, camera);
+        {
+            var intersects = raycaster.intersectObjects([]);
+            if (intersects.length > 0) {
+                latestMouseProjection = intersects[0].point;
+                hoveredObj = intersects[0].object;
+            }
+        }
+
+
+    }
+
+    function updateMouseCoords(event, coordsObj) {
+        var vec = new THREE.Vector3(); // create once and reuse
+        var pos = new THREE.Vector3(); // create once and reuse
+
+        vec.set(
+            (event.clientX / window.innerWidth) * 2 - 1,
+            -(event.clientY / window.innerHeight) * 2 + 1,
+            0.5);
+
+        vec.unproject(camera);
+
+        vec.sub(camera.position).normalize();
+
+        var distance = -camera.position.z / vec.z;
+
+        pos.copy(camera.position).add(vec.multiplyScalar(distance));
+        console.log(pos)
+    }
+
+    // window.addEventListener('mousemove', onMouseMove, false);
+    window.addEventListener('click', onClickHandler, false);
+
+    function onClickHandler(event) {
+        let pos = getMousePosition(event)
+        const positions = line.geometry.attributes.position.array;
+        let index = line.geometry.attributes.position.itemSize * 3;
+
+
+        positions[index++] = pos.x;
+        positions[index++] = pos.y;
+        positions[index++] = pos.z;
+
+
+        addDot(pos.x, pos.y, pos.z)
+
+        console.log(pos)
+        line.geometry.setDrawRange(0, index);
+        console.log(line)
+        animate()
+
+    }
+
+    function getMousePosition(event) {
+        var vec = new THREE.Vector3(); // create once and reuse
+        var pos = new THREE.Vector3(); // create once and reuse
+
+        vec.set(
+            (event.clientX / window.innerWidth) * 2 - 1,
+            -(event.clientY / window.innerHeight) * 2 + 1,
+            0.5);
+
+        vec.unproject(camera);
+
+        vec.sub(camera.position).normalize();
+
+        var distance = -camera.position.z / vec.z;
+
+        pos.copy(camera.position).add(vec.multiplyScalar(distance));
+        console.log(pos)
+        return pos
+    }
+
+</script>
+</body>
+</html>
