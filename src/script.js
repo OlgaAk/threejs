@@ -67,7 +67,6 @@ function initEventListeners(){
     controls.addEventListener('dragstart',()=>  dragStarted = true)
     controls.addEventListener('drag', function (event) {
         modifyVectorCoordinates(line, event.object.position, event.object.userData.indexInLine, pointCount);
-        updateArea(area, line.geometry, pointCount)
     })
     window.addEventListener('mousemove', onMouseMove, false);
     window.addEventListener('click', onClickHandler, false);
@@ -90,26 +89,11 @@ function initObjects(){
         opacity: 0.2,
         side: THREE.DoubleSide
     });
-    const areaShape = new THREE.Shape();
-    const areaGeometry = new THREE.ShapeGeometry(areaShape);
-    areaGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    area = new THREE.Mesh(areaGeometry, areaMaterial);
+
+    area = new THREE.Mesh(lineGeometry, areaMaterial);
     scene.add(area);
 }
 
-// creates a new Shape Geometry for the Area Object with copied vectors from the Line Object
-function updateArea(area, geometry, pointsCount) {
-    const vectors = []
-    for (let i = 0; i < pointsCount / 3; i++) {
-        const vert = new THREE.Vector2().fromArray(geometry.attributes.position.array, i * 3);
-        vectors.push(vert)
-    }
-    const lastVert = new THREE.Vector2().fromArray(geometry.attributes.position.array, 0);
-    vectors.push(lastVert)
-    const areaShape = new THREE.Shape(vectors);
-    const areaGeometry = new THREE.ShapeGeometry(areaShape);
-    area.geometry.copy(areaGeometry)
-}
 
 // Updates coordinates of a point in the Line Object
 function modifyVectorCoordinates(object, newPosition, index, pointCount) {
@@ -152,7 +136,6 @@ function onClickHandler(event) {
         positions[pointCount++] = pos.z;
         addDot(pos.x, pos.y, pos.z, pointCount)
         line.geometry.setDrawRange(0, pointCount / 3)
-        updateArea(area, line.geometry, pointCount)
         animate()
     } else {
         dragStarted = false
