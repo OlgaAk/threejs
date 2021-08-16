@@ -1,5 +1,5 @@
-import * as THREE from './three.module.js';
-import {DragControls} from './DragControls.js';
+import * as THREE from  '../node_modules/three/build/three.module.js';
+import {DragControls} from '../node_modules/three/examples/jsm/controls/DragControls';
 
 let renderer, scene, camera, raycaster, controls, mouse;
 let line, area, group;
