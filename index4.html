@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>My first three.js app</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="tooltip"></div>
+<script src="js/three.js"></script>
+<script>
+    let renderer, scene, camera, info;
+    let raycaster;
+    let mouse;
+
+    let line;
+    const MAX_POINTS = 50;
+    let drawCount;
+
+    let index = 0;
+
+    init();
+
+    // animate();
+
+    function init() {
+
+        // info
+        info = document.createElement('div');
+        info.style.position = 'absolute';
+        info.style.top = '30px';
+        info.style.width = '100%';
+        info.style.textAlign = 'center';
+        info.style.color = '#fff';
+        info.style.fontWeight = 'bold';
+        info.style.backgroundColor = 'transparent';
+        info.style.zIndex = '1';
+        info.style.fontFamily = 'Monospace';
+        info.innerHTML = "three.js animataed line using BufferGeometry";
+
+        document.body.appendChild(info);
+
+        // renderer
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        document.body.addEventListener("click", addNewPoint)
+
+        raycaster = new THREE.Raycaster();
+        mouse = new THREE.Vector2();
+
+        // scene
+        scene = new THREE.Scene();
+
+        // camera
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.set(0, 0, 1000);
+
+        // geometry
+        const geometry = new THREE.BufferGeometry();
+
+        // attributes
+        const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
+        geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        // drawcalls
+        drawCount = 2; // draw the first 2 points, only
+        geometry.setDrawRange(0, drawCount);
+
+        // material
+        const material = new THREE.LineBasicMaterial({color: 0xff0000});
+
+        // line
+        line = new THREE.Line(geometry, material);
+        scene.add(line);
+        console.log(line)
+        // update positions
+        //updatePositions();
+        animate()
+    }
+
+    function addNewPoint(event) {
+
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        console.log(mouse)
+        raycaster.setFromCamera( mouse, camera );
+
+        console.log(raycaster)
+
+        const positions = line.geometry.attributes.position.array;
+
+        positions[index++] = mouse.x;
+        positions[index++] = mouse.y;
+        positions[index++] = 0;
+
+
+        var size = 2;
+        var vertGeometry = new THREE.CircleGeometry(size, 32);
+        var vertMaterial = new THREE.MeshBasicMaterial({
+            color: "white",
+            transparent: false,
+        })
+
+        var vertMarker = new THREE.Mesh(vertGeometry, vertMaterial);
+
+        vertMarker.applyMatrix4(new THREE.Matrix4().makeTranslation(mouse.x, mouse.y, 0));
+        scene.add(vertMarker);
+        console.log(vertMarker)
+        line.geometry.setDrawRange(0, index);
+        console.log(line)
+        animate()
+
+    }
+
+    function getClickedPoint(evt) {
+        evt.preventDefault();
+        var rayCaster = new THREE.Raycaster();
+        var mousePosition = new THREE.Vector2();
+        var canvas = renderer.domElement;
+
+        mousePosition.x = ((evt.clientX) / canvas.width) * 2 - 1;
+        mousePosition.y = -((evt.clientY) / canvas.height) * 2 + 1;
+
+        rayCaster.setFromCamera(mousePosition, camera);
+        var intersects = rayCaster.intersectObjects(scene.getObjectByName('MyObj_s').children, true);
+
+        if (intersects.length > 0)
+            return intersects[0].point;
+
+
+    }
+
+
+    // update positions
+    function updatePositions() {
+
+        const positions = line.geometry.attributes.position.array;
+
+        let x, y, z, index;
+        x = y = z = index = 0;
+
+        for (let i = 0, l = MAX_POINTS; i < l; i++) {
+
+            positions[index++] = x;
+            positions[index++] = y;
+            positions[index++] = z;
+
+            x += (Math.random() - 0.5) * 130;
+            y += (Math.random() - 0.5) * 130;
+            z += (Math.random() - 0.5) * 130;
+
+            var size = 2;
+            var vertGeometry = new THREE.CircleGeometry(size, 32);
+            var vertMaterial = new THREE.MeshBasicMaterial({
+                color: "white",
+                transparent: false,
+
+            });
+
+            var vertMarker = new THREE.Mesh(vertGeometry, vertMaterial);
+
+            vertMarker.applyMatrix4(new THREE.Matrix4().makeTranslation(x, y, z));
+            scene.add(vertMarker);
+
+            line.geometry.setDrawRange(0, positions.length);
+
+        }
+
+    }
+
+    // render
+    function render() {
+
+        renderer.render(scene, camera);
+
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+
+    // animate
+    function animate2() {
+        if (drawCount === 0) {
+            return
+        }
+
+
+        requestAnimationFrame(animate);
+
+        drawCount = (drawCount + 1) % MAX_POINTS;
+
+        console.log(line)
+        if (drawCount === 0) {
+            return
+        }
+
+        line.geometry.setDrawRange(0, drawCount);
+
+
+        if (drawCount === 0) {
+
+
+            // periodically, generate new data
+
+            // updatePositions();
+            //
+            // line.geometry.attributes.position.needsUpdate = true; // required after the first render
+            //
+            // line.material.color.setHSL( Math.random(), 1, 0.5 );
+
+        }
+
+        render();
+
+    }
+
+
+</script>
+</body>
+</html>
