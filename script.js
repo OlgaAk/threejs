@@ -101,41 +101,35 @@ function init() {
         side: THREE.DoubleSide
     });
 
-    const californiaPts = [];
-
-
-    californiaPts.push(new THREE.Vector2(-114.26580810546875, 216.44581604003906));
-    californiaPts.push(new THREE.Vector2(220.8406524658203, 85.69935607910156));
-    californiaPts.push(new THREE.Vector2(-28.566452026367188, -3.2961292266845703));
-    californiaPts.push(new THREE.Vector2(-238.42001342773438, 53.83677673339844));
-    californiaPts.push(new THREE.Vector2(-329.6129150390625, 164.80645751953125));
-
-    const areaShape = new THREE.Shape(californiaPts);
-    let areaGeometry = new THREE.ShapeGeometry(areaShape);
-    // areaGeometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
-    let area2 = new THREE.Mesh(areaGeometry, areaMaterial);
-    scene.add(area2);
 
     const areaShape2 = new THREE.Shape();
     let areaGeometry2 = new THREE.ShapeGeometry(areaShape2);
     areaGeometry2.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     area = new THREE.Mesh(areaGeometry2, areaMaterial);
-    // scene.add(area);
+    scene.add(area);
 
-    // area.geometry.attributes.position.array[0] = -114.26580810546875
-    // area.geometry.attributes.position.array[1] = 216.44581604003906
-    // area.geometry.attributes.position.array[3] = 220.8406524658203
-    // area.geometry.attributes.position.array[4] = 85.69935607910156
-    // area.geometry.attributes.position.array[6] = -28.566452026367188
-    // area.geometry.attributes.position.array[7] = -3.2961292266845703
-    // area.geometry.attributes.position.array[9] = -238.42001342773438
-    // area.geometry.attributes.position.array[10] = 53.83677673339844
-    // area.geometry.attributes.position.array[12] = -329.6129150390625
-    // area.geometry.attributes.position.array[13] = 164.80645751953125
-    //
+    area.geometry.attributes.position.array[0] = -114.26580810546875
+    area.geometry.attributes.position.array[1] = 216.44581604003906
+    area.geometry.attributes.position.array[3] = 220.8406524658203
+    area.geometry.attributes.position.array[4] = 85.69935607910156
+    area.geometry.attributes.position.array[6] = -28.566452026367188
+    area.geometry.attributes.position.array[7] = -3.2961292266845703
+    area.geometry.attributes.position.array[9] = -238.42001342773438
+    area.geometry.attributes.position.array[10] = 53.83677673339844
+    area.geometry.attributes.position.array[12] = -329.6129150390625
+    area.geometry.attributes.position.array[13] = 164.80645751953125
+
 
     console.log(area)
-    updateArea(area,areaGeometry, 5)
+
+    const areaShape3 = new THREE.Shape();
+    let areaGeometry3 = new THREE.ShapeGeometry(areaShape3);
+    areaGeometry3.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    let area3 = new THREE.Mesh(areaGeometry3, areaMaterial);
+    scene.add(area3);
+
+    updateArea(area3,area.geometry, 5)
+    console.log(area3)
     area.geometry.attributes.position.needsUpdate = true;
     area.geometry.setDrawRange(0, 10);
 
@@ -146,7 +140,7 @@ function init() {
 function updateArea(area, geometry, pointsCount, newCoordinates) {
     const vectors = []
     for (let i=0; i < pointsCount; i++) {
-        const vert = new THREE.Vector2().fromArray(geometry.attributes.position.array, i);
+        const vert = new THREE.Vector2().fromArray(geometry.attributes.position.array, i*3);
         vectors.push(vert)
     }
     if (newCoordinates) vectors.push(new THREE.Vector2(newCoordinates.x, newCoordinates.x));
