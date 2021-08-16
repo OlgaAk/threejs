@@ -4,6 +4,7 @@ import {DragControls} from './DragControls.js';
 let renderer, scene, camera, raycaster, controls;
 let pointCount = 0;
 let line;
+let area;
 let group;
 const MAX_POINTS = 50;
 let drawCount;
@@ -63,7 +64,7 @@ function init() {
     })
 
     controls.addEventListener('drag', function (event) {
-       modifyPositions(event.object.position, event.object.userData.indexInLine);
+        modifyPositions(event.object.position, event.object.userData.indexInLine);
     })
 
     controls.addEventListener('dragend', function (event) {
@@ -76,7 +77,7 @@ function init() {
 
     // attributes
     const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
-    geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     //
     // // drawcalls
     // drawCount = 2; // draw the first 2 points, only
@@ -91,7 +92,68 @@ function init() {
     console.log(line)
     // update positions
 
+
+    const areaMaterial = new THREE.MeshBasicMaterial({
+        transparent: true,
+        color: "green",
+        alphaTest: 0.2,
+        opacity: 0.2,
+        side: THREE.DoubleSide
+    });
+
+    const californiaPts = [];
+
+
+    californiaPts.push(new THREE.Vector2(-114.26580810546875, 216.44581604003906));
+    californiaPts.push(new THREE.Vector2(220.8406524658203, 85.69935607910156));
+    californiaPts.push(new THREE.Vector2(-28.566452026367188, -3.2961292266845703));
+    californiaPts.push(new THREE.Vector2(-238.42001342773438, 53.83677673339844));
+    californiaPts.push(new THREE.Vector2(-329.6129150390625, 164.80645751953125));
+
+    const areaShape = new THREE.Shape(californiaPts);
+    let areaGeometry = new THREE.ShapeGeometry(areaShape);
+    // areaGeometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+    let area2 = new THREE.Mesh(areaGeometry, areaMaterial);
+    scene.add(area2);
+
+    const areaShape2 = new THREE.Shape();
+    let areaGeometry2 = new THREE.ShapeGeometry(areaShape2);
+    areaGeometry2.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    area = new THREE.Mesh(areaGeometry2, areaMaterial);
+    // scene.add(area);
+
+    // area.geometry.attributes.position.array[0] = -114.26580810546875
+    // area.geometry.attributes.position.array[1] = 216.44581604003906
+    // area.geometry.attributes.position.array[3] = 220.8406524658203
+    // area.geometry.attributes.position.array[4] = 85.69935607910156
+    // area.geometry.attributes.position.array[6] = -28.566452026367188
+    // area.geometry.attributes.position.array[7] = -3.2961292266845703
+    // area.geometry.attributes.position.array[9] = -238.42001342773438
+    // area.geometry.attributes.position.array[10] = 53.83677673339844
+    // area.geometry.attributes.position.array[12] = -329.6129150390625
+    // area.geometry.attributes.position.array[13] = 164.80645751953125
+    //
+
+    console.log(area)
+    updateArea(area,areaGeometry, 5)
+    area.geometry.attributes.position.needsUpdate = true;
+    area.geometry.setDrawRange(0, 10);
+
+
     renderer.render(scene, camera);
+}
+
+function updateArea(area, geometry, pointsCount, newCoordinates) {
+    const vectors = []
+    for (let i=0; i < pointsCount; i++) {
+        const vert = new THREE.Vector2().fromArray(geometry.attributes.position.array, i);
+        vectors.push(vert)
+    }
+    if (newCoordinates) vectors.push(new THREE.Vector2(newCoordinates.x, newCoordinates.x));
+
+    const areaShape = new THREE.Shape(vectors);
+    const areaGeometry = new THREE.ShapeGeometry(areaShape);
+    area.geometry.copy(areaGeometry)
 }
 
 
@@ -107,7 +169,6 @@ function updatePositions() {
         positions[pointCount++] = x;
         positions[pointCount++] = y;
         positions[pointCount++] = z;
-
         addDot(x, y, z, pointCount)
         console.log(x, y, z)
         line.geometry.setDrawRange(0, pointCount / 3);
@@ -136,6 +197,8 @@ function addDot(x, y, z, index) {
     scene.add(vertMarker);
     objects.push(vertMarker)
     vertMarker.userData.indexInLine = index;
+    console.log(area)
+    console.log(line)
 }
 
 // render
@@ -204,10 +267,9 @@ function updateMouseCoords(event, coordsObj) {
     vec.sub(camera.position).normalize();
     var distance = -camera.position.z / vec.z;
     pos.copy(camera.position).add(vec.multiplyScalar(distance));
-    console.log(pos)
 }
 
-// window.addEventListener('mousemove', onMouseMove, false);
+window.addEventListener('mousemove', onMouseMove, false);
 window.addEventListener('click', onClickHandler, false);
 
 function onClickHandler(event) {
@@ -224,8 +286,8 @@ function onClickHandler(event) {
         // line.geometry.attributes.position.needsUpdate = true;
         animate()
 
-    }else{
-        dragStarted=false
+    } else {
+        dragStarted = false
         animate()
     }
 }
