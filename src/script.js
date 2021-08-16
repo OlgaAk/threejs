@@ -5,6 +5,7 @@ let renderer, scene, camera, raycaster, controls, mouse;
 let line, area, group;
 let MAX_POINTS;
 let pointCount;
+let selectedPoint = null;
 
 //mouse events
 let dragStarted = false;
@@ -66,7 +67,7 @@ function initInfoDiv() {
 function initEventListeners(){
     controls.addEventListener('dragstart',()=>  dragStarted = true)
     controls.addEventListener('drag', function (event) {
-        modifyVectorCoordinates(line, event.object.position, event.object.userData.indexInLine, pointCount);
+        modifyVectorCoordinates(line, event.object);
     })
     window.addEventListener('mousemove', onMouseMove, false);
     window.addEventListener('click', onClickHandler, false);
@@ -96,12 +97,15 @@ function initObjects(){
 
 
 // Updates coordinates of a point in the Line Object
-function modifyVectorCoordinates(object, newPosition, index, pointCount) {
-    const positions = object.geometry.attributes.position.array;
-    positions[index - 3] = newPosition.x;
-    positions[index - 2] = newPosition.y;
-    positions[index - 1] = newPosition.z;
-    object.geometry.setDrawRange(0, pointCount / 3);
+function modifyVectorCoordinates(line, object) {
+    const index = objects.indexOf(object)
+    if(index!=-1){
+        const positions = line.geometry.attributes.position.array;
+        positions[index*3] = object.position.x;
+        positions[index*3+1] = object.position.y;
+        positions[index*3+2] = object.position.z;
+        line.geometry.setDrawRange(0, pointCount / 3);
+    }
 }
 
 function addDot(x, y, z, index) {

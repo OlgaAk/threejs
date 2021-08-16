@@ -6,7 +6,7 @@ module.exports = {
         path: path.resolve(__dirname, 'public'),
         filename: 'script.js',
     },
-    devtool: false,
+    devtool: 'source-map',
     optimization: {
         usedExports: true,
     },
