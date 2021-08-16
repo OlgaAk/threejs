@@ -3,3 +3,5 @@ node_modules/
 index2.html
 index3.html
 index4.html
+package.json
+package-lock.json
