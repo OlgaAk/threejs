@@ -7,13 +7,23 @@
         body {
             margin: 0;
         }
+        #selected-point-info{
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: white;
+            width: 200px;
+            height: 100px;
+            text-align: center;
+            z-index: 999;
+        }
     </style>
 
 
 </head>
 <body>
-
-<div id="tooltip"></div>
+<div id="selected-point-info">Selected point: </div>
+<div id="content"></div>
 
 <script src="./script.js"></script>
 </body>

@@ -1,11 +1,13 @@
-import * as THREE from  '../node_modules/three/build/three.module.js';
+import * as THREE from '../node_modules/three/build/three.module.js';
 import {DragControls} from '../node_modules/three/examples/jsm/controls/DragControls';
 
 let renderer, scene, camera, raycaster, controls, mouse;
 let line, area, group;
 let MAX_POINTS;
 let pointCount;
+
 let selectedPoint = null;
+let selectedPointInfoDiv;
 
 //mouse events
 let dragStarted = false;
@@ -16,7 +18,8 @@ let hoveredObj;
 init();
 
 function init() {
-    const info = initInfoDiv();
+
+    selectedPointInfoDiv = document.getElementById("selected-point-info")
 
     // renderer
     renderer = new THREE.WebGLRenderer();
@@ -48,32 +51,17 @@ function init() {
     renderer.render(scene, camera);
 }
 
-function initInfoDiv() {
-    const info = document.createElement('div');
-    info.style.position = 'absolute';
-    info.style.top = '30px';
-    info.style.width = '100%';
-    info.style.textAlign = 'center';
-    info.style.color = '#fff';
-    info.style.fontWeight = 'bold';
-    info.style.backgroundColor = 'transparent';
-    info.style.zIndex = '1';
-    info.style.fontFamily = 'Monospace';
-    info.innerHTML = "three.js animataed line using BufferGeometry";
-    document.body.appendChild(info);
-    return info
-}
 
-function initEventListeners(){
-    controls.addEventListener('dragstart',()=>  dragStarted = true)
+function initEventListeners() {
+    controls.addEventListener('dragstart', () => dragStarted = true)
     controls.addEventListener('drag', function (event) {
         modifyVectorCoordinates(line, event.object);
     })
-    window.addEventListener('mousemove', onMouseMove, false);
-    window.addEventListener('click', onClickHandler, false);
+    document.querySelector("canvas").addEventListener('mousemove', onMouseMove, false);
+    document.querySelector("canvas").addEventListener('click', onClickHandler, false);
 }
 
-function initObjects(){
+function initObjects() {
     // line
     const lineGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
@@ -90,7 +78,6 @@ function initObjects(){
         opacity: 0.2,
         side: THREE.DoubleSide
     });
-
     area = new THREE.Mesh(lineGeometry, areaMaterial);
     scene.add(area);
 }
@@ -99,11 +86,11 @@ function initObjects(){
 // Updates coordinates of a point in the Line Object
 function modifyVectorCoordinates(line, object) {
     const index = objects.indexOf(object)
-    if(index!=-1){
+    if (index != -1) {
         const positions = line.geometry.attributes.position.array;
-        positions[index*3] = object.position.x;
-        positions[index*3+1] = object.position.y;
-        positions[index*3+2] = object.position.z;
+        positions[index * 3] = object.position.x;
+        positions[index * 3 + 1] = object.position.y;
+        positions[index * 3 + 2] = object.position.z;
         line.geometry.setDrawRange(0, pointCount / 3);
     }
 }
@@ -131,8 +118,13 @@ function animate() {
 // Mouse Events
 
 function onClickHandler(event) {
+    event.preventDefault();
+    unselectAllPoints()
+    let intersections = getIntersections(event)
+    if (intersections.length > 0) {
+        selectPoint(intersections[0])
+    }
     if (!dragStarted) { // prevent from creating new points if drag event started
-        event.preventDefault();
         let pos = getMousePosition(event)
         const positions = line.geometry.attributes.position.array;
         positions[pointCount++] = pos.x;
@@ -145,6 +137,49 @@ function onClickHandler(event) {
         dragStarted = false
         animate()
     }
+}
+
+function selectPoint(intersection) {
+    selectedPoint = intersection.object
+    selectedPoint.material.color.setHex(0xffff00)
+    selectedPointInfoDiv.innerHTML = "Selected point: " + selectedPoint.uuid
+    const btn = document.createElement("button")
+    btn.textContent = "Delete"
+    btn.addEventListener("click", (event) => deletePoint(selectedPoint))
+    selectedPointInfoDiv.appendChild(btn)
+}
+
+function deletePoint(pointObject) {
+    const index = objects.indexOf(pointObject)
+    const positions = line.geometry.attributes.position.array;
+    removeVectorFromGeometry(positions, index)
+    pointCount -= 3
+removeObjectFromObjectsArray(pointObject)
+    line.geometry.setDrawRange(0, pointCount / 3)
+    animate()
+}
+
+function removeObjectFromObjectsArray(pointObject){
+    objects.splice(index, 1)
+    pointObject.geometry.dispose();
+    pointObject.material.dispose();
+    scene.remove( pointObject);
+}
+
+function removeVectorFromGeometry(positions, index){
+    for (let i = index * 3; i < (objects.length - 1) * 3; i++) {
+        positions[i] = positions[i + 3]
+    }
+    positions[objects.length*3 - 1] = 0
+    positions[objects.length*3 - 2] = 0
+    positions[objects.length*3 - 3] = 0
+}
+
+function unselectAllPoints() {
+    selectedPoint = null;
+    objects.forEach(o => {
+        o.material.color.setHex(0xffffff)
+    })
 }
 
 function onMouseMove(event) {
