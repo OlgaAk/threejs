@@ -50073,25 +50073,25 @@ function deletePoint(pointObject) {
     const positions = line.geometry.attributes.position.array;
     removeVectorFromGeometry(positions, index)
     pointCount -= 3
-removeObjectFromObjectsArray(pointObject)
+    removeObjectFromObjectsArray(pointObject, index)
     line.geometry.setDrawRange(0, pointCount / 3)
     animate()
 }
 
-function removeObjectFromObjectsArray(pointObject){
+function removeObjectFromObjectsArray(pointObject, index) {
     objects.splice(index, 1)
     pointObject.geometry.dispose();
     pointObject.material.dispose();
-    scene.remove( pointObject);
+    scene.remove(pointObject);
 }
 
-function removeVectorFromGeometry(positions, index){
+function removeVectorFromGeometry(positions, index) {
     for (let i = index * 3; i < (objects.length - 1) * 3; i++) {
         positions[i] = positions[i + 3]
     }
-    positions[objects.length*3 - 1] = 0
-    positions[objects.length*3 - 2] = 0
-    positions[objects.length*3 - 3] = 0
+    positions[objects.length * 3 - 1] = 0
+    positions[objects.length * 3 - 2] = 0
+    positions[objects.length * 3 - 3] = 0
 }
 
 function unselectAllPoints() {
