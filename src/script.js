@@ -191,11 +191,12 @@ function selectPoint(intersection) {
 function deletePoint(pointObject) {
     const index = objects.indexOf(pointObject)
     const positions = line.geometry.attributes.position.array;
-    removeVectorFromGeometry(positions, index)
+    removeVectorFromGeometry(line.geometry, index)
     pointCount -= 3
     removeObjectFromObjectsArray(pointObject, index)
     removeIndexFromGeometry(line.geometry)
     animate()
+    selectedPointInfoDiv.innerHTML = "Selected point: "
 }
 
 function removeIndexFromGeometry(geometry) {
@@ -213,13 +214,13 @@ function removeObjectFromObjectsArray(pointObject, index) {
     scene.remove(pointObject);
 }
 
-function removeVectorFromGeometry(positions, index) {
+function removeVectorFromGeometry(geometry, index) {
+    let newpositions = Array.from(geometry.attributes.position.array);
     for (let i = index * 3; i < (objects.length - 1) * 3; i++) {
-        positions[i] = positions[i + 3]
+        newpositions[i] = newpositions[i + 3]
     }
-    positions[objects.length * 3 - 1] = 0
-    positions[objects.length * 3 - 2] = 0
-    positions[objects.length * 3 - 3] = 0
+    newpositions.splice(newpositions    .length - 4, 3)
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(newpositions, 3))
 }
 
 function unselectAllPoints() {
