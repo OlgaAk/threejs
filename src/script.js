@@ -48,6 +48,22 @@ function init() {
 
     initObjects()
 
+    // addVerticeToGeometry(line.geometry, 0, {x:0,y:0,z:0})
+    // addDot(0, 0, 0, 0)
+    // addVerticeToGeometry(line.geometry, 3,  {x:100,y:0,z:0})
+    // addDot(100, 0, 0, 3)
+    // addVerticeToGeometry(line.geometry, 6,  {x:100,y:100,z:0})
+    // addDot(100, 100, 0, 6)
+    // addVerticeToGeometry(line.geometry, 9,  {x:0,y:100,z:0})
+    // addDot(0, 100, 0, 9)
+    // addVerticeToGeometry(line.geometry, 12,  {x:-150,y:150,z:0})
+    // addDot(-150, 150, 0, 12)
+    // // addVerticeToGeometry(line.geometry, 12,  {x:-150,y:10,z:0})
+    // addDot(-150, 10, 0, 15)
+    // line.geometry.setIndex( [0,1,2,2,3,4,3,4,5,4,0] );
+
+    line.geometry.attributes.position.needsUpdate = true;
+
     renderer.render(scene, camera);
 }
 
@@ -64,11 +80,11 @@ function initEventListeners() {
 function initObjects() {
     // line
     const lineGeometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
+    const positions = new Float32Array();
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const material = new THREE.LineBasicMaterial({color: "grey"});
     line = new THREE.Line(lineGeometry, material);
-    scene.add(line);
+
 
     // area
     const areaMaterial = new THREE.MeshBasicMaterial({
@@ -87,15 +103,12 @@ function initObjects() {
 function modifyVectorCoordinates(line, object) {
     const index = objects.indexOf(object)
     if (index != -1) {
-        const positions = line.geometry.attributes.position.array;
-        positions[index * 3] = object.position.x;
-        positions[index * 3 + 1] = object.position.y;
-        positions[index * 3 + 2] = object.position.z;
-        line.geometry.setDrawRange(0, pointCount / 3);
+        addVerticeToGeometry(line.geometry, index * 3, object.position)
     }
 }
 
 function addDot(x, y, z, index) {
+    console.log(x, y, z)
     const size = 10;
     const markerGeometry = new THREE.CircleGeometry(size, 32);
     const markerMaterial = new THREE.MeshBasicMaterial({
@@ -111,8 +124,6 @@ function addDot(x, y, z, index) {
 
 function animate() {
     renderer.render(scene, camera);
-    line.geometry.attributes.position.needsUpdate = true;
-    // requestAnimationFrame(animate);
 }
 
 // Mouse Events
@@ -126,16 +137,44 @@ function onClickHandler(event) {
     }
     if (!dragStarted) { // prevent from creating new points if drag event started
         let pos = getMousePosition(event)
-        const positions = line.geometry.attributes.position.array;
-        positions[pointCount++] = pos.x;
-        positions[pointCount++] = pos.y;
-        positions[pointCount++] = pos.z;
+        addVerticeToGeometry(line.geometry, pointCount, pos)
+        updateGeometryIndexes(line.geometry)
+        pointCount += 3
         addDot(pos.x, pos.y, pos.z, pointCount)
-        line.geometry.setDrawRange(0, pointCount / 3)
         animate()
     } else {
         dragStarted = false
         animate()
+    }
+}
+
+function addVerticeToGeometry(geometry, index, newCoordinates) {
+    let positions = geometry.attributes.position.array;
+    if (positions.length > 0) {
+        let newpositions = Array.from(positions);
+        newpositions[index++] = newCoordinates.x;
+        newpositions[index++] = newCoordinates.y;
+        newpositions[index] = newCoordinates.z;
+        geometry.setAttribute("position", new THREE.Float32BufferAttribute(newpositions, 3))
+    } else {
+        geometry.setAttribute("position", new THREE.Float32BufferAttribute([newCoordinates.x, newCoordinates.y, newCoordinates.z], 3))
+    }
+}
+
+function updateGeometryIndexes(geometry) {
+    let positions = geometry.attributes.position.array;
+    if (positions.length == 9) {
+        geometry.setIndex([1, 2, 0])
+        return
+    }
+    if (geometry.getIndex() && geometry.getIndex().count >= 3) {
+        let newIndexes = Array.from(geometry.getIndex().array);
+        let lastElement = newIndexes[newIndexes.length - 2]
+        newIndexes.push(lastElement)
+        newIndexes.push(lastElement + 1)
+        newIndexes.push(0)
+        geometry.setIndex(newIndexes)
+        console.log(geometry.getIndex())
     }
 }
 
@@ -155,8 +194,16 @@ function deletePoint(pointObject) {
     removeVectorFromGeometry(positions, index)
     pointCount -= 3
     removeObjectFromObjectsArray(pointObject, index)
-    line.geometry.setDrawRange(0, pointCount / 3)
+    removeIndexFromGeometry(line.geometry)
     animate()
+}
+
+function removeIndexFromGeometry(geometry) {
+    if (geometry.getIndex().count >= 3) {
+        let newIndexes = Array.from(geometry.getIndex().array);
+        newIndexes.splice(newIndexes.length - 4, 3)
+        geometry.setIndex(newIndexes)
+    }
 }
 
 function removeObjectFromObjectsArray(pointObject, index) {
@@ -220,7 +267,7 @@ function getMousePosition(event) {
     vec.set(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1,
-        0.5);
+        0);
     vec.unproject(camera);
     vec.sub(camera.position).normalize();
     const distance = -camera.position.z / vec.z;
