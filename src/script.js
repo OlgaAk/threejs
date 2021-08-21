@@ -48,19 +48,7 @@ function init() {
 
     initObjects()
 
-    // addVerticeToGeometry(line.geometry, 0, {x:0,y:0,z:0})
-    // addDot(0, 0, 0, 0)
-    // addVerticeToGeometry(line.geometry, 3,  {x:100,y:0,z:0})
-    // addDot(100, 0, 0, 3)
-    // addVerticeToGeometry(line.geometry, 6,  {x:100,y:100,z:0})
-    // addDot(100, 100, 0, 6)
-    // addVerticeToGeometry(line.geometry, 9,  {x:0,y:100,z:0})
-    // addDot(0, 100, 0, 9)
-    // addVerticeToGeometry(line.geometry, 12,  {x:-150,y:150,z:0})
-    // addDot(-150, 150, 0, 12)
-    // // addVerticeToGeometry(line.geometry, 12,  {x:-150,y:10,z:0})
-    // addDot(-150, 10, 0, 15)
-    // line.geometry.setIndex( [0,1,2,2,3,4,3,4,5,4,0] );
+    // createAShapeForTest(line)
 
     line.geometry.attributes.position.needsUpdate = true;
 
@@ -96,6 +84,21 @@ function initObjects() {
     });
     area = new THREE.Mesh(lineGeometry, areaMaterial);
     scene.add(area);
+
+    const sprite = new THREE.TextureLoader().load('/disc.png');
+
+    const markerMaterial = new THREE.PointsMaterial({
+        color: 0xFFFFFF,
+        size: 50,
+        map: sprite,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        fog: false,
+        depthTest: false,
+    })
+
+    const particles = new THREE.Points(line.geometry, markerMaterial);
+    scene.add(particles);
 }
 
 
@@ -140,7 +143,7 @@ function onClickHandler(event) {
         addVerticeToGeometry(line.geometry, pointCount, pos)
         updateGeometryIndexes(line.geometry)
         pointCount += 3
-        addDot(pos.x, pos.y, pos.z, pointCount)
+        // addDot(pos.x, pos.y, pos.z, pointCount)
         animate()
     } else {
         dragStarted = false
@@ -219,7 +222,7 @@ function removeVectorFromGeometry(geometry, index) {
     for (let i = index * 3; i < (objects.length - 1) * 3; i++) {
         newpositions[i] = newpositions[i + 3]
     }
-    newpositions.splice(newpositions    .length - 4, 3)
+    newpositions.splice(newpositions.length - 4, 3)
     geometry.setAttribute("position", new THREE.Float32BufferAttribute(newpositions, 3))
 }
 
@@ -281,4 +284,68 @@ function getIntersections(event) {
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
     return raycaster.intersectObjects(objects, true);
+}
+
+
+function createAShapeForTest(line) {
+
+    addVerticeToGeometry(line.geometry, 0, {x: -200, y: -100, z: 0})
+    addVerticeToGeometry(line.geometry, 3, {x: -100, y: 100, z: 0})
+    addVerticeToGeometry(line.geometry, 6, {x: 0, y: 0, z: 0})
+    addVerticeToGeometry(line.geometry, 9, {x: -10, y: -50, z: 0})
+    addVerticeToGeometry(line.geometry, 12, {x: -20, y: -100, z: 0})
+
+    const sprite = new THREE.TextureLoader().load('/disc.png');
+
+    const markerMaterial = new THREE.PointsMaterial({
+        color: 0xFFFFFF,
+        size: 50,
+        map: sprite,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        fog: false,
+        depthTest: false,
+    })
+
+    const particles = new THREE.Points(line.geometry, markerMaterial);
+    scene.add(particles);
+    //
+    // addDot(-200, -100, 0, 0)
+    // addDot(-100, 100, 0, 3)
+    // addDot(0, 0, 0, 6)
+    // addDot(-10, -50, 0, 9)
+    // addDot(-20, -100, 0, 12)
+
+    line.geometry.setIndex([0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 5]);
+
+    loop()
+    //
+    // const geometry = new THREE.BufferGeometry();
+    // const vertices = [];
+
+    // const sprite = new THREE.TextureLoader().load( 'textures/sprites/disc.png' );
+    //
+    // for ( let i = 0; i < 10000; i ++ ) {
+    //
+    //     const x = 2000 * Math.random() - 1000;
+    //     const y = 2000 * Math.random() - 1000;
+    //     const z = 2000 * Math.random() - 1000;
+    //
+    //     vertices.push( x, y, z );
+    //
+    // }
+    //
+    // geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+    //
+    // material = new THREE.PointsMaterial( { size: 35, sizeAttenuation: true, map: sprite, alphaTest: 0.5, transparent: true } );
+    // material.color.setHSL( 1.0, 0.3, 0.7 );
+    //
+    // const particles = new THREE.Points( geometry, material );
+    // scene.add( particles );
+
+}
+
+function loop() {
+    renderer.render(scene, camera);
+    requestAnimationFrame(loop);
 }
