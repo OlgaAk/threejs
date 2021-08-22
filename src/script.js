@@ -2,7 +2,7 @@ import * as THREE from '../node_modules/three/build/three.module.js';
 import {DragControls} from '../node_modules/three/examples/jsm/controls/DragControls';
 
 let renderer, scene, camera, raycaster, controls, mouse;
-let line, area, group;
+let line, area, particles, group;
 let MAX_POINTS;
 let pointCount;
 
@@ -39,7 +39,7 @@ function init() {
 
     // camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(0, 0, 1000);
+    camera.position.z = 250;
 
     //drag drop
     controls = new DragControls(objects, camera, renderer.domElement);
@@ -61,8 +61,9 @@ function initEventListeners() {
     controls.addEventListener('drag', function (event) {
         modifyVectorCoordinates(line, event.object);
     })
-    document.querySelector("canvas").addEventListener('mousemove', onMouseMove, false);
+    //document.querySelector("canvas").addEventListener('mousemove', onMouseMove, false);
     document.querySelector("canvas").addEventListener('click', onClickHandler, false);
+    window.addEventListener('resize', onWindowResize);
 }
 
 function initObjects() {
@@ -72,7 +73,6 @@ function initObjects() {
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const material = new THREE.LineBasicMaterial({color: "grey"});
     line = new THREE.Line(lineGeometry, material);
-
 
     // area
     const areaMaterial = new THREE.MeshBasicMaterial({
@@ -89,7 +89,7 @@ function initObjects() {
 
     const markerMaterial = new THREE.PointsMaterial({
         color: 0xFFFFFF,
-        size: 50,
+        size: 20,
         map: sprite,
         transparent: true,
         blending: THREE.AdditiveBlending,
@@ -97,7 +97,7 @@ function initObjects() {
         depthTest: false,
     })
 
-    const particles = new THREE.Points(line.geometry, markerMaterial);
+    particles = new THREE.Points(line.geometry, markerMaterial);
     scene.add(particles);
 }
 
@@ -127,14 +127,17 @@ function addDot(x, y, z, index) {
 
 function animate() {
     renderer.render(scene, camera);
+    requestAnimationFrame(animate);
 }
 
 // Mouse Events
 
 function onClickHandler(event) {
+    console.log(particles)
     event.preventDefault();
     unselectAllPoints()
     let intersections = getIntersections(event)
+    console.log(intersections)
     if (intersections.length > 0) {
         selectPoint(intersections[0])
     }
@@ -162,6 +165,7 @@ function addVerticeToGeometry(geometry, index, newCoordinates) {
     } else {
         geometry.setAttribute("position", new THREE.Float32BufferAttribute([newCoordinates.x, newCoordinates.y, newCoordinates.z], 3))
     }
+    geometry.computeBoundingSphere() // needed for intersection detection
 }
 
 function updateGeometryIndexes(geometry) {
@@ -271,7 +275,7 @@ function getMousePosition(event) {
     vec.set(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1,
-        0);
+        0.5);
     vec.unproject(camera);
     vec.sub(camera.position).normalize();
     const distance = -camera.position.z / vec.z;
@@ -283,69 +287,17 @@ function getIntersections(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
-    return raycaster.intersectObjects(objects, true);
+    return raycaster.intersectObject(particles, true);
 }
 
 
-function createAShapeForTest(line) {
-
-    addVerticeToGeometry(line.geometry, 0, {x: -200, y: -100, z: 0})
-    addVerticeToGeometry(line.geometry, 3, {x: -100, y: 100, z: 0})
-    addVerticeToGeometry(line.geometry, 6, {x: 0, y: 0, z: 0})
-    addVerticeToGeometry(line.geometry, 9, {x: -10, y: -50, z: 0})
-    addVerticeToGeometry(line.geometry, 12, {x: -20, y: -100, z: 0})
-
-    const sprite = new THREE.TextureLoader().load('/disc.png');
-
-    const markerMaterial = new THREE.PointsMaterial({
-        color: 0xFFFFFF,
-        size: 50,
-        map: sprite,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        fog: false,
-        depthTest: false,
-    })
-
-    const particles = new THREE.Points(line.geometry, markerMaterial);
-    scene.add(particles);
-    //
-    // addDot(-200, -100, 0, 0)
-    // addDot(-100, 100, 0, 3)
-    // addDot(0, 0, 0, 6)
-    // addDot(-10, -50, 0, 9)
-    // addDot(-20, -100, 0, 12)
-
-    line.geometry.setIndex([0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 5]);
-
-    loop()
-    //
-    // const geometry = new THREE.BufferGeometry();
-    // const vertices = [];
-
-    // const sprite = new THREE.TextureLoader().load( 'textures/sprites/disc.png' );
-    //
-    // for ( let i = 0; i < 10000; i ++ ) {
-    //
-    //     const x = 2000 * Math.random() - 1000;
-    //     const y = 2000 * Math.random() - 1000;
-    //     const z = 2000 * Math.random() - 1000;
-    //
-    //     vertices.push( x, y, z );
-    //
-    // }
-    //
-    // geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-    //
-    // material = new THREE.PointsMaterial( { size: 35, sizeAttenuation: true, map: sprite, alphaTest: 0.5, transparent: true } );
-    // material.color.setHSL( 1.0, 0.3, 0.7 );
-    //
-    // const particles = new THREE.Points( geometry, material );
-    // scene.add( particles );
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
 
-function loop() {
-    renderer.render(scene, camera);
-    requestAnimationFrame(loop);
-}
+
+
+
