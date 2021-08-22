@@ -1,7 +1,6 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
-import {DragControls} from '../node_modules/three/examples/jsm/controls/DragControls';
 
-let renderer, scene, camera, raycaster, controls, mouse;
+let renderer, scene, camera, raycaster, mouse;
 let line, area, particles, group;
 let MAX_POINTS;
 let pointCount;
@@ -11,7 +10,6 @@ let selectedPointInfoDiv;
 
 //mouse events
 let dragStarted = false;
-const objects = []
 let latestMouseProjection;
 let hoveredObj;
 
@@ -41,9 +39,6 @@ function init() {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 250;
 
-    //drag drop
-    controls = new DragControls(objects, camera, renderer.domElement);
-
     initEventListeners()
 
     initObjects()
@@ -57,10 +52,10 @@ function init() {
 
 
 function initEventListeners() {
-    controls.addEventListener('dragstart', () => dragStarted = true)
-    controls.addEventListener('drag', function (event) {
-        modifyVectorCoordinates(line, event.object);
-    })
+    // window.addEventListener("mousedown", mouseDown, false);
+    // window.addEventListener("mousemove", mouseMove, false);
+    // window.addEventListener("mouseup", mouseUp, false);
+
     //document.querySelector("canvas").addEventListener('mousemove', onMouseMove, false);
     document.querySelector("canvas").addEventListener('click', onClickHandler, false);
     window.addEventListener('resize', onWindowResize);
@@ -70,7 +65,9 @@ function initObjects() {
     // line
     const lineGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array();
+    const colors = new Float32Array();
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    lineGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
     const material = new THREE.LineBasicMaterial({color: "grey"});
     line = new THREE.Line(lineGeometry, material);
 
@@ -85,16 +82,14 @@ function initObjects() {
     area = new THREE.Mesh(lineGeometry, areaMaterial);
     scene.add(area);
 
-    const sprite = new THREE.TextureLoader().load('/disc.png');
+    const sprite = new THREE.TextureLoader().load('/circle.png');
 
     const markerMaterial = new THREE.PointsMaterial({
-        color: 0xFFFFFF,
-        size: 20,
+        vertexColors: true,
+        size: 14,
         map: sprite,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        fog: false,
-        depthTest: false,
+        //blending: THREE.AdditiveBlending,
+        transparent: true, depthTest: false
     })
 
     particles = new THREE.Points(line.geometry, markerMaterial);
@@ -133,13 +128,13 @@ function animate() {
 // Mouse Events
 
 function onClickHandler(event) {
-    console.log(particles)
     event.preventDefault();
     unselectAllPoints()
     let intersections = getIntersections(event)
     console.log(intersections)
     if (intersections.length > 0) {
         selectPoint(intersections[0])
+        return
     }
     if (!dragStarted) { // prevent from creating new points if drag event started
         let pos = getMousePosition(event)
@@ -155,16 +150,26 @@ function onClickHandler(event) {
 }
 
 function addVerticeToGeometry(geometry, index, newCoordinates) {
-    let positions = geometry.attributes.position.array;
+    const positions = geometry.attributes.position.array;
+    const colors = geometry.attributes.color.array;
+    const color = new THREE.Color("rgb(255, 255, 255)");
     if (positions.length > 0) {
         let newpositions = Array.from(positions);
+        let newColors = Array.from(colors);
+        newColors[index] = color.r
         newpositions[index++] = newCoordinates.x;
+        newColors[index] = color.g
         newpositions[index++] = newCoordinates.y;
+        newColors[index] = color.b
         newpositions[index] = newCoordinates.z;
         geometry.setAttribute("position", new THREE.Float32BufferAttribute(newpositions, 3))
+        geometry.setAttribute("color", new THREE.Float32BufferAttribute(newColors, 3))
     } else {
         geometry.setAttribute("position", new THREE.Float32BufferAttribute([newCoordinates.x, newCoordinates.y, newCoordinates.z], 3))
+        geometry.setAttribute("color", new THREE.Float32BufferAttribute([color.r, color.g, color.b], 3))
     }
+
+
     geometry.computeBoundingSphere() // needed for intersection detection
 }
 
@@ -232,9 +237,9 @@ function removeVectorFromGeometry(geometry, index) {
 
 function unselectAllPoints() {
     selectedPoint = null;
-    objects.forEach(o => {
-        o.material.color.setHex(0xffffff)
-    })
+    // objects.forEach(o => {
+    //     o.material.color.setHex(0xffffff)
+    // })
 }
 
 function onMouseMove(event) {
