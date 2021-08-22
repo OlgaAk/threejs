@@ -5,7 +5,7 @@ let line, area, particles, group;
 let MAX_POINTS;
 let pointCount;
 
-let selectedPoint = null;
+let selectedPointIndex = null;
 let selectedPointInfoDiv;
 
 //mouse events
@@ -133,7 +133,13 @@ function onClickHandler(event) {
     let intersections = getIntersections(event)
     console.log(intersections)
     if (intersections.length > 0) {
-        selectPoint(intersections[0])
+        if (intersections[0].index == selectedPointIndex) return
+        if (selectedPointIndex && intersections[0].index != selectedPointIndex) {
+            unselectPoint(selectedPointIndex, line.geometry)
+            selectPoint(intersections[0].index)
+            return
+        }
+        selectPoint(intersections[0].index)
         return
     }
     if (!dragStarted) { // prevent from creating new points if drag event started
@@ -168,8 +174,6 @@ function addVerticeToGeometry(geometry, index, newCoordinates) {
         geometry.setAttribute("position", new THREE.Float32BufferAttribute([newCoordinates.x, newCoordinates.y, newCoordinates.z], 3))
         geometry.setAttribute("color", new THREE.Float32BufferAttribute([color.r, color.g, color.b], 3))
     }
-
-
     geometry.computeBoundingSphere() // needed for intersection detection
 }
 
@@ -190,15 +194,35 @@ function updateGeometryIndexes(geometry) {
     }
 }
 
-function selectPoint(intersection) {
-    selectedPoint = intersection.object
-    selectedPoint.material.color.setHex(0xffff00)
-    selectedPointInfoDiv.innerHTML = "Selected point: " + selectedPoint.uuid
+function changePointColor(index, color, geometry, colorsArray) {
+    colorsArray[index * 3] = color.r
+    colorsArray[index * 3 + 1] = color.g
+    colorsArray[index * 3 + 2] = color.b
+    geometry.attributes.color.needsUpdate = true;
+}
+
+function unselectPoint(index, geometry) {
+    const colors = geometry.attributes.color.array;
+    const defaultColor = new THREE.Color("rgb(255, 255, 255)");
+    changePointColor(index, defaultColor, geometry, colors)
+}
+
+function selectPoint(index) {
+    selectedPointIndex = index
+    const colors = line.geometry.attributes.color.array;
+    const colorOfSelection = new THREE.Color("rgb(255, 255, 0)");
+    changePointColor(selectedPointIndex, colorOfSelection, line.geometry, colors)
+    addSelectedPointInfoText(selectedPointIndex)
+}
+
+function addSelectedPointInfoText(index) {
+    selectedPointInfoDiv.innerHTML = "Selected point: " + index
     const btn = document.createElement("button")
     btn.textContent = "Delete"
-    btn.addEventListener("click", (event) => deletePoint(selectedPoint))
+//btn.addEventListener("click", (event) => deletePoint(selectedPoint))
     selectedPointInfoDiv.appendChild(btn)
 }
+
 
 function deletePoint(pointObject) {
     const index = objects.indexOf(pointObject)
@@ -236,7 +260,7 @@ function removeVectorFromGeometry(geometry, index) {
 }
 
 function unselectAllPoints() {
-    selectedPoint = null;
+    // selectedPointIndex = null;
     // objects.forEach(o => {
     //     o.material.color.setHex(0xffffff)
     // })
