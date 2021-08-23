@@ -1,15 +1,18 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 
 let renderer, scene, camera, raycaster, mouse;
-let line, area, particles, group;
-let MAX_POINTS;
-let pointCount;
+let line, geometry, area, particles, group;
 
+let pointCount = 0;
 let selectedPointIndex = null;
 let selectedPointInfoDiv;
 
 //mouse events
 let dragging = false;
+
+const DEFAULT_COLOR = "rgb(255, 255, 255)"
+const SELECTION_COLOR = "rgb(255, 255, 0)"
+const SELECTION_TEXT = "Selected point: ";
 
 init();
 
@@ -17,7 +20,6 @@ function init() {
 
     selectedPointInfoDiv = document.getElementById("selected-point-info")
 
-    // renderer
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -26,25 +28,15 @@ function init() {
     mouse = new THREE.Vector2();
     raycaster = new THREE.Raycaster();
 
-    MAX_POINTS = 50;
-    pointCount = 0;
-
-    // scene
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf0f0f0);
 
-    // camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 250;
 
     initEventListeners()
-
     initObjects()
-
-    // createAShapeForTest(line)
-
-    line.geometry.attributes.position.needsUpdate = true;
-
+    geometry.attributes.position.needsUpdate = true;
     renderer.render(scene, camera);
 }
 
@@ -53,21 +45,14 @@ function initEventListeners() {
     window.addEventListener("mousedown", mouseDown, false);
     window.addEventListener("mousemove", mouseMove, false);
     window.addEventListener("mouseup", mouseUp, false);
-
-    //document.querySelector("canvas").addEventListener('mousemove', onMouseMove, false);
     document.querySelector("canvas").addEventListener('click', onClickHandler, false);
     window.addEventListener('resize', onWindowResize);
 }
 
 function initObjects() {
-    // line
-    const lineGeometry = new THREE.BufferGeometry();
-    const positions = new Float32Array();
-    const colors = new Float32Array();
-    lineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    lineGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-    const material = new THREE.LineBasicMaterial({color: "grey"});
-    line = new THREE.Line(lineGeometry, material);
+    geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(), 3));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(), 3));
 
     // area
     const areaMaterial = new THREE.MeshBasicMaterial({
@@ -77,11 +62,11 @@ function initObjects() {
         opacity: 0.2,
         side: THREE.DoubleSide
     });
-    area = new THREE.Mesh(lineGeometry, areaMaterial);
+    area = new THREE.Mesh(geometry, areaMaterial);
     scene.add(area);
 
+    // points
     const sprite = new THREE.TextureLoader().load('/circle.png');
-
     const markerMaterial = new THREE.PointsMaterial({
         vertexColors: true,
         size: 14,
@@ -89,15 +74,8 @@ function initObjects() {
         //blending: THREE.AdditiveBlending,
         transparent: true, depthTest: false
     })
-
-    particles = new THREE.Points(line.geometry, markerMaterial);
+    particles = new THREE.Points(geometry, markerMaterial);
     scene.add(particles);
-}
-
-
-function animate() {
-    renderer.render(scene, camera);
-    requestAnimationFrame(animate);
 }
 
 // Mouse Events
@@ -106,24 +84,15 @@ function onClickHandler(event) {
     event.preventDefault();
     let intersections = getIntersections(event)
     if (intersections.length > 0) {
-        if (intersections[0].index == selectedPointIndex) {
-            return
-        }
-        unselectPoint(selectedPointIndex, line.geometry)
+        if (intersections[0].index == selectedPointIndex) return
+        unselectPoint(selectedPointIndex, geometry)
         selectPoint(intersections[0].index)
         return
-
-    } else {
-        if (selectedPointIndex != null) {
-            unselectPoint(selectedPointIndex, line.geometry)
-            return
-        }
     }
-
     if (!dragging) { // prevent from creating new points if drag event started
         let pos = getMousePosition(event)
-        addVerticeToGeometry(line.geometry, pointCount, pos)
-        updateGeometryIndexes(line.geometry)
+        addVerticeToGeometry(geometry, pointCount, pos)
+        updateGeometryIndexes(geometry)
         pointCount += 3
         animate()
     }
@@ -132,12 +101,12 @@ function onClickHandler(event) {
 function addVerticeToGeometry(geometry, index, newCoordinates) {
     addNewPositionsToGeometry(geometry, index, newCoordinates)
     addNewColorsToGeometry(geometry, index, newCoordinates)
-    index += 3
 }
 
 function addNewPositionsToGeometry(geometry, index, newCoordinates) {
     const positions = geometry.attributes.position.array;
     if (positions.length > 0) {
+        // creates a new array from existing, because arrray size can`t be changed
         let newpositions = Array.from(positions);
         newpositions[index] = newCoordinates.x;
         newpositions[index + 1] = newCoordinates.y;
@@ -151,8 +120,9 @@ function addNewPositionsToGeometry(geometry, index, newCoordinates) {
 
 function addNewColorsToGeometry(geometry, index, newCoordinates) {
     const colors = geometry.attributes.color.array;
-    const color = new THREE.Color("rgb(255, 255, 255)");
+    const color = new THREE.Color(DEFAULT_COLOR)
     if (colors.length > 0) {
+        // creates a new array from existing, because arrray size can`t be changed
         let newColors = Array.from(colors);
         newColors[index] = color.r
         newColors[index + 1] = color.g
@@ -163,7 +133,7 @@ function addNewColorsToGeometry(geometry, index, newCoordinates) {
     }
 }
 
-
+// updates positions without creating a new copy of array, bacause array size stays the same
 function updateVerticePositions(geometry, index, newCoordinates) {
     const positions = geometry.attributes.position.array;
     positions[index++] = newCoordinates.x;
@@ -171,8 +141,7 @@ function updateVerticePositions(geometry, index, newCoordinates) {
     positions[index] = newCoordinates.z;
 }
 
-
-// indexes are used to form faces (triangles), example [1,2,0,2,3,0], new group ex 3,4,0
+// indexes are used to form faces (triangles), example [1,2,0] -> [1,2,0,2,3,0] -> [1,2,0,2,3,0,3,4,0]
 function updateGeometryIndexes(geometry) {
     let positions = geometry.attributes.position.array;
     if (positions.length == 9) { // first triangle needs three vertices or 9 positions
@@ -190,44 +159,43 @@ function updateGeometryIndexes(geometry) {
 }
 
 function changePointColor(index, color, geometry, colorsArray) {
-    colorsArray[index * 3] = color.r
-    colorsArray[index * 3 + 1] = color.g
-    colorsArray[index * 3 + 2] = color.b
+    colorsArray[index] = color.r
+    colorsArray[index + 1] = color.g
+    colorsArray[index + 2] = color.b
     geometry.attributes.color.needsUpdate = true;
 }
 
 function unselectPoint(index, geometry) {
     const colors = geometry.attributes.color.array;
-    const defaultColor = new THREE.Color("rgb(255, 255, 255)");
-    changePointColor(index, defaultColor, geometry, colors)
+    const defaultColor = new THREE.Color(DEFAULT_COLOR);
+    changePointColor(index * 3, defaultColor, geometry, colors)
     selectedPointIndex = null
-    selectedPointInfoDiv.innerHTML = "Selected point: "
+    selectedPointInfoDiv.innerHTML = SELECTION_TEXT
 }
 
 function selectPoint(index) {
     selectedPointIndex = index
-    const colors = line.geometry.attributes.color.array;
-    const colorOfSelection = new THREE.Color("rgb(255, 255, 0)");
-    changePointColor(selectedPointIndex, colorOfSelection, line.geometry, colors)
+    const colors = geometry.attributes.color.array;
+    const colorOfSelection = new THREE.Color(SELECTION_COLOR);
+    changePointColor(selectedPointIndex * 3, colorOfSelection, geometry, colors)
     addSelectedPointInfoText(selectedPointIndex)
 }
 
 function addSelectedPointInfoText(index) {
-    selectedPointInfoDiv.innerHTML = "Selected point: " + index
+    selectedPointInfoDiv.innerHTML = SELECTION_TEXT + index
     const btn = document.createElement("button")
     btn.textContent = "Delete"
     btn.addEventListener("click", (event) => deletePoint(selectedPointIndex))
     selectedPointInfoDiv.appendChild(btn)
 }
 
-
 function deletePoint(index) {
-    const positions = line.geometry.attributes.position.array;
-    removeVectorFromGeometry(line.geometry, index)
+    const positions = geometry.attributes.position.array;
+    removeVectorFromGeometry(geometry, index)
     pointCount -= 3
-    removeIndexFromGeometry(line.geometry)
+    removeIndexFromGeometry(geometry)
     animate()
-    selectedPointInfoDiv.innerHTML = "Selected point: "
+    selectedPointInfoDiv.innerHTML = SELECTION_TEXT
 }
 
 function removeIndexFromGeometry(geometry) {
@@ -238,18 +206,17 @@ function removeIndexFromGeometry(geometry) {
     }
 }
 
-
 function removeVectorFromGeometry(geometry, index) {
     let newpositions = Array.from(geometry.attributes.position.array);
     let newcolors = Array.from(geometry.attributes.color.array);
     // shift elements after the one to be removed left
-    newpositions = shiftElementsLeft(newpositions, index)
-    newcolors = shiftElementsLeft(newcolors, index)
+    newpositions = shiftElementsInAttributeArrayLeft(newpositions, index)
+    newcolors = shiftElementsInAttributeArrayLeft(newcolors, index)
     geometry.setAttribute("position", new THREE.Float32BufferAttribute(newpositions, 3))
     geometry.setAttribute("color", new THREE.Float32BufferAttribute(newcolors, 3))
 }
 
-function shiftElementsLeft(elements, index) {
+function shiftElementsInAttributeArrayLeft(elements, index) {
     for (let i = index * 3; i < (elements.length / 3 - 1) * 3; i++) {
         elements[i] = elements[i + 3]
     }
@@ -261,10 +228,10 @@ function shiftElementsLeft(elements, index) {
 function mouseDown(event) {
     let intersections = getIntersections(event)
     if (intersections.length > 0) {
-        if(intersections[0].index == selectedPointIndex) {
-            unselectPoint(selectedPointIndex, line.geometry)
-        } else{
-            unselectPoint(selectedPointIndex, line.geometry)
+        if (intersections[0].index == selectedPointIndex) {
+            unselectPoint(selectedPointIndex, geometry)
+        } else {
+            unselectPoint(selectedPointIndex, geometry)
             selectedPointIndex = intersections[0].index
             selectPoint(selectedPointIndex)
         }
@@ -275,50 +242,14 @@ function mouseDown(event) {
 function mouseMove(event) {
     if (dragging && selectedPointIndex !== null) {
         let pos = getMousePosition(event)
-        updateVerticePositions(line.geometry, selectedPointIndex * 3, pos)
-        line.geometry.attributes.position.needsUpdate = true;
+        updateVerticePositions(geometry, selectedPointIndex * 3, pos)
+        geometry.attributes.position.needsUpdate = true;
     }
 }
 
 function mouseUp(event) {
     dragging = false;
 }
-
-
-function setRaycaster(event) {
-    getMouse(event);
-    raycaster.setFromCamera(mouse, camera);
-}
-
-function getMouse(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-}
-
-
-function getIndex() {
-    let intersects = raycaster.intersectObject(particles);
-    if (intersects.length === 0) {
-        // selectedPointIndex = null;
-        return;
-    }
-    selectedPointIndex = intersects[0].index;
-}
-
-
-function updateMouseCoords(event, coordsObj) {
-    const vec = new THREE.Vector3();
-    const pos = new THREE.Vector3();
-    vec.set(
-        (event.clientX / window.innerWidth) * 2 - 1,
-        -(event.clientY / window.innerHeight) * 2 + 1,
-        0.5);
-    vec.unproject(camera);
-    vec.sub(camera.position).normalize();
-    const distance = -camera.position.z / vec.z;
-    pos.copy(camera.position).add(vec.multiplyScalar(distance));
-}
-
 
 function getMousePosition(event) {
     const vec = new THREE.Vector3();
@@ -341,13 +272,17 @@ function getIntersections(event) {
     return raycaster.intersectObject(particles, true);
 }
 
-
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-
 }
+
+function animate() {
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+}
+
 
 
 

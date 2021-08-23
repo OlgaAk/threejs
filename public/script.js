@@ -14,8 +14,6 @@
 /* harmony export */   "Color": () => (/* binding */ Color),
 /* harmony export */   "DoubleSide": () => (/* binding */ DoubleSide),
 /* harmony export */   "Float32BufferAttribute": () => (/* binding */ Float32BufferAttribute),
-/* harmony export */   "Line": () => (/* binding */ Line),
-/* harmony export */   "LineBasicMaterial": () => (/* binding */ LineBasicMaterial),
 /* harmony export */   "Mesh": () => (/* binding */ Mesh),
 /* harmony export */   "MeshBasicMaterial": () => (/* binding */ MeshBasicMaterial),
 /* harmony export */   "PerspectiveCamera": () => (/* binding */ PerspectiveCamera),
@@ -28,7 +26,7 @@
 /* harmony export */   "Vector3": () => (/* binding */ Vector3),
 /* harmony export */   "WebGLRenderer": () => (/* binding */ WebGLRenderer)
 /* harmony export */ });
-/* unused harmony exports ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationBlendMode, AdditiveBlending, AlphaFormat, AlwaysDepth, AlwaysStencilFunc, AmbientLight, AmbientLightProbe, AnimationClip, AnimationLoader, AnimationMixer, AnimationObjectGroup, AnimationUtils, ArcCurve, ArrayCamera, ArrowHelper, Audio, AudioAnalyser, AudioContext, AudioListener, AudioLoader, AxesHelper, AxisHelper, BackSide, BasicDepthPacking, BasicShadowMap, BinaryTextureLoader, Bone, BooleanKeyframeTrack, BoundingBoxHelper, Box2, Box3, Box3Helper, BoxBufferGeometry, BoxGeometry, BoxHelper, BufferGeometryLoader, ByteType, Cache, Camera, CameraHelper, CanvasRenderer, CanvasTexture, CatmullRomCurve3, CineonToneMapping, CircleBufferGeometry, CircleGeometry, ClampToEdgeWrapping, Clock, ColorKeyframeTrack, CompressedTexture, CompressedTextureLoader, ConeBufferGeometry, ConeGeometry, CubeCamera, CubeReflectionMapping, CubeRefractionMapping, CubeTexture, CubeTextureLoader, CubeUVReflectionMapping, CubeUVRefractionMapping, CubicBezierCurve, CubicBezierCurve3, CubicInterpolant, CullFaceBack, CullFaceFront, CullFaceFrontBack, CullFaceNone, Curve, CurvePath, CustomBlending, CustomToneMapping, CylinderBufferGeometry, CylinderGeometry, Cylindrical, DataTexture, DataTexture2DArray, DataTexture3D, DataTextureLoader, DataUtils, DecrementStencilOp, DecrementWrapStencilOp, DefaultLoadingManager, DepthFormat, DepthStencilFormat, DepthTexture, DirectionalLight, DirectionalLightHelper, DiscreteInterpolant, DodecahedronBufferGeometry, DodecahedronGeometry, DstAlphaFactor, DstColorFactor, DynamicBufferAttribute, DynamicCopyUsage, DynamicDrawUsage, DynamicReadUsage, EdgesGeometry, EdgesHelper, EllipseCurve, EqualDepth, EqualStencilFunc, EquirectangularReflectionMapping, EquirectangularRefractionMapping, Euler, EventDispatcher, ExtrudeBufferGeometry, ExtrudeGeometry, FaceColors, FileLoader, FlatShading, Float16BufferAttribute, Float32Attribute, Float64Attribute, Float64BufferAttribute, FloatType, Fog, FogExp2, Font, FontLoader, FrontSide, Frustum, GLBufferAttribute, GLSL1, GLSL3, GammaEncoding, GreaterDepth, GreaterEqualDepth, GreaterEqualStencilFunc, GreaterStencilFunc, GridHelper, Group, HalfFloatType, HemisphereLight, HemisphereLightHelper, HemisphereLightProbe, IcosahedronBufferGeometry, IcosahedronGeometry, ImageBitmapLoader, ImageLoader, ImageUtils, ImmediateRenderObject, IncrementStencilOp, IncrementWrapStencilOp, InstancedBufferAttribute, InstancedBufferGeometry, InstancedInterleavedBuffer, InstancedMesh, Int16Attribute, Int16BufferAttribute, Int32Attribute, Int32BufferAttribute, Int8Attribute, Int8BufferAttribute, IntType, InterleavedBuffer, InterleavedBufferAttribute, Interpolant, InterpolateDiscrete, InterpolateLinear, InterpolateSmooth, InvertStencilOp, JSONLoader, KeepStencilOp, KeyframeTrack, LOD, LatheBufferGeometry, LatheGeometry, Layers, LensFlare, LessDepth, LessEqualDepth, LessEqualStencilFunc, LessStencilFunc, Light, LightProbe, Line3, LineCurve, LineCurve3, LineDashedMaterial, LineLoop, LinePieces, LineSegments, LineStrip, LinearEncoding, LinearFilter, LinearInterpolant, LinearMipMapLinearFilter, LinearMipMapNearestFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearToneMapping, Loader, LoaderUtils, LoadingManager, LogLuvEncoding, LoopOnce, LoopPingPong, LoopRepeat, LuminanceAlphaFormat, LuminanceFormat, MOUSE, Material, MaterialLoader, Math, MathUtils, Matrix3, Matrix4, MaxEquation, MeshDepthMaterial, MeshDistanceMaterial, MeshFaceMaterial, MeshLambertMaterial, MeshMatcapMaterial, MeshNormalMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, MeshToonMaterial, MinEquation, MirroredRepeatWrapping, MixOperation, MultiMaterial, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipMapLinearFilter, NearestMipMapNearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NeverStencilFunc, NoBlending, NoColors, NoToneMapping, NormalAnimationBlendMode, NormalBlending, NotEqualDepth, NotEqualStencilFunc, NumberKeyframeTrack, Object3D, ObjectLoader, ObjectSpaceNormalMap, OctahedronBufferGeometry, OctahedronGeometry, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, OrthographicCamera, PCFShadowMap, PCFSoftShadowMap, PMREMGenerator, ParametricBufferGeometry, ParametricGeometry, Particle, ParticleBasicMaterial, ParticleSystem, ParticleSystemMaterial, Path, Plane, PlaneBufferGeometry, PlaneGeometry, PlaneHelper, PointCloud, PointCloudMaterial, PointLight, PointLightHelper, PolarGridHelper, PolyhedronBufferGeometry, PolyhedronGeometry, PositionalAudio, PropertyBinding, PropertyMixer, QuadraticBezierCurve, QuadraticBezierCurve3, Quaternion, QuaternionKeyframeTrack, QuaternionLinearInterpolant, REVISION, RGBADepthPacking, RGBAFormat, RGBAIntegerFormat, RGBA_ASTC_10x10_Format, RGBA_ASTC_10x5_Format, RGBA_ASTC_10x6_Format, RGBA_ASTC_10x8_Format, RGBA_ASTC_12x10_Format, RGBA_ASTC_12x12_Format, RGBA_ASTC_4x4_Format, RGBA_ASTC_5x4_Format, RGBA_ASTC_5x5_Format, RGBA_ASTC_6x5_Format, RGBA_ASTC_6x6_Format, RGBA_ASTC_8x5_Format, RGBA_ASTC_8x6_Format, RGBA_ASTC_8x8_Format, RGBA_BPTC_Format, RGBA_ETC2_EAC_Format, RGBA_PVRTC_2BPPV1_Format, RGBA_PVRTC_4BPPV1_Format, RGBA_S3TC_DXT1_Format, RGBA_S3TC_DXT3_Format, RGBA_S3TC_DXT5_Format, RGBDEncoding, RGBEEncoding, RGBEFormat, RGBFormat, RGBIntegerFormat, RGBM16Encoding, RGBM7Encoding, RGB_ETC1_Format, RGB_ETC2_Format, RGB_PVRTC_2BPPV1_Format, RGB_PVRTC_4BPPV1_Format, RGB_S3TC_DXT1_Format, RGFormat, RGIntegerFormat, RawShaderMaterial, Ray, RectAreaLight, RedFormat, RedIntegerFormat, ReinhardToneMapping, RepeatWrapping, ReplaceStencilOp, ReverseSubtractEquation, RingBufferGeometry, RingGeometry, SRGB8_ALPHA8_ASTC_10x10_Format, SRGB8_ALPHA8_ASTC_10x5_Format, SRGB8_ALPHA8_ASTC_10x6_Format, SRGB8_ALPHA8_ASTC_10x8_Format, SRGB8_ALPHA8_ASTC_12x10_Format, SRGB8_ALPHA8_ASTC_12x12_Format, SRGB8_ALPHA8_ASTC_4x4_Format, SRGB8_ALPHA8_ASTC_5x4_Format, SRGB8_ALPHA8_ASTC_5x5_Format, SRGB8_ALPHA8_ASTC_6x5_Format, SRGB8_ALPHA8_ASTC_6x6_Format, SRGB8_ALPHA8_ASTC_8x5_Format, SRGB8_ALPHA8_ASTC_8x6_Format, SRGB8_ALPHA8_ASTC_8x8_Format, SceneUtils, ShaderChunk, ShaderLib, ShaderMaterial, ShadowMaterial, Shape, ShapeBufferGeometry, ShapeGeometry, ShapePath, ShapeUtils, ShortType, Skeleton, SkeletonHelper, SkinnedMesh, SmoothShading, Sphere, SphereBufferGeometry, SphereGeometry, Spherical, SphericalHarmonics3, SplineCurve, SpotLight, SpotLightHelper, Sprite, SpriteMaterial, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticCopyUsage, StaticDrawUsage, StaticReadUsage, StereoCamera, StreamCopyUsage, StreamDrawUsage, StreamReadUsage, StringKeyframeTrack, SubtractEquation, SubtractiveBlending, TOUCH, TangentSpaceNormalMap, TetrahedronBufferGeometry, TetrahedronGeometry, TextBufferGeometry, TextGeometry, Texture, TorusBufferGeometry, TorusGeometry, TorusKnotBufferGeometry, TorusKnotGeometry, Triangle, TriangleFanDrawMode, TriangleStripDrawMode, TrianglesDrawMode, TubeBufferGeometry, TubeGeometry, UVMapping, Uint16Attribute, Uint16BufferAttribute, Uint32Attribute, Uint32BufferAttribute, Uint8Attribute, Uint8BufferAttribute, Uint8ClampedAttribute, Uint8ClampedBufferAttribute, Uniform, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedInt248Type, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShort565Type, UnsignedShortType, VSMShadowMap, Vector4, VectorKeyframeTrack, Vertex, VertexColors, VideoTexture, WebGL1Renderer, WebGLCubeRenderTarget, WebGLMultipleRenderTargets, WebGLMultisampleRenderTarget, WebGLRenderTarget, WebGLRenderTargetCube, WebGLUtils, WireframeGeometry, WireframeHelper, WrapAroundEnding, XHRLoader, ZeroCurvatureEnding, ZeroFactor, ZeroSlopeEnding, ZeroStencilOp, sRGBEncoding */
+/* unused harmony exports ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationBlendMode, AdditiveBlending, AlphaFormat, AlwaysDepth, AlwaysStencilFunc, AmbientLight, AmbientLightProbe, AnimationClip, AnimationLoader, AnimationMixer, AnimationObjectGroup, AnimationUtils, ArcCurve, ArrayCamera, ArrowHelper, Audio, AudioAnalyser, AudioContext, AudioListener, AudioLoader, AxesHelper, AxisHelper, BackSide, BasicDepthPacking, BasicShadowMap, BinaryTextureLoader, Bone, BooleanKeyframeTrack, BoundingBoxHelper, Box2, Box3, Box3Helper, BoxBufferGeometry, BoxGeometry, BoxHelper, BufferGeometryLoader, ByteType, Cache, Camera, CameraHelper, CanvasRenderer, CanvasTexture, CatmullRomCurve3, CineonToneMapping, CircleBufferGeometry, CircleGeometry, ClampToEdgeWrapping, Clock, ColorKeyframeTrack, CompressedTexture, CompressedTextureLoader, ConeBufferGeometry, ConeGeometry, CubeCamera, CubeReflectionMapping, CubeRefractionMapping, CubeTexture, CubeTextureLoader, CubeUVReflectionMapping, CubeUVRefractionMapping, CubicBezierCurve, CubicBezierCurve3, CubicInterpolant, CullFaceBack, CullFaceFront, CullFaceFrontBack, CullFaceNone, Curve, CurvePath, CustomBlending, CustomToneMapping, CylinderBufferGeometry, CylinderGeometry, Cylindrical, DataTexture, DataTexture2DArray, DataTexture3D, DataTextureLoader, DataUtils, DecrementStencilOp, DecrementWrapStencilOp, DefaultLoadingManager, DepthFormat, DepthStencilFormat, DepthTexture, DirectionalLight, DirectionalLightHelper, DiscreteInterpolant, DodecahedronBufferGeometry, DodecahedronGeometry, DstAlphaFactor, DstColorFactor, DynamicBufferAttribute, DynamicCopyUsage, DynamicDrawUsage, DynamicReadUsage, EdgesGeometry, EdgesHelper, EllipseCurve, EqualDepth, EqualStencilFunc, EquirectangularReflectionMapping, EquirectangularRefractionMapping, Euler, EventDispatcher, ExtrudeBufferGeometry, ExtrudeGeometry, FaceColors, FileLoader, FlatShading, Float16BufferAttribute, Float32Attribute, Float64Attribute, Float64BufferAttribute, FloatType, Fog, FogExp2, Font, FontLoader, FrontSide, Frustum, GLBufferAttribute, GLSL1, GLSL3, GammaEncoding, GreaterDepth, GreaterEqualDepth, GreaterEqualStencilFunc, GreaterStencilFunc, GridHelper, Group, HalfFloatType, HemisphereLight, HemisphereLightHelper, HemisphereLightProbe, IcosahedronBufferGeometry, IcosahedronGeometry, ImageBitmapLoader, ImageLoader, ImageUtils, ImmediateRenderObject, IncrementStencilOp, IncrementWrapStencilOp, InstancedBufferAttribute, InstancedBufferGeometry, InstancedInterleavedBuffer, InstancedMesh, Int16Attribute, Int16BufferAttribute, Int32Attribute, Int32BufferAttribute, Int8Attribute, Int8BufferAttribute, IntType, InterleavedBuffer, InterleavedBufferAttribute, Interpolant, InterpolateDiscrete, InterpolateLinear, InterpolateSmooth, InvertStencilOp, JSONLoader, KeepStencilOp, KeyframeTrack, LOD, LatheBufferGeometry, LatheGeometry, Layers, LensFlare, LessDepth, LessEqualDepth, LessEqualStencilFunc, LessStencilFunc, Light, LightProbe, Line, Line3, LineBasicMaterial, LineCurve, LineCurve3, LineDashedMaterial, LineLoop, LinePieces, LineSegments, LineStrip, LinearEncoding, LinearFilter, LinearInterpolant, LinearMipMapLinearFilter, LinearMipMapNearestFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearToneMapping, Loader, LoaderUtils, LoadingManager, LogLuvEncoding, LoopOnce, LoopPingPong, LoopRepeat, LuminanceAlphaFormat, LuminanceFormat, MOUSE, Material, MaterialLoader, Math, MathUtils, Matrix3, Matrix4, MaxEquation, MeshDepthMaterial, MeshDistanceMaterial, MeshFaceMaterial, MeshLambertMaterial, MeshMatcapMaterial, MeshNormalMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, MeshToonMaterial, MinEquation, MirroredRepeatWrapping, MixOperation, MultiMaterial, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipMapLinearFilter, NearestMipMapNearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NeverStencilFunc, NoBlending, NoColors, NoToneMapping, NormalAnimationBlendMode, NormalBlending, NotEqualDepth, NotEqualStencilFunc, NumberKeyframeTrack, Object3D, ObjectLoader, ObjectSpaceNormalMap, OctahedronBufferGeometry, OctahedronGeometry, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, OrthographicCamera, PCFShadowMap, PCFSoftShadowMap, PMREMGenerator, ParametricBufferGeometry, ParametricGeometry, Particle, ParticleBasicMaterial, ParticleSystem, ParticleSystemMaterial, Path, Plane, PlaneBufferGeometry, PlaneGeometry, PlaneHelper, PointCloud, PointCloudMaterial, PointLight, PointLightHelper, PolarGridHelper, PolyhedronBufferGeometry, PolyhedronGeometry, PositionalAudio, PropertyBinding, PropertyMixer, QuadraticBezierCurve, QuadraticBezierCurve3, Quaternion, QuaternionKeyframeTrack, QuaternionLinearInterpolant, REVISION, RGBADepthPacking, RGBAFormat, RGBAIntegerFormat, RGBA_ASTC_10x10_Format, RGBA_ASTC_10x5_Format, RGBA_ASTC_10x6_Format, RGBA_ASTC_10x8_Format, RGBA_ASTC_12x10_Format, RGBA_ASTC_12x12_Format, RGBA_ASTC_4x4_Format, RGBA_ASTC_5x4_Format, RGBA_ASTC_5x5_Format, RGBA_ASTC_6x5_Format, RGBA_ASTC_6x6_Format, RGBA_ASTC_8x5_Format, RGBA_ASTC_8x6_Format, RGBA_ASTC_8x8_Format, RGBA_BPTC_Format, RGBA_ETC2_EAC_Format, RGBA_PVRTC_2BPPV1_Format, RGBA_PVRTC_4BPPV1_Format, RGBA_S3TC_DXT1_Format, RGBA_S3TC_DXT3_Format, RGBA_S3TC_DXT5_Format, RGBDEncoding, RGBEEncoding, RGBEFormat, RGBFormat, RGBIntegerFormat, RGBM16Encoding, RGBM7Encoding, RGB_ETC1_Format, RGB_ETC2_Format, RGB_PVRTC_2BPPV1_Format, RGB_PVRTC_4BPPV1_Format, RGB_S3TC_DXT1_Format, RGFormat, RGIntegerFormat, RawShaderMaterial, Ray, RectAreaLight, RedFormat, RedIntegerFormat, ReinhardToneMapping, RepeatWrapping, ReplaceStencilOp, ReverseSubtractEquation, RingBufferGeometry, RingGeometry, SRGB8_ALPHA8_ASTC_10x10_Format, SRGB8_ALPHA8_ASTC_10x5_Format, SRGB8_ALPHA8_ASTC_10x6_Format, SRGB8_ALPHA8_ASTC_10x8_Format, SRGB8_ALPHA8_ASTC_12x10_Format, SRGB8_ALPHA8_ASTC_12x12_Format, SRGB8_ALPHA8_ASTC_4x4_Format, SRGB8_ALPHA8_ASTC_5x4_Format, SRGB8_ALPHA8_ASTC_5x5_Format, SRGB8_ALPHA8_ASTC_6x5_Format, SRGB8_ALPHA8_ASTC_6x6_Format, SRGB8_ALPHA8_ASTC_8x5_Format, SRGB8_ALPHA8_ASTC_8x6_Format, SRGB8_ALPHA8_ASTC_8x8_Format, SceneUtils, ShaderChunk, ShaderLib, ShaderMaterial, ShadowMaterial, Shape, ShapeBufferGeometry, ShapeGeometry, ShapePath, ShapeUtils, ShortType, Skeleton, SkeletonHelper, SkinnedMesh, SmoothShading, Sphere, SphereBufferGeometry, SphereGeometry, Spherical, SphericalHarmonics3, SplineCurve, SpotLight, SpotLightHelper, Sprite, SpriteMaterial, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticCopyUsage, StaticDrawUsage, StaticReadUsage, StereoCamera, StreamCopyUsage, StreamDrawUsage, StreamReadUsage, StringKeyframeTrack, SubtractEquation, SubtractiveBlending, TOUCH, TangentSpaceNormalMap, TetrahedronBufferGeometry, TetrahedronGeometry, TextBufferGeometry, TextGeometry, Texture, TorusBufferGeometry, TorusGeometry, TorusKnotBufferGeometry, TorusKnotGeometry, Triangle, TriangleFanDrawMode, TriangleStripDrawMode, TrianglesDrawMode, TubeBufferGeometry, TubeGeometry, UVMapping, Uint16Attribute, Uint16BufferAttribute, Uint32Attribute, Uint32BufferAttribute, Uint8Attribute, Uint8BufferAttribute, Uint8ClampedAttribute, Uint8ClampedBufferAttribute, Uniform, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedInt248Type, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShort565Type, UnsignedShortType, VSMShadowMap, Vector4, VectorKeyframeTrack, Vertex, VertexColors, VideoTexture, WebGL1Renderer, WebGLCubeRenderTarget, WebGLMultipleRenderTargets, WebGLMultisampleRenderTarget, WebGLRenderTarget, WebGLRenderTargetCube, WebGLUtils, WireframeGeometry, WireframeHelper, WrapAroundEnding, XHRLoader, ZeroCurvatureEnding, ZeroFactor, ZeroSlopeEnding, ZeroStencilOp, sRGBEncoding */
 /**
  * @license
  * Copyright 2010-2021 Three.js Authors
@@ -49699,15 +49697,18 @@ var __webpack_exports__ = {};
 
 
 let renderer, scene, camera, raycaster, mouse;
-let line, area, particles, group;
-let MAX_POINTS;
-let pointCount;
+let line, geometry, area, particles, group;
 
+let pointCount = 0;
 let selectedPointIndex = null;
 let selectedPointInfoDiv;
 
 //mouse events
 let dragging = false;
+
+const DEFAULT_COLOR = "rgb(255, 255, 255)"
+const SELECTION_COLOR = "rgb(255, 255, 0)"
+const SELECTION_TEXT = "Selected point: ";
 
 init();
 
@@ -49715,7 +49716,6 @@ function init() {
 
     selectedPointInfoDiv = document.getElementById("selected-point-info")
 
-    // renderer
     renderer = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -49724,25 +49724,15 @@ function init() {
     mouse = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector2();
     raycaster = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Raycaster();
 
-    MAX_POINTS = 50;
-    pointCount = 0;
-
-    // scene
     scene = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Scene();
     scene.background = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color(0xf0f0f0);
 
-    // camera
     camera = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 250;
 
     initEventListeners()
-
     initObjects()
-
-    // createAShapeForTest(line)
-
-    line.geometry.attributes.position.needsUpdate = true;
-
+    geometry.attributes.position.needsUpdate = true;
     renderer.render(scene, camera);
 }
 
@@ -49751,21 +49741,14 @@ function initEventListeners() {
     window.addEventListener("mousedown", mouseDown, false);
     window.addEventListener("mousemove", mouseMove, false);
     window.addEventListener("mouseup", mouseUp, false);
-
-    //document.querySelector("canvas").addEventListener('mousemove', onMouseMove, false);
     document.querySelector("canvas").addEventListener('click', onClickHandler, false);
     window.addEventListener('resize', onWindowResize);
 }
 
 function initObjects() {
-    // line
-    const lineGeometry = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
-    const positions = new Float32Array();
-    const colors = new Float32Array();
-    lineGeometry.setAttribute('position', new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.BufferAttribute(positions, 3));
-    lineGeometry.setAttribute('color', new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(colors, 3));
-    const material = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.LineBasicMaterial({color: "grey"});
-    line = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Line(lineGeometry, material);
+    geometry = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
+    geometry.setAttribute('position', new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.BufferAttribute(new Float32Array(), 3));
+    geometry.setAttribute('color', new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(new Float32Array(), 3));
 
     // area
     const areaMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial({
@@ -49775,11 +49758,11 @@ function initObjects() {
         opacity: 0.2,
         side: _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.DoubleSide
     });
-    area = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Mesh(lineGeometry, areaMaterial);
+    area = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Mesh(geometry, areaMaterial);
     scene.add(area);
 
+    // points
     const sprite = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.TextureLoader().load('/circle.png');
-
     const markerMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.PointsMaterial({
         vertexColors: true,
         size: 14,
@@ -49787,15 +49770,8 @@ function initObjects() {
         //blending: THREE.AdditiveBlending,
         transparent: true, depthTest: false
     })
-
-    particles = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Points(line.geometry, markerMaterial);
+    particles = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Points(geometry, markerMaterial);
     scene.add(particles);
-}
-
-
-function animate() {
-    renderer.render(scene, camera);
-    requestAnimationFrame(animate);
 }
 
 // Mouse Events
@@ -49804,24 +49780,15 @@ function onClickHandler(event) {
     event.preventDefault();
     let intersections = getIntersections(event)
     if (intersections.length > 0) {
-        if (intersections[0].index == selectedPointIndex) {
-            return
-        }
-        unselectPoint(selectedPointIndex, line.geometry)
+        if (intersections[0].index == selectedPointIndex) return
+        unselectPoint(selectedPointIndex, geometry)
         selectPoint(intersections[0].index)
         return
-
-    } else {
-        if (selectedPointIndex != null) {
-            unselectPoint(selectedPointIndex, line.geometry)
-            return
-        }
     }
-
     if (!dragging) { // prevent from creating new points if drag event started
         let pos = getMousePosition(event)
-        addVerticeToGeometry(line.geometry, pointCount, pos)
-        updateGeometryIndexes(line.geometry)
+        addVerticeToGeometry(geometry, pointCount, pos)
+        updateGeometryIndexes(geometry)
         pointCount += 3
         animate()
     }
@@ -49830,12 +49797,12 @@ function onClickHandler(event) {
 function addVerticeToGeometry(geometry, index, newCoordinates) {
     addNewPositionsToGeometry(geometry, index, newCoordinates)
     addNewColorsToGeometry(geometry, index, newCoordinates)
-    index += 3
 }
 
 function addNewPositionsToGeometry(geometry, index, newCoordinates) {
     const positions = geometry.attributes.position.array;
     if (positions.length > 0) {
+        // creates a new array from existing, because arrray size can`t be changed
         let newpositions = Array.from(positions);
         newpositions[index] = newCoordinates.x;
         newpositions[index + 1] = newCoordinates.y;
@@ -49849,8 +49816,9 @@ function addNewPositionsToGeometry(geometry, index, newCoordinates) {
 
 function addNewColorsToGeometry(geometry, index, newCoordinates) {
     const colors = geometry.attributes.color.array;
-    const color = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color("rgb(255, 255, 255)");
+    const color = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color(DEFAULT_COLOR)
     if (colors.length > 0) {
+        // creates a new array from existing, because arrray size can`t be changed
         let newColors = Array.from(colors);
         newColors[index] = color.r
         newColors[index + 1] = color.g
@@ -49861,7 +49829,7 @@ function addNewColorsToGeometry(geometry, index, newCoordinates) {
     }
 }
 
-
+// updates positions without creating a new copy of array, bacause array size stays the same
 function updateVerticePositions(geometry, index, newCoordinates) {
     const positions = geometry.attributes.position.array;
     positions[index++] = newCoordinates.x;
@@ -49869,8 +49837,7 @@ function updateVerticePositions(geometry, index, newCoordinates) {
     positions[index] = newCoordinates.z;
 }
 
-
-// indexes are used to form faces (triangles), example [1,2,0,2,3,0], new group ex 3,4,0
+// indexes are used to form faces (triangles), example [1,2,0] -> [1,2,0,2,3,0] -> [1,2,0,2,3,0,3,4,0]
 function updateGeometryIndexes(geometry) {
     let positions = geometry.attributes.position.array;
     if (positions.length == 9) { // first triangle needs three vertices or 9 positions
@@ -49888,44 +49855,43 @@ function updateGeometryIndexes(geometry) {
 }
 
 function changePointColor(index, color, geometry, colorsArray) {
-    colorsArray[index * 3] = color.r
-    colorsArray[index * 3 + 1] = color.g
-    colorsArray[index * 3 + 2] = color.b
+    colorsArray[index] = color.r
+    colorsArray[index + 1] = color.g
+    colorsArray[index + 2] = color.b
     geometry.attributes.color.needsUpdate = true;
 }
 
 function unselectPoint(index, geometry) {
     const colors = geometry.attributes.color.array;
-    const defaultColor = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color("rgb(255, 255, 255)");
-    changePointColor(index, defaultColor, geometry, colors)
+    const defaultColor = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color(DEFAULT_COLOR);
+    changePointColor(index * 3, defaultColor, geometry, colors)
     selectedPointIndex = null
-    selectedPointInfoDiv.innerHTML = "Selected point: "
+    selectedPointInfoDiv.innerHTML = SELECTION_TEXT
 }
 
 function selectPoint(index) {
     selectedPointIndex = index
-    const colors = line.geometry.attributes.color.array;
-    const colorOfSelection = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color("rgb(255, 255, 0)");
-    changePointColor(selectedPointIndex, colorOfSelection, line.geometry, colors)
+    const colors = geometry.attributes.color.array;
+    const colorOfSelection = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color(SELECTION_COLOR);
+    changePointColor(selectedPointIndex * 3, colorOfSelection, geometry, colors)
     addSelectedPointInfoText(selectedPointIndex)
 }
 
 function addSelectedPointInfoText(index) {
-    selectedPointInfoDiv.innerHTML = "Selected point: " + index
+    selectedPointInfoDiv.innerHTML = SELECTION_TEXT + index
     const btn = document.createElement("button")
     btn.textContent = "Delete"
     btn.addEventListener("click", (event) => deletePoint(selectedPointIndex))
     selectedPointInfoDiv.appendChild(btn)
 }
 
-
 function deletePoint(index) {
-    const positions = line.geometry.attributes.position.array;
-    removeVectorFromGeometry(line.geometry, index)
+    const positions = geometry.attributes.position.array;
+    removeVectorFromGeometry(geometry, index)
     pointCount -= 3
-    removeIndexFromGeometry(line.geometry)
+    removeIndexFromGeometry(geometry)
     animate()
-    selectedPointInfoDiv.innerHTML = "Selected point: "
+    selectedPointInfoDiv.innerHTML = SELECTION_TEXT
 }
 
 function removeIndexFromGeometry(geometry) {
@@ -49936,18 +49902,17 @@ function removeIndexFromGeometry(geometry) {
     }
 }
 
-
 function removeVectorFromGeometry(geometry, index) {
     let newpositions = Array.from(geometry.attributes.position.array);
     let newcolors = Array.from(geometry.attributes.color.array);
     // shift elements after the one to be removed left
-    newpositions = shiftElementsLeft(newpositions, index)
-    newcolors = shiftElementsLeft(newcolors, index)
+    newpositions = shiftElementsInAttributeArrayLeft(newpositions, index)
+    newcolors = shiftElementsInAttributeArrayLeft(newcolors, index)
     geometry.setAttribute("position", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(newpositions, 3))
     geometry.setAttribute("color", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(newcolors, 3))
 }
 
-function shiftElementsLeft(elements, index) {
+function shiftElementsInAttributeArrayLeft(elements, index) {
     for (let i = index * 3; i < (elements.length / 3 - 1) * 3; i++) {
         elements[i] = elements[i + 3]
     }
@@ -49959,10 +49924,10 @@ function shiftElementsLeft(elements, index) {
 function mouseDown(event) {
     let intersections = getIntersections(event)
     if (intersections.length > 0) {
-        if(intersections[0].index == selectedPointIndex) {
-            unselectPoint(selectedPointIndex, line.geometry)
-        } else{
-            unselectPoint(selectedPointIndex, line.geometry)
+        if (intersections[0].index == selectedPointIndex) {
+            unselectPoint(selectedPointIndex, geometry)
+        } else {
+            unselectPoint(selectedPointIndex, geometry)
             selectedPointIndex = intersections[0].index
             selectPoint(selectedPointIndex)
         }
@@ -49973,50 +49938,14 @@ function mouseDown(event) {
 function mouseMove(event) {
     if (dragging && selectedPointIndex !== null) {
         let pos = getMousePosition(event)
-        updateVerticePositions(line.geometry, selectedPointIndex * 3, pos)
-        line.geometry.attributes.position.needsUpdate = true;
+        updateVerticePositions(geometry, selectedPointIndex * 3, pos)
+        geometry.attributes.position.needsUpdate = true;
     }
 }
 
 function mouseUp(event) {
     dragging = false;
 }
-
-
-function setRaycaster(event) {
-    getMouse(event);
-    raycaster.setFromCamera(mouse, camera);
-}
-
-function getMouse(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-}
-
-
-function getIndex() {
-    let intersects = raycaster.intersectObject(particles);
-    if (intersects.length === 0) {
-        // selectedPointIndex = null;
-        return;
-    }
-    selectedPointIndex = intersects[0].index;
-}
-
-
-function updateMouseCoords(event, coordsObj) {
-    const vec = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector3();
-    const pos = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector3();
-    vec.set(
-        (event.clientX / window.innerWidth) * 2 - 1,
-        -(event.clientY / window.innerHeight) * 2 + 1,
-        0.5);
-    vec.unproject(camera);
-    vec.sub(camera.position).normalize();
-    const distance = -camera.position.z / vec.z;
-    pos.copy(camera.position).add(vec.multiplyScalar(distance));
-}
-
 
 function getMousePosition(event) {
     const vec = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector3();
@@ -50039,13 +49968,17 @@ function getIntersections(event) {
     return raycaster.intersectObject(particles, true);
 }
 
-
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-
 }
+
+function animate() {
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+}
+
 
 
 
