@@ -129,7 +129,6 @@ function animate() {
 
 function onClickHandler(event) {
     event.preventDefault();
-    unselectAllPoints()
     let intersections = getIntersections(event)
     console.log(intersections)
     if (intersections.length > 0) {
@@ -141,7 +140,13 @@ function onClickHandler(event) {
         }
         selectPoint(intersections[0].index)
         return
+    } else {
+        if(selectedPointIndex!=null) {
+            unselectPoint(selectedPointIndex, line.geometry)
+            return
+        }
     }
+
     if (!dragStarted) { // prevent from creating new points if drag event started
         let pos = getMousePosition(event)
         addVerticeToGeometry(line.geometry, pointCount, pos)
@@ -177,13 +182,14 @@ function addVerticeToGeometry(geometry, index, newCoordinates) {
     geometry.computeBoundingSphere() // needed for intersection detection
 }
 
+// indexes are used to form faces (triangles), example [1,2,0,2,3,0], new group ex 3,4,0
 function updateGeometryIndexes(geometry) {
     let positions = geometry.attributes.position.array;
-    if (positions.length == 9) {
+    if (positions.length == 9) { // first triangle needs three vertices or 9 positions
         geometry.setIndex([1, 2, 0])
         return
     }
-    if (geometry.getIndex() && geometry.getIndex().count >= 3) {
+    if (geometry.getIndex() && geometry.getIndex().count >= 3) { // if first triangle was already formed
         let newIndexes = Array.from(geometry.getIndex().array);
         let lastElement = newIndexes[newIndexes.length - 2]
         newIndexes.push(lastElement)
@@ -206,6 +212,7 @@ function unselectPoint(index, geometry) {
     const defaultColor = new THREE.Color("rgb(255, 255, 255)");
     changePointColor(index, defaultColor, geometry, colors)
     selectedPointIndex = null
+    selectedPointInfoDiv.innerHTML = "Selected point: "
 }
 
 function selectPoint(index) {
@@ -220,17 +227,15 @@ function addSelectedPointInfoText(index) {
     selectedPointInfoDiv.innerHTML = "Selected point: " + index
     const btn = document.createElement("button")
     btn.textContent = "Delete"
-//btn.addEventListener("click", (event) => deletePoint(selectedPoint))
+btn.addEventListener("click", (event) => deletePoint(selectedPointIndex))
     selectedPointInfoDiv.appendChild(btn)
 }
 
 
-function deletePoint(pointObject) {
-    const index = objects.indexOf(pointObject)
+function deletePoint(index) {
     const positions = line.geometry.attributes.position.array;
     removeVectorFromGeometry(line.geometry, index)
     pointCount -= 3
-    removeObjectFromObjectsArray(pointObject, index)
     removeIndexFromGeometry(line.geometry)
     animate()
     selectedPointInfoDiv.innerHTML = "Selected point: "
@@ -244,27 +249,16 @@ function removeIndexFromGeometry(geometry) {
     }
 }
 
-function removeObjectFromObjectsArray(pointObject, index) {
-    objects.splice(index, 1)
-    pointObject.geometry.dispose();
-    pointObject.material.dispose();
-    scene.remove(pointObject);
-}
 
 function removeVectorFromGeometry(geometry, index) {
     let newpositions = Array.from(geometry.attributes.position.array);
-    for (let i = index * 3; i < (objects.length - 1) * 3; i++) {
+    // shift elements after the one to be removed left
+    for (let i = index * 3; i < (newpositions.length/3 - 1) * 3; i++) {
         newpositions[i] = newpositions[i + 3]
     }
+    // delete the tail of the array with 3 elements
     newpositions.splice(newpositions.length - 4, 3)
     geometry.setAttribute("position", new THREE.Float32BufferAttribute(newpositions, 3))
-}
-
-function unselectAllPoints() {
-    // selectedPointIndex = null;
-    // objects.forEach(o => {
-    //     o.material.color.setHex(0xffffff)
-    // })
 }
 
 function onMouseMove(event) {
