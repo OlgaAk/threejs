@@ -9,13 +9,11 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AdditiveBlending": () => (/* binding */ AdditiveBlending),
 /* harmony export */   "BufferAttribute": () => (/* binding */ BufferAttribute),
 /* harmony export */   "BufferGeometry": () => (/* binding */ BufferGeometry),
 /* harmony export */   "CircleGeometry": () => (/* binding */ CircleGeometry),
 /* harmony export */   "Color": () => (/* binding */ Color),
 /* harmony export */   "DoubleSide": () => (/* binding */ DoubleSide),
-/* harmony export */   "EventDispatcher": () => (/* binding */ EventDispatcher),
 /* harmony export */   "Float32BufferAttribute": () => (/* binding */ Float32BufferAttribute),
 /* harmony export */   "Line": () => (/* binding */ Line),
 /* harmony export */   "LineBasicMaterial": () => (/* binding */ LineBasicMaterial),
@@ -23,7 +21,6 @@
 /* harmony export */   "Mesh": () => (/* binding */ Mesh),
 /* harmony export */   "MeshBasicMaterial": () => (/* binding */ MeshBasicMaterial),
 /* harmony export */   "PerspectiveCamera": () => (/* binding */ PerspectiveCamera),
-/* harmony export */   "Plane": () => (/* binding */ Plane),
 /* harmony export */   "Points": () => (/* binding */ Points),
 /* harmony export */   "PointsMaterial": () => (/* binding */ PointsMaterial),
 /* harmony export */   "Raycaster": () => (/* binding */ Raycaster),
@@ -33,7 +30,7 @@
 /* harmony export */   "Vector3": () => (/* binding */ Vector3),
 /* harmony export */   "WebGLRenderer": () => (/* binding */ WebGLRenderer)
 /* harmony export */ });
-/* unused harmony exports ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationBlendMode, AlphaFormat, AlwaysDepth, AlwaysStencilFunc, AmbientLight, AmbientLightProbe, AnimationClip, AnimationLoader, AnimationMixer, AnimationObjectGroup, AnimationUtils, ArcCurve, ArrayCamera, ArrowHelper, Audio, AudioAnalyser, AudioContext, AudioListener, AudioLoader, AxesHelper, AxisHelper, BackSide, BasicDepthPacking, BasicShadowMap, BinaryTextureLoader, Bone, BooleanKeyframeTrack, BoundingBoxHelper, Box2, Box3, Box3Helper, BoxBufferGeometry, BoxGeometry, BoxHelper, BufferGeometryLoader, ByteType, Cache, Camera, CameraHelper, CanvasRenderer, CanvasTexture, CatmullRomCurve3, CineonToneMapping, CircleBufferGeometry, ClampToEdgeWrapping, Clock, ColorKeyframeTrack, CompressedTexture, CompressedTextureLoader, ConeBufferGeometry, ConeGeometry, CubeCamera, CubeReflectionMapping, CubeRefractionMapping, CubeTexture, CubeTextureLoader, CubeUVReflectionMapping, CubeUVRefractionMapping, CubicBezierCurve, CubicBezierCurve3, CubicInterpolant, CullFaceBack, CullFaceFront, CullFaceFrontBack, CullFaceNone, Curve, CurvePath, CustomBlending, CustomToneMapping, CylinderBufferGeometry, CylinderGeometry, Cylindrical, DataTexture, DataTexture2DArray, DataTexture3D, DataTextureLoader, DataUtils, DecrementStencilOp, DecrementWrapStencilOp, DefaultLoadingManager, DepthFormat, DepthStencilFormat, DepthTexture, DirectionalLight, DirectionalLightHelper, DiscreteInterpolant, DodecahedronBufferGeometry, DodecahedronGeometry, DstAlphaFactor, DstColorFactor, DynamicBufferAttribute, DynamicCopyUsage, DynamicDrawUsage, DynamicReadUsage, EdgesGeometry, EdgesHelper, EllipseCurve, EqualDepth, EqualStencilFunc, EquirectangularReflectionMapping, EquirectangularRefractionMapping, Euler, ExtrudeBufferGeometry, ExtrudeGeometry, FaceColors, FileLoader, FlatShading, Float16BufferAttribute, Float32Attribute, Float64Attribute, Float64BufferAttribute, FloatType, Fog, FogExp2, Font, FontLoader, FrontSide, Frustum, GLBufferAttribute, GLSL1, GLSL3, GammaEncoding, GreaterDepth, GreaterEqualDepth, GreaterEqualStencilFunc, GreaterStencilFunc, GridHelper, Group, HalfFloatType, HemisphereLight, HemisphereLightHelper, HemisphereLightProbe, IcosahedronBufferGeometry, IcosahedronGeometry, ImageBitmapLoader, ImageLoader, ImageUtils, ImmediateRenderObject, IncrementStencilOp, IncrementWrapStencilOp, InstancedBufferAttribute, InstancedBufferGeometry, InstancedInterleavedBuffer, InstancedMesh, Int16Attribute, Int16BufferAttribute, Int32Attribute, Int32BufferAttribute, Int8Attribute, Int8BufferAttribute, IntType, InterleavedBuffer, InterleavedBufferAttribute, Interpolant, InterpolateDiscrete, InterpolateLinear, InterpolateSmooth, InvertStencilOp, JSONLoader, KeepStencilOp, KeyframeTrack, LOD, LatheBufferGeometry, LatheGeometry, Layers, LensFlare, LessDepth, LessEqualDepth, LessEqualStencilFunc, LessStencilFunc, Light, LightProbe, Line3, LineCurve, LineCurve3, LineDashedMaterial, LineLoop, LinePieces, LineSegments, LineStrip, LinearEncoding, LinearFilter, LinearInterpolant, LinearMipMapLinearFilter, LinearMipMapNearestFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearToneMapping, Loader, LoaderUtils, LoadingManager, LogLuvEncoding, LoopOnce, LoopPingPong, LoopRepeat, LuminanceAlphaFormat, LuminanceFormat, MOUSE, Material, MaterialLoader, Math, MathUtils, Matrix3, MaxEquation, MeshDepthMaterial, MeshDistanceMaterial, MeshFaceMaterial, MeshLambertMaterial, MeshMatcapMaterial, MeshNormalMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, MeshToonMaterial, MinEquation, MirroredRepeatWrapping, MixOperation, MultiMaterial, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipMapLinearFilter, NearestMipMapNearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NeverStencilFunc, NoBlending, NoColors, NoToneMapping, NormalAnimationBlendMode, NormalBlending, NotEqualDepth, NotEqualStencilFunc, NumberKeyframeTrack, Object3D, ObjectLoader, ObjectSpaceNormalMap, OctahedronBufferGeometry, OctahedronGeometry, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, OrthographicCamera, PCFShadowMap, PCFSoftShadowMap, PMREMGenerator, ParametricBufferGeometry, ParametricGeometry, Particle, ParticleBasicMaterial, ParticleSystem, ParticleSystemMaterial, Path, PlaneBufferGeometry, PlaneGeometry, PlaneHelper, PointCloud, PointCloudMaterial, PointLight, PointLightHelper, PolarGridHelper, PolyhedronBufferGeometry, PolyhedronGeometry, PositionalAudio, PropertyBinding, PropertyMixer, QuadraticBezierCurve, QuadraticBezierCurve3, Quaternion, QuaternionKeyframeTrack, QuaternionLinearInterpolant, REVISION, RGBADepthPacking, RGBAFormat, RGBAIntegerFormat, RGBA_ASTC_10x10_Format, RGBA_ASTC_10x5_Format, RGBA_ASTC_10x6_Format, RGBA_ASTC_10x8_Format, RGBA_ASTC_12x10_Format, RGBA_ASTC_12x12_Format, RGBA_ASTC_4x4_Format, RGBA_ASTC_5x4_Format, RGBA_ASTC_5x5_Format, RGBA_ASTC_6x5_Format, RGBA_ASTC_6x6_Format, RGBA_ASTC_8x5_Format, RGBA_ASTC_8x6_Format, RGBA_ASTC_8x8_Format, RGBA_BPTC_Format, RGBA_ETC2_EAC_Format, RGBA_PVRTC_2BPPV1_Format, RGBA_PVRTC_4BPPV1_Format, RGBA_S3TC_DXT1_Format, RGBA_S3TC_DXT3_Format, RGBA_S3TC_DXT5_Format, RGBDEncoding, RGBEEncoding, RGBEFormat, RGBFormat, RGBIntegerFormat, RGBM16Encoding, RGBM7Encoding, RGB_ETC1_Format, RGB_ETC2_Format, RGB_PVRTC_2BPPV1_Format, RGB_PVRTC_4BPPV1_Format, RGB_S3TC_DXT1_Format, RGFormat, RGIntegerFormat, RawShaderMaterial, Ray, RectAreaLight, RedFormat, RedIntegerFormat, ReinhardToneMapping, RepeatWrapping, ReplaceStencilOp, ReverseSubtractEquation, RingBufferGeometry, RingGeometry, SRGB8_ALPHA8_ASTC_10x10_Format, SRGB8_ALPHA8_ASTC_10x5_Format, SRGB8_ALPHA8_ASTC_10x6_Format, SRGB8_ALPHA8_ASTC_10x8_Format, SRGB8_ALPHA8_ASTC_12x10_Format, SRGB8_ALPHA8_ASTC_12x12_Format, SRGB8_ALPHA8_ASTC_4x4_Format, SRGB8_ALPHA8_ASTC_5x4_Format, SRGB8_ALPHA8_ASTC_5x5_Format, SRGB8_ALPHA8_ASTC_6x5_Format, SRGB8_ALPHA8_ASTC_6x6_Format, SRGB8_ALPHA8_ASTC_8x5_Format, SRGB8_ALPHA8_ASTC_8x6_Format, SRGB8_ALPHA8_ASTC_8x8_Format, SceneUtils, ShaderChunk, ShaderLib, ShaderMaterial, ShadowMaterial, Shape, ShapeBufferGeometry, ShapeGeometry, ShapePath, ShapeUtils, ShortType, Skeleton, SkeletonHelper, SkinnedMesh, SmoothShading, Sphere, SphereBufferGeometry, SphereGeometry, Spherical, SphericalHarmonics3, SplineCurve, SpotLight, SpotLightHelper, Sprite, SpriteMaterial, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticCopyUsage, StaticDrawUsage, StaticReadUsage, StereoCamera, StreamCopyUsage, StreamDrawUsage, StreamReadUsage, StringKeyframeTrack, SubtractEquation, SubtractiveBlending, TOUCH, TangentSpaceNormalMap, TetrahedronBufferGeometry, TetrahedronGeometry, TextBufferGeometry, TextGeometry, Texture, TorusBufferGeometry, TorusGeometry, TorusKnotBufferGeometry, TorusKnotGeometry, Triangle, TriangleFanDrawMode, TriangleStripDrawMode, TrianglesDrawMode, TubeBufferGeometry, TubeGeometry, UVMapping, Uint16Attribute, Uint16BufferAttribute, Uint32Attribute, Uint32BufferAttribute, Uint8Attribute, Uint8BufferAttribute, Uint8ClampedAttribute, Uint8ClampedBufferAttribute, Uniform, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedInt248Type, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShort565Type, UnsignedShortType, VSMShadowMap, Vector4, VectorKeyframeTrack, Vertex, VertexColors, VideoTexture, WebGL1Renderer, WebGLCubeRenderTarget, WebGLMultipleRenderTargets, WebGLMultisampleRenderTarget, WebGLRenderTarget, WebGLRenderTargetCube, WebGLUtils, WireframeGeometry, WireframeHelper, WrapAroundEnding, XHRLoader, ZeroCurvatureEnding, ZeroFactor, ZeroSlopeEnding, ZeroStencilOp, sRGBEncoding */
+/* unused harmony exports ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationBlendMode, AdditiveBlending, AlphaFormat, AlwaysDepth, AlwaysStencilFunc, AmbientLight, AmbientLightProbe, AnimationClip, AnimationLoader, AnimationMixer, AnimationObjectGroup, AnimationUtils, ArcCurve, ArrayCamera, ArrowHelper, Audio, AudioAnalyser, AudioContext, AudioListener, AudioLoader, AxesHelper, AxisHelper, BackSide, BasicDepthPacking, BasicShadowMap, BinaryTextureLoader, Bone, BooleanKeyframeTrack, BoundingBoxHelper, Box2, Box3, Box3Helper, BoxBufferGeometry, BoxGeometry, BoxHelper, BufferGeometryLoader, ByteType, Cache, Camera, CameraHelper, CanvasRenderer, CanvasTexture, CatmullRomCurve3, CineonToneMapping, CircleBufferGeometry, ClampToEdgeWrapping, Clock, ColorKeyframeTrack, CompressedTexture, CompressedTextureLoader, ConeBufferGeometry, ConeGeometry, CubeCamera, CubeReflectionMapping, CubeRefractionMapping, CubeTexture, CubeTextureLoader, CubeUVReflectionMapping, CubeUVRefractionMapping, CubicBezierCurve, CubicBezierCurve3, CubicInterpolant, CullFaceBack, CullFaceFront, CullFaceFrontBack, CullFaceNone, Curve, CurvePath, CustomBlending, CustomToneMapping, CylinderBufferGeometry, CylinderGeometry, Cylindrical, DataTexture, DataTexture2DArray, DataTexture3D, DataTextureLoader, DataUtils, DecrementStencilOp, DecrementWrapStencilOp, DefaultLoadingManager, DepthFormat, DepthStencilFormat, DepthTexture, DirectionalLight, DirectionalLightHelper, DiscreteInterpolant, DodecahedronBufferGeometry, DodecahedronGeometry, DstAlphaFactor, DstColorFactor, DynamicBufferAttribute, DynamicCopyUsage, DynamicDrawUsage, DynamicReadUsage, EdgesGeometry, EdgesHelper, EllipseCurve, EqualDepth, EqualStencilFunc, EquirectangularReflectionMapping, EquirectangularRefractionMapping, Euler, EventDispatcher, ExtrudeBufferGeometry, ExtrudeGeometry, FaceColors, FileLoader, FlatShading, Float16BufferAttribute, Float32Attribute, Float64Attribute, Float64BufferAttribute, FloatType, Fog, FogExp2, Font, FontLoader, FrontSide, Frustum, GLBufferAttribute, GLSL1, GLSL3, GammaEncoding, GreaterDepth, GreaterEqualDepth, GreaterEqualStencilFunc, GreaterStencilFunc, GridHelper, Group, HalfFloatType, HemisphereLight, HemisphereLightHelper, HemisphereLightProbe, IcosahedronBufferGeometry, IcosahedronGeometry, ImageBitmapLoader, ImageLoader, ImageUtils, ImmediateRenderObject, IncrementStencilOp, IncrementWrapStencilOp, InstancedBufferAttribute, InstancedBufferGeometry, InstancedInterleavedBuffer, InstancedMesh, Int16Attribute, Int16BufferAttribute, Int32Attribute, Int32BufferAttribute, Int8Attribute, Int8BufferAttribute, IntType, InterleavedBuffer, InterleavedBufferAttribute, Interpolant, InterpolateDiscrete, InterpolateLinear, InterpolateSmooth, InvertStencilOp, JSONLoader, KeepStencilOp, KeyframeTrack, LOD, LatheBufferGeometry, LatheGeometry, Layers, LensFlare, LessDepth, LessEqualDepth, LessEqualStencilFunc, LessStencilFunc, Light, LightProbe, Line3, LineCurve, LineCurve3, LineDashedMaterial, LineLoop, LinePieces, LineSegments, LineStrip, LinearEncoding, LinearFilter, LinearInterpolant, LinearMipMapLinearFilter, LinearMipMapNearestFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearToneMapping, Loader, LoaderUtils, LoadingManager, LogLuvEncoding, LoopOnce, LoopPingPong, LoopRepeat, LuminanceAlphaFormat, LuminanceFormat, MOUSE, Material, MaterialLoader, Math, MathUtils, Matrix3, MaxEquation, MeshDepthMaterial, MeshDistanceMaterial, MeshFaceMaterial, MeshLambertMaterial, MeshMatcapMaterial, MeshNormalMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, MeshToonMaterial, MinEquation, MirroredRepeatWrapping, MixOperation, MultiMaterial, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipMapLinearFilter, NearestMipMapNearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NeverStencilFunc, NoBlending, NoColors, NoToneMapping, NormalAnimationBlendMode, NormalBlending, NotEqualDepth, NotEqualStencilFunc, NumberKeyframeTrack, Object3D, ObjectLoader, ObjectSpaceNormalMap, OctahedronBufferGeometry, OctahedronGeometry, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, OrthographicCamera, PCFShadowMap, PCFSoftShadowMap, PMREMGenerator, ParametricBufferGeometry, ParametricGeometry, Particle, ParticleBasicMaterial, ParticleSystem, ParticleSystemMaterial, Path, Plane, PlaneBufferGeometry, PlaneGeometry, PlaneHelper, PointCloud, PointCloudMaterial, PointLight, PointLightHelper, PolarGridHelper, PolyhedronBufferGeometry, PolyhedronGeometry, PositionalAudio, PropertyBinding, PropertyMixer, QuadraticBezierCurve, QuadraticBezierCurve3, Quaternion, QuaternionKeyframeTrack, QuaternionLinearInterpolant, REVISION, RGBADepthPacking, RGBAFormat, RGBAIntegerFormat, RGBA_ASTC_10x10_Format, RGBA_ASTC_10x5_Format, RGBA_ASTC_10x6_Format, RGBA_ASTC_10x8_Format, RGBA_ASTC_12x10_Format, RGBA_ASTC_12x12_Format, RGBA_ASTC_4x4_Format, RGBA_ASTC_5x4_Format, RGBA_ASTC_5x5_Format, RGBA_ASTC_6x5_Format, RGBA_ASTC_6x6_Format, RGBA_ASTC_8x5_Format, RGBA_ASTC_8x6_Format, RGBA_ASTC_8x8_Format, RGBA_BPTC_Format, RGBA_ETC2_EAC_Format, RGBA_PVRTC_2BPPV1_Format, RGBA_PVRTC_4BPPV1_Format, RGBA_S3TC_DXT1_Format, RGBA_S3TC_DXT3_Format, RGBA_S3TC_DXT5_Format, RGBDEncoding, RGBEEncoding, RGBEFormat, RGBFormat, RGBIntegerFormat, RGBM16Encoding, RGBM7Encoding, RGB_ETC1_Format, RGB_ETC2_Format, RGB_PVRTC_2BPPV1_Format, RGB_PVRTC_4BPPV1_Format, RGB_S3TC_DXT1_Format, RGFormat, RGIntegerFormat, RawShaderMaterial, Ray, RectAreaLight, RedFormat, RedIntegerFormat, ReinhardToneMapping, RepeatWrapping, ReplaceStencilOp, ReverseSubtractEquation, RingBufferGeometry, RingGeometry, SRGB8_ALPHA8_ASTC_10x10_Format, SRGB8_ALPHA8_ASTC_10x5_Format, SRGB8_ALPHA8_ASTC_10x6_Format, SRGB8_ALPHA8_ASTC_10x8_Format, SRGB8_ALPHA8_ASTC_12x10_Format, SRGB8_ALPHA8_ASTC_12x12_Format, SRGB8_ALPHA8_ASTC_4x4_Format, SRGB8_ALPHA8_ASTC_5x4_Format, SRGB8_ALPHA8_ASTC_5x5_Format, SRGB8_ALPHA8_ASTC_6x5_Format, SRGB8_ALPHA8_ASTC_6x6_Format, SRGB8_ALPHA8_ASTC_8x5_Format, SRGB8_ALPHA8_ASTC_8x6_Format, SRGB8_ALPHA8_ASTC_8x8_Format, SceneUtils, ShaderChunk, ShaderLib, ShaderMaterial, ShadowMaterial, Shape, ShapeBufferGeometry, ShapeGeometry, ShapePath, ShapeUtils, ShortType, Skeleton, SkeletonHelper, SkinnedMesh, SmoothShading, Sphere, SphereBufferGeometry, SphereGeometry, Spherical, SphericalHarmonics3, SplineCurve, SpotLight, SpotLightHelper, Sprite, SpriteMaterial, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticCopyUsage, StaticDrawUsage, StaticReadUsage, StereoCamera, StreamCopyUsage, StreamDrawUsage, StreamReadUsage, StringKeyframeTrack, SubtractEquation, SubtractiveBlending, TOUCH, TangentSpaceNormalMap, TetrahedronBufferGeometry, TetrahedronGeometry, TextBufferGeometry, TextGeometry, Texture, TorusBufferGeometry, TorusGeometry, TorusKnotBufferGeometry, TorusKnotGeometry, Triangle, TriangleFanDrawMode, TriangleStripDrawMode, TrianglesDrawMode, TubeBufferGeometry, TubeGeometry, UVMapping, Uint16Attribute, Uint16BufferAttribute, Uint32Attribute, Uint32BufferAttribute, Uint8Attribute, Uint8BufferAttribute, Uint8ClampedAttribute, Uint8ClampedBufferAttribute, Uniform, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedInt248Type, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShort565Type, UnsignedShortType, VSMShadowMap, Vector4, VectorKeyframeTrack, Vertex, VertexColors, VideoTexture, WebGL1Renderer, WebGLCubeRenderTarget, WebGLMultipleRenderTargets, WebGLMultisampleRenderTarget, WebGLRenderTarget, WebGLRenderTargetCube, WebGLUtils, WireframeGeometry, WireframeHelper, WrapAroundEnding, XHRLoader, ZeroCurvatureEnding, ZeroFactor, ZeroSlopeEnding, ZeroStencilOp, sRGBEncoding */
 /**
  * @license
  * Copyright 2010-2021 Three.js Authors
@@ -49647,226 +49644,6 @@ if ( typeof window !== 'undefined' ) {
 
 
 
-/***/ }),
-
-/***/ "./node_modules/three/examples/jsm/controls/DragControls.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/three/examples/jsm/controls/DragControls.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DragControls": () => (/* binding */ DragControls)
-/* harmony export */ });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-
-
-const _plane = new three__WEBPACK_IMPORTED_MODULE_0__.Plane();
-const _raycaster = new three__WEBPACK_IMPORTED_MODULE_0__.Raycaster();
-
-const _pointer = new three__WEBPACK_IMPORTED_MODULE_0__.Vector2();
-const _offset = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3();
-const _intersection = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3();
-const _worldPosition = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3();
-const _inverseMatrix = new three__WEBPACK_IMPORTED_MODULE_0__.Matrix4();
-
-class DragControls extends three__WEBPACK_IMPORTED_MODULE_0__.EventDispatcher {
-
-	constructor( _objects, _camera, _domElement ) {
-
-		super();
-
-		_domElement.style.touchAction = 'none'; // disable touch scroll
-
-		let _selected = null, _hovered = null;
-
-		const _intersections = [];
-
-		//
-
-		const scope = this;
-
-		function activate() {
-
-			_domElement.addEventListener( 'pointermove', onPointerMove );
-			_domElement.addEventListener( 'pointerdown', onPointerDown );
-			_domElement.addEventListener( 'pointerup', onPointerCancel );
-			_domElement.addEventListener( 'pointerleave', onPointerCancel );
-
-		}
-
-		function deactivate() {
-
-			_domElement.removeEventListener( 'pointermove', onPointerMove );
-			_domElement.removeEventListener( 'pointerdown', onPointerDown );
-			_domElement.removeEventListener( 'pointerup', onPointerCancel );
-			_domElement.removeEventListener( 'pointerleave', onPointerCancel );
-
-			_domElement.style.cursor = '';
-
-		}
-
-		function dispose() {
-
-			deactivate();
-
-		}
-
-		function getObjects() {
-
-			return _objects;
-
-		}
-
-		function onPointerMove( event ) {
-
-			if ( scope.enabled === false ) return;
-
-			updatePointer( event );
-
-			_raycaster.setFromCamera( _pointer, _camera );
-
-			if ( _selected ) {
-
-				if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
-
-					_selected.position.copy( _intersection.sub( _offset ).applyMatrix4( _inverseMatrix ) );
-
-				}
-
-				scope.dispatchEvent( { type: 'drag', object: _selected } );
-
-				return;
-
-			}
-
-			// hover support
-
-			if ( event.pointerType === 'mouse' || event.pointerType === 'pen' ) {
-
-				_intersections.length = 0;
-
-				_raycaster.setFromCamera( _pointer, _camera );
-				_raycaster.intersectObjects( _objects, true, _intersections );
-
-				if ( _intersections.length > 0 ) {
-
-					const object = _intersections[ 0 ].object;
-
-					_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), _worldPosition.setFromMatrixPosition( object.matrixWorld ) );
-
-					if ( _hovered !== object && _hovered !== null ) {
-
-						scope.dispatchEvent( { type: 'hoveroff', object: _hovered } );
-
-						_domElement.style.cursor = 'auto';
-						_hovered = null;
-
-					}
-
-					if ( _hovered !== object ) {
-
-						scope.dispatchEvent( { type: 'hoveron', object: object } );
-
-						_domElement.style.cursor = 'pointer';
-						_hovered = object;
-
-					}
-
-				} else {
-
-					if ( _hovered !== null ) {
-
-						scope.dispatchEvent( { type: 'hoveroff', object: _hovered } );
-
-						_domElement.style.cursor = 'auto';
-						_hovered = null;
-
-					}
-
-				}
-
-			}
-
-		}
-
-		function onPointerDown( event ) {
-
-			if ( scope.enabled === false ) return;
-
-			updatePointer( event );
-
-			_intersections.length = 0;
-
-			_raycaster.setFromCamera( _pointer, _camera );
-			_raycaster.intersectObjects( _objects, true, _intersections );
-
-			if ( _intersections.length > 0 ) {
-
-				_selected = ( scope.transformGroup === true ) ? _objects[ 0 ] : _intersections[ 0 ].object;
-
-				_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), _worldPosition.setFromMatrixPosition( _selected.matrixWorld ) );
-
-				if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
-
-					_inverseMatrix.copy( _selected.parent.matrixWorld ).invert();
-					_offset.copy( _intersection ).sub( _worldPosition.setFromMatrixPosition( _selected.matrixWorld ) );
-
-				}
-
-				_domElement.style.cursor = 'move';
-
-				scope.dispatchEvent( { type: 'dragstart', object: _selected } );
-
-			}
-
-
-		}
-
-		function onPointerCancel() {
-
-			if ( scope.enabled === false ) return;
-
-			if ( _selected ) {
-
-				scope.dispatchEvent( { type: 'dragend', object: _selected } );
-
-				_selected = null;
-
-			}
-
-			_domElement.style.cursor = _hovered ? 'pointer' : 'auto';
-
-		}
-
-		function updatePointer( event ) {
-
-			const rect = _domElement.getBoundingClientRect();
-
-			_pointer.x = ( event.clientX - rect.left ) / rect.width * 2 - 1;
-			_pointer.y = - ( event.clientY - rect.top ) / rect.height * 2 + 1;
-
-		}
-
-		activate();
-
-		// API
-
-		this.enabled = true;
-		this.transformGroup = false;
-
-		this.activate = activate;
-		this.deactivate = deactivate;
-		this.dispose = dispose;
-		this.getObjects = getObjects;
-
-	}
-
-}
-
-
-
-
 /***/ })
 
 /******/ 	});
@@ -49920,22 +49697,19 @@ var __webpack_exports__ = {};
 /*!***********************!*\
   !*** ./src/script.js ***!
   \***********************/
-/* harmony import */ var _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/three/build/three.module.js */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var _node_modules_three_examples_jsm_controls_DragControls__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/three/examples/jsm/controls/DragControls */ "./node_modules/three/examples/jsm/controls/DragControls.js");
+/* harmony import */ var _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/three/build/three.module.js */ "./node_modules/three/build/three.module.js");
 
 
-
-let renderer, scene, camera, raycaster, controls, mouse;
-let line, area, group;
+let renderer, scene, camera, raycaster, mouse;
+let line, area, particles, group;
 let MAX_POINTS;
 let pointCount;
 
-let selectedPoint = null;
+let selectedPointIndex = null;
 let selectedPointInfoDiv;
 
 //mouse events
 let dragStarted = false;
-const objects = []
 let latestMouseProjection;
 let hoveredObj;
 
@@ -49946,27 +49720,24 @@ function init() {
     selectedPointInfoDiv = document.getElementById("selected-point-info")
 
     // renderer
-    renderer = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.WebGLRenderer();
+    renderer = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    mouse = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Vector2();
-    raycaster = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Raycaster();
+    mouse = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector2();
+    raycaster = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Raycaster();
 
     MAX_POINTS = 50;
     pointCount = 0;
 
     // scene
-    scene = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Scene();
-    scene.background = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Color(0xf0f0f0);
+    scene = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Scene();
+    scene.background = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color(0xf0f0f0);
 
     // camera
-    camera = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(0, 0, 1000);
-
-    //drag drop
-    controls = new _node_modules_three_examples_jsm_controls_DragControls__WEBPACK_IMPORTED_MODULE_0__.DragControls(objects, camera, renderer.domElement);
+    camera = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    camera.position.z = 250;
 
     initEventListeners()
 
@@ -49981,47 +49752,47 @@ function init() {
 
 
 function initEventListeners() {
-    controls.addEventListener('dragstart', () => dragStarted = true)
-    controls.addEventListener('drag', function (event) {
-        modifyVectorCoordinates(line, event.object);
-    })
-    document.querySelector("canvas").addEventListener('mousemove', onMouseMove, false);
+    // window.addEventListener("mousedown", mouseDown, false);
+    // window.addEventListener("mousemove", mouseMove, false);
+    // window.addEventListener("mouseup", mouseUp, false);
+
+    //document.querySelector("canvas").addEventListener('mousemove', onMouseMove, false);
     document.querySelector("canvas").addEventListener('click', onClickHandler, false);
+    window.addEventListener('resize', onWindowResize);
 }
 
 function initObjects() {
     // line
-    const lineGeometry = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.BufferGeometry();
+    const lineGeometry = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
     const positions = new Float32Array();
-    lineGeometry.setAttribute('position', new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.BufferAttribute(positions, 3));
-    const material = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.LineBasicMaterial({color: "grey"});
-    line = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Line(lineGeometry, material);
-
+    const colors = new Float32Array();
+    lineGeometry.setAttribute('position', new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.BufferAttribute(positions, 3));
+    lineGeometry.setAttribute('color', new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(colors, 3));
+    const material = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.LineBasicMaterial({color: "grey"});
+    line = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Line(lineGeometry, material);
 
     // area
-    const areaMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.MeshBasicMaterial({
+    const areaMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial({
         transparent: true,
         color: "green",
         alphaTest: 0.2,
         opacity: 0.2,
-        side: _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.DoubleSide
+        side: _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.DoubleSide
     });
-    area = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Mesh(lineGeometry, areaMaterial);
+    area = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Mesh(lineGeometry, areaMaterial);
     scene.add(area);
 
-    const sprite = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.TextureLoader().load('/disc.png');
+    const sprite = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.TextureLoader().load('/circle.png');
 
-    const markerMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.PointsMaterial({
-        color: 0xFFFFFF,
-        size: 50,
+    const markerMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.PointsMaterial({
+        vertexColors: true,
+        size: 14,
         map: sprite,
-        transparent: true,
-        blending: _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.AdditiveBlending,
-        fog: false,
-        depthTest: false,
+        //blending: THREE.AdditiveBlending,
+        transparent: true, depthTest: false
     })
 
-    const particles = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Points(line.geometry, markerMaterial);
+    particles = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Points(line.geometry, markerMaterial);
     scene.add(particles);
 }
 
@@ -50037,13 +49808,13 @@ function modifyVectorCoordinates(line, object) {
 function addDot(x, y, z, index) {
     console.log(x, y, z)
     const size = 10;
-    const markerGeometry = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.CircleGeometry(size, 32);
-    const markerMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.MeshBasicMaterial({
+    const markerGeometry = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.CircleGeometry(size, 32);
+    const markerMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial({
         color: "white",
         transparent: false,
     });
-    const marker = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Mesh(markerGeometry, markerMaterial);
-    marker.applyMatrix4(new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Matrix4().makeTranslation(x, y, z));
+    const marker = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Mesh(markerGeometry, markerMaterial);
+    marker.applyMatrix4(new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Matrix4().makeTranslation(x, y, z));
     scene.add(marker);
     objects.push(marker)
     marker.userData.indexInLine = index;
@@ -50051,6 +49822,7 @@ function addDot(x, y, z, index) {
 
 function animate() {
     renderer.render(scene, camera);
+    requestAnimationFrame(animate);
 }
 
 // Mouse Events
@@ -50059,8 +49831,16 @@ function onClickHandler(event) {
     event.preventDefault();
     unselectAllPoints()
     let intersections = getIntersections(event)
+    console.log(intersections)
     if (intersections.length > 0) {
-        selectPoint(intersections[0])
+        if (intersections[0].index == selectedPointIndex) return
+        if (selectedPointIndex && intersections[0].index != selectedPointIndex) {
+            unselectPoint(selectedPointIndex, line.geometry)
+            selectPoint(intersections[0].index)
+            return
+        }
+        selectPoint(intersections[0].index)
+        return
     }
     if (!dragStarted) { // prevent from creating new points if drag event started
         let pos = getMousePosition(event)
@@ -50076,16 +49856,25 @@ function onClickHandler(event) {
 }
 
 function addVerticeToGeometry(geometry, index, newCoordinates) {
-    let positions = geometry.attributes.position.array;
+    const positions = geometry.attributes.position.array;
+    const colors = geometry.attributes.color.array;
+    const color = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color("rgb(255, 255, 255)");
     if (positions.length > 0) {
         let newpositions = Array.from(positions);
+        let newColors = Array.from(colors);
+        newColors[index] = color.r
         newpositions[index++] = newCoordinates.x;
+        newColors[index] = color.g
         newpositions[index++] = newCoordinates.y;
+        newColors[index] = color.b
         newpositions[index] = newCoordinates.z;
-        geometry.setAttribute("position", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Float32BufferAttribute(newpositions, 3))
+        geometry.setAttribute("position", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(newpositions, 3))
+        geometry.setAttribute("color", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(newColors, 3))
     } else {
-        geometry.setAttribute("position", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Float32BufferAttribute([newCoordinates.x, newCoordinates.y, newCoordinates.z], 3))
+        geometry.setAttribute("position", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute([newCoordinates.x, newCoordinates.y, newCoordinates.z], 3))
+        geometry.setAttribute("color", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute([color.r, color.g, color.b], 3))
     }
+    geometry.computeBoundingSphere() // needed for intersection detection
 }
 
 function updateGeometryIndexes(geometry) {
@@ -50105,15 +49894,35 @@ function updateGeometryIndexes(geometry) {
     }
 }
 
-function selectPoint(intersection) {
-    selectedPoint = intersection.object
-    selectedPoint.material.color.setHex(0xffff00)
-    selectedPointInfoDiv.innerHTML = "Selected point: " + selectedPoint.uuid
+function changePointColor(index, color, geometry, colorsArray) {
+    colorsArray[index * 3] = color.r
+    colorsArray[index * 3 + 1] = color.g
+    colorsArray[index * 3 + 2] = color.b
+    geometry.attributes.color.needsUpdate = true;
+}
+
+function unselectPoint(index, geometry) {
+    const colors = geometry.attributes.color.array;
+    const defaultColor = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color("rgb(255, 255, 255)");
+    changePointColor(index, defaultColor, geometry, colors)
+}
+
+function selectPoint(index) {
+    selectedPointIndex = index
+    const colors = line.geometry.attributes.color.array;
+    const colorOfSelection = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Color("rgb(255, 255, 0)");
+    changePointColor(selectedPointIndex, colorOfSelection, line.geometry, colors)
+    addSelectedPointInfoText(selectedPointIndex)
+}
+
+function addSelectedPointInfoText(index) {
+    selectedPointInfoDiv.innerHTML = "Selected point: " + index
     const btn = document.createElement("button")
     btn.textContent = "Delete"
-    btn.addEventListener("click", (event) => deletePoint(selectedPoint))
+//btn.addEventListener("click", (event) => deletePoint(selectedPoint))
     selectedPointInfoDiv.appendChild(btn)
 }
+
 
 function deletePoint(pointObject) {
     const index = objects.indexOf(pointObject)
@@ -50147,14 +49956,14 @@ function removeVectorFromGeometry(geometry, index) {
         newpositions[i] = newpositions[i + 3]
     }
     newpositions.splice(newpositions.length - 4, 3)
-    geometry.setAttribute("position", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Float32BufferAttribute(newpositions, 3))
+    geometry.setAttribute("position", new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(newpositions, 3))
 }
 
 function unselectAllPoints() {
-    selectedPoint = null;
-    objects.forEach(o => {
-        o.material.color.setHex(0xffffff)
-    })
+    // selectedPointIndex = null;
+    // objects.forEach(o => {
+    //     o.material.color.setHex(0xffffff)
+    // })
 }
 
 function onMouseMove(event) {
@@ -50176,8 +49985,8 @@ function handleManipulationUpdate() {
 }
 
 function updateMouseCoords(event, coordsObj) {
-    const vec = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Vector3();
-    const pos = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Vector3();
+    const vec = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector3();
+    const pos = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector3();
     vec.set(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1,
@@ -50190,12 +49999,12 @@ function updateMouseCoords(event, coordsObj) {
 
 
 function getMousePosition(event) {
-    const vec = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Vector3();
-    const pos = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Vector3();
+    const vec = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector3();
+    const pos = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__.Vector3();
     vec.set(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1,
-        0);
+        0.5);
     vec.unproject(camera);
     vec.sub(camera.position).normalize();
     const distance = -camera.position.z / vec.z;
@@ -50207,72 +50016,21 @@ function getIntersections(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
-    return raycaster.intersectObjects(objects, true);
+    return raycaster.intersectObject(particles, true);
 }
 
 
-function createAShapeForTest(line) {
-
-    addVerticeToGeometry(line.geometry, 0, {x: -200, y: -100, z: 0})
-    addVerticeToGeometry(line.geometry, 3, {x: -100, y: 100, z: 0})
-    addVerticeToGeometry(line.geometry, 6, {x: 0, y: 0, z: 0})
-    addVerticeToGeometry(line.geometry, 9, {x: -10, y: -50, z: 0})
-    addVerticeToGeometry(line.geometry, 12, {x: -20, y: -100, z: 0})
-
-    const sprite = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.TextureLoader().load('/disc.png');
-
-    const markerMaterial = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.PointsMaterial({
-        color: 0xFFFFFF,
-        size: 50,
-        map: sprite,
-        transparent: true,
-        blending: _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.AdditiveBlending,
-        fog: false,
-        depthTest: false,
-    })
-
-    const particles = new _node_modules_three_build_three_module_js__WEBPACK_IMPORTED_MODULE_1__.Points(line.geometry, markerMaterial);
-    scene.add(particles);
-    //
-    // addDot(-200, -100, 0, 0)
-    // addDot(-100, 100, 0, 3)
-    // addDot(0, 0, 0, 6)
-    // addDot(-10, -50, 0, 9)
-    // addDot(-20, -100, 0, 12)
-
-    line.geometry.setIndex([0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 5]);
-
-    loop()
-    //
-    // const geometry = new THREE.BufferGeometry();
-    // const vertices = [];
-
-    // const sprite = new THREE.TextureLoader().load( 'textures/sprites/disc.png' );
-    //
-    // for ( let i = 0; i < 10000; i ++ ) {
-    //
-    //     const x = 2000 * Math.random() - 1000;
-    //     const y = 2000 * Math.random() - 1000;
-    //     const z = 2000 * Math.random() - 1000;
-    //
-    //     vertices.push( x, y, z );
-    //
-    // }
-    //
-    // geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-    //
-    // material = new THREE.PointsMaterial( { size: 35, sizeAttenuation: true, map: sprite, alphaTest: 0.5, transparent: true } );
-    // material.color.setHSL( 1.0, 0.3, 0.7 );
-    //
-    // const particles = new THREE.Points( geometry, material );
-    // scene.add( particles );
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
 
-function loop() {
-    renderer.render(scene, camera);
-    requestAnimationFrame(loop);
-}
+
+
+
+
 })();
 
 /******/ })()
