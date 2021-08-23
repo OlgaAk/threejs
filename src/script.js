@@ -105,16 +105,14 @@ function animate() {
 function onClickHandler(event) {
     event.preventDefault();
     let intersections = getIntersections(event)
-    console.log(intersections)
     if (intersections.length > 0) {
-        if (intersections[0].index == selectedPointIndex) return
-        if (selectedPointIndex != null && intersections[0].index != selectedPointIndex) {
-            unselectPoint(selectedPointIndex, line.geometry)
-            selectPoint(intersections[0].index)
+        if (intersections[0].index == selectedPointIndex) {
             return
         }
+        unselectPoint(selectedPointIndex, line.geometry)
         selectPoint(intersections[0].index)
         return
+
     } else {
         if (selectedPointIndex != null) {
             unselectPoint(selectedPointIndex, line.geometry)
@@ -129,37 +127,44 @@ function onClickHandler(event) {
         pointCount += 3
         animate()
     }
-    //  else {
-    //     dragging = false
-    //     animate()
-    // }
 }
 
 function addVerticeToGeometry(geometry, index, newCoordinates) {
+    addNewPositionsToGeometry(geometry, index, newCoordinates)
+    addNewColorsToGeometry(geometry, index, newCoordinates)
+    index += 3
+}
+
+function addNewPositionsToGeometry(geometry, index, newCoordinates) {
     const positions = geometry.attributes.position.array;
-    const colors = geometry.attributes.color.array;
-    const color = new THREE.Color("rgb(255, 255, 255)");
     if (positions.length > 0) {
         let newpositions = Array.from(positions);
-        let newColors = Array.from(colors);
-        newColors[index] = color.r
-        newpositions[index++] = newCoordinates.x;
-        newColors[index] = color.g
-        newpositions[index++] = newCoordinates.y;
-        newColors[index] = color.b
-        newpositions[index] = newCoordinates.z;
+        newpositions[index] = newCoordinates.x;
+        newpositions[index + 1] = newCoordinates.y;
+        newpositions[index + 2] = newCoordinates.z;
         geometry.setAttribute("position", new THREE.Float32BufferAttribute(newpositions, 3))
-        geometry.setAttribute("color", new THREE.Float32BufferAttribute(newColors, 3))
     } else {
         geometry.setAttribute("position", new THREE.Float32BufferAttribute([newCoordinates.x, newCoordinates.y, newCoordinates.z], 3))
-        geometry.setAttribute("color", new THREE.Float32BufferAttribute([color.r, color.g, color.b], 3))
     }
     geometry.computeBoundingSphere() // needed for intersection detection
 }
 
+function addNewColorsToGeometry(geometry, index, newCoordinates) {
+    const colors = geometry.attributes.color.array;
+    const color = new THREE.Color("rgb(255, 255, 255)");
+    if (colors.length > 0) {
+        let newColors = Array.from(colors);
+        newColors[index] = color.r
+        newColors[index + 1] = color.g
+        newColors[index + 2] = color.b
+        geometry.setAttribute("color", new THREE.Float32BufferAttribute(newColors, 3))
+    } else {
+        geometry.setAttribute("color", new THREE.Float32BufferAttribute([color.r, color.g, color.b], 3))
+    }
+}
 
-function updateVertice(geometry, index, newCoordinates) {
-    index *= 3
+
+function updateVerticePositions(geometry, index, newCoordinates) {
     const positions = geometry.attributes.position.array;
     positions[index++] = newCoordinates.x;
     positions[index++] = newCoordinates.y;
@@ -171,7 +176,7 @@ function updateVertice(geometry, index, newCoordinates) {
 function updateGeometryIndexes(geometry) {
     let positions = geometry.attributes.position.array;
     if (positions.length == 9) { // first triangle needs three vertices or 9 positions
-        geometry.setIndex([1, 2, 0])
+        geometry.setIndex([1, 2, 0]) // first index
         return
     }
     if (geometry.getIndex() && geometry.getIndex().count >= 3) { // if first triangle was already formed
@@ -181,7 +186,6 @@ function updateGeometryIndexes(geometry) {
         newIndexes.push(lastElement + 1)
         newIndexes.push(0)
         geometry.setIndex(newIndexes)
-        console.log(geometry.getIndex())
     }
 }
 
@@ -255,24 +259,29 @@ function shiftElementsLeft(elements, index) {
 }
 
 function mouseDown(event) {
-    selectedPointIndex = null
-    setRaycaster(event);
-    getIndex();
+    let intersections = getIntersections(event)
+    if (intersections.length > 0) {
+        if(intersections[0].index == selectedPointIndex) {
+            unselectPoint(selectedPointIndex, line.geometry)
+        } else{
+            unselectPoint(selectedPointIndex, line.geometry)
+            selectedPointIndex = intersections[0].index
+            selectPoint(selectedPointIndex)
+        }
+    }
     dragging = true;
 }
 
 function mouseMove(event) {
     if (dragging && selectedPointIndex !== null) {
-        setRaycaster(event);
         let pos = getMousePosition(event)
-        updateVertice(line.geometry, selectedPointIndex, pos)
+        updateVerticePositions(line.geometry, selectedPointIndex * 3, pos)
         line.geometry.attributes.position.needsUpdate = true;
     }
 }
 
 function mouseUp(event) {
     dragging = false;
-    selectedPointIndex = null;
 }
 
 
@@ -290,7 +299,7 @@ function getMouse(event) {
 function getIndex() {
     let intersects = raycaster.intersectObject(particles);
     if (intersects.length === 0) {
-        selectedPointIndex = null;
+        // selectedPointIndex = null;
         return;
     }
     selectedPointIndex = intersects[0].index;
