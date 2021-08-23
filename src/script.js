@@ -134,7 +134,7 @@ function onClickHandler(event) {
     console.log(intersections)
     if (intersections.length > 0) {
         if (intersections[0].index == selectedPointIndex) return
-        if (selectedPointIndex && intersections[0].index != selectedPointIndex) {
+        if (selectedPointIndex!=null && intersections[0].index != selectedPointIndex) {
             unselectPoint(selectedPointIndex, line.geometry)
             selectPoint(intersections[0].index)
             return
@@ -205,6 +205,7 @@ function unselectPoint(index, geometry) {
     const colors = geometry.attributes.color.array;
     const defaultColor = new THREE.Color("rgb(255, 255, 255)");
     changePointColor(index, defaultColor, geometry, colors)
+    selectedPointIndex = null
 }
 
 function selectPoint(index) {
