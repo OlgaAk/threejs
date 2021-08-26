@@ -35,8 +35,11 @@ function init() {
     camera.position.z = 250;
 
     initEventListeners()
-    initObjects()
-    geometry.attributes.position.needsUpdate = true;
+
+   initObjects()
+
+    drawDifferentLineTypes()
+
     renderer.render(scene, camera);
 }
 
@@ -75,6 +78,8 @@ function initObjects() {
         transparent: true, depthTest: false
     })
     particles = new THREE.Points(geometry, markerMaterial);
+
+    geometry.attributes.position.needsUpdate = true;
     scene.add(particles);
 }
 
@@ -284,6 +289,73 @@ function animate() {
 }
 
 
+// lines
+function drawDifferentLineTypes() {
+    const material = new THREE.LineBasicMaterial({color: 0x000000});
+    const points = [];
+    points.push(new THREE.Vector3(-100, 81, 0));
+    points.push(new THREE.Vector3(-70, 81, 0));
+
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(geometry, material);
+    scene.add(line);
+
+    const dashedMaterial = new THREE.LineDashedMaterial({
+        color: 0x000000,
+        linewidth: 1,
+        dashSize: 3,
+        gapSize: 1
+    });
+    const pointsDashed = [];
+    pointsDashed.push(new THREE.Vector3(-100, 75, 0));
+    pointsDashed.push(new THREE.Vector3(-70, 75, 0));
+
+    const geometryDashed = new THREE.BufferGeometry().setFromPoints(pointsDashed);
+    const dashedLine = new THREE.Line(geometryDashed, dashedMaterial);
+    dashedLine.computeLineDistances();
+    scene.add(dashedLine);
+
+    const materialLawn = new THREE.LineBasicMaterial({color: 0x339433});
+    const pointsLawn = [];
+    pointsLawn.push(new THREE.Vector3(-100, 59, 0));
+    pointsLawn.push(new THREE.Vector3(-70, 60, 0));
+    pointsLawn.push(new THREE.Vector3(-62, 72, 0));
+
+    const geometryLawn = new THREE.BufferGeometry().setFromPoints(pointsLawn);
+    const lineLawn = new THREE.Line(geometryLawn, materialLawn);
+    scene.add(lineLawn);
+
+    const materialLawnGrass = new THREE.LineBasicMaterial({color: 0x00A300});
+    const pointsLawnGrass = getLawnLinePoints(pointsLawn);
+    const geometryLawnGrass = new THREE.BufferGeometry().setFromPoints(pointsLawnGrass);
+    const lineLawnGrass = new THREE.Line(geometryLawnGrass, materialLawnGrass);
+    scene.add(lineLawnGrass);
+
+}
+
+
+function getLawnLinePoints(pointsLawnMainLine){
+    const lawnHeight = 1.5
+    const lawnGaps = 1.3
+    const newLawnPoints = []
+    newLawnPoints.push(pointsLawnMainLine[0])
+    for(let i=0; i<pointsLawnMainLine.length-1; i++){
+        const xDistance = pointsLawnMainLine[i+1].x - pointsLawnMainLine[i].x
+        for(let j = 1; j<xDistance; j+=lawnGaps){
+            const pointinBetween = getPointInBetweenByLen(pointsLawnMainLine[i], pointsLawnMainLine[i+1], j)
+            newLawnPoints.push(new THREE.Vector3(pointinBetween.x+lawnHeight,  pointinBetween.y+lawnHeight, 0))
+            newLawnPoints.push(new THREE.Vector3(pointinBetween.x,  pointinBetween.y+0.2*Math.random(), 0))
+        }
+    }
+    newLawnPoints.push(pointsLawnMainLine[pointsLawnMainLine.length-1])
+    return newLawnPoints
+}
+
+
+function getPointInBetweenByLen(pointA, pointB, length) {
+    var dir = pointB.clone().sub(pointA).normalize().multiplyScalar(length);
+    return pointA.clone().add(dir);
+}
 
 
 
