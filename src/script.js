@@ -36,7 +36,7 @@ function init() {
 
     initEventListeners()
 
-   initObjects()
+    initObjects()
 
     drawDifferentLineTypes()
 
@@ -315,43 +315,68 @@ function drawDifferentLineTypes() {
     dashedLine.computeLineDistances();
     scene.add(dashedLine);
 
+    //Lawn
     const materialLawn = new THREE.LineBasicMaterial({color: 0x339433});
     const pointsLawn = [];
     pointsLawn.push(new THREE.Vector3(-100, 59, 0));
     pointsLawn.push(new THREE.Vector3(-70, 60, 0));
     pointsLawn.push(new THREE.Vector3(-62, 72, 0));
+    pointsLawn.push(new THREE.Vector3(-62, 85, 0));
+    pointsLawn.push(new THREE.Vector3(-40, 90, 0));
+    pointsLawn.push(new THREE.Vector3(-30, 70, 0));
 
     const geometryLawn = new THREE.BufferGeometry().setFromPoints(pointsLawn);
     const lineLawn = new THREE.Line(geometryLawn, materialLawn);
     scene.add(lineLawn);
 
+    // Grass
     const materialLawnGrass = new THREE.LineBasicMaterial({color: 0x00A300});
     const pointsLawnGrass = getLawnLinePoints(pointsLawn);
     const geometryLawnGrass = new THREE.BufferGeometry().setFromPoints(pointsLawnGrass);
     const lineLawnGrass = new THREE.Line(geometryLawnGrass, materialLawnGrass);
     scene.add(lineLawnGrass);
-
 }
 
-
-function getLawnLinePoints(pointsLawnMainLine){
+function getLawnLinePoints(pointsLawnMainLine) {
     const lawnHeight = 1.5
     const lawnGaps = 1.3
     const newLawnPoints = []
-    newLawnPoints.push(pointsLawnMainLine[0])
-    for(let i=0; i<pointsLawnMainLine.length-1; i++){
-        const xDistance = pointsLawnMainLine[i+1].x - pointsLawnMainLine[i].x
-        for(let j = 1; j<xDistance; j+=lawnGaps){
-            const pointinBetween = getPointInBetweenByLen(pointsLawnMainLine[i], pointsLawnMainLine[i+1], j)
-            newLawnPoints.push(new THREE.Vector3(pointinBetween.x+lawnHeight,  pointinBetween.y+lawnHeight, 0))
-            newLawnPoints.push(new THREE.Vector3(pointinBetween.x,  pointinBetween.y+0.2*Math.random(), 0))
+    for (let i = 0; i < pointsLawnMainLine.length - 1; i++) {
+        newLawnPoints.push(pointsLawnMainLine[i])
+        const xDistance = Math.abs(pointsLawnMainLine[i + 1].x - pointsLawnMainLine[i].x)
+        const yDistance = Math.abs(pointsLawnMainLine[i + 1].y - pointsLawnMainLine[i].y)
+        const lineDirectionIsDown = (pointsLawnMainLine[i + 1].y - pointsLawnMainLine[i].y) < 0
+        let distance, ratio
+        distance = xDistance > yDistance ? xDistance : yDistance
+        ratio = xDistance > yDistance ? yDistance / xDistance : xDistance / yDistance
+        for (let j = 1; j <= distance; j += lawnGaps) {
+            addTwoGrassPointsToLine(pointsLawnMainLine, j, xDistance, yDistance, lineDirectionIsDown, i, lawnHeight, ratio, newLawnPoints)
         }
+        newLawnPoints.push(pointsLawnMainLine[i + 1])
     }
-    newLawnPoints.push(pointsLawnMainLine[pointsLawnMainLine.length-1])
     return newLawnPoints
 }
 
+function addTwoGrassPointsToLine(pointsLawnMainLine, j, xDistance, yDistance, lineDirectionIsDown, i, lawnHeight, ratio, newLawnPoints) {
+    const pointinBetween = getPointInBetweenByLen(pointsLawnMainLine[i], pointsLawnMainLine[i + 1], j)
+    let xlawnHeight = lawnHeight
+    let ylawnHeight = lawnHeight
+    // if angle between 40-70 grades change grass height
+    if (ratio > 0.4 && ratio < 0.7) {
+        xlawnHeight = lawnHeight / 2
+        ylawnHeight = lawnHeight * 1.2
+    }
+    if (xDistance > yDistance || lineDirectionIsDown) {
+        newLawnPoints.push(new THREE.Vector3(pointinBetween.x + xlawnHeight, pointinBetween.y + ylawnHeight, 0))
+        newLawnPoints.push(new THREE.Vector3(pointinBetween.x, pointinBetween.y + 0.2 * Math.random(), 0))
+    } else {
+        // x coordinate decreases
+        newLawnPoints.push(new THREE.Vector3(pointinBetween.x - xlawnHeight, pointinBetween.y + ylawnHeight, 0))
+        newLawnPoints.push(new THREE.Vector3(pointinBetween.x - 0.2, pointinBetween.y, 0))
+    }
+}
 
+// get point coordinate between two vectors
 function getPointInBetweenByLen(pointA, pointB, length) {
     var dir = pointB.clone().sub(pointA).normalize().multiplyScalar(length);
     return pointA.clone().add(dir);
