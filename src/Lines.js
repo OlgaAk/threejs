@@ -1,5 +1,5 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
-import {init, scene, mouse, raycaster, camera, renderer} from "./main"
+import {init, scene, mouse, raycaster, camera, renderer} from "./ProjectScene"
 
 // lines
 function drawDifferentLineTypes() {

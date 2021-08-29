@@ -1,8 +1,8 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 
-export let renderer, scene, camera, raycaster, mouse, selectedPointInfoDiv;
+export let renderer, scene, camera, raycaster, mouse;
 
-export function init() {
+export function initScene() {
 
     selectedPointInfoDiv = document.getElementById("selected-point-info")
 
@@ -20,12 +20,6 @@ export function init() {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 250;
 
-    //initEventListeners()
-
-    // initObjects()
-    //
-    // drawDifferentLineTypes()
-
     window.addEventListener('resize', onWindowResize);
 
     renderer.render(scene, camera);
@@ -36,6 +30,8 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
+
 
 export function animate() {
     renderer.render(scene, camera);
