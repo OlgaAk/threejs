@@ -26,7 +26,7 @@ class ProjectScene{
 
     animate() {
         this.renderer.render(this.scene, this.camera);
-        //requestAnimationFrame(this.animate);
+        requestAnimationFrame(this.animate.bind(this));
     }
 
     onWindowResize() {
