@@ -1,5 +1,5 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
-import {init, scene, mouse, raycaster, camera, renderer, animate, selectedPointInfoDiv} from "./ProjectScene"
+import {projectScene} from "./ProjectScene"
 
 
 export class OneGeometryPolygon {
@@ -10,60 +10,38 @@ export class OneGeometryPolygon {
         this.pointCount = 0;
         this.selectedPointIndex = null;
         this.dragging = false
-        this.objectsToAddToScene = [area, particles]
+        this.elementsToAddToScene = [area, particles]
         this.DEFAULT_COLOR = "rgb(255, 255, 255)"
         this.SELECTION_COLOR = "rgb(255, 255, 0)"
-        this.SELECTION_TEXT = "Selected point: ";
-    }
 
-
-    addToScene() {
-        this.objectsToAddToScene.forEach(o => scene.add(o))
-    }
-
-    removeFromScene() {
-        this.geometry.dispose()
-        this.objectsToAddToScene.forEach(o => {
-            o.matreial.dispose()
-            o.dispose()
-        })
-    }
-
-    init() {
-        this.initEventListeners()
-    }
-
-    initEventListeners() {
-        window.addEventListener("mousedown", this.mouseDown.bind(this), false);
-        window.addEventListener("mousemove", this.mouseMove.bind(this), false);
-        window.addEventListener("mouseup", this.mouseUp.bind(this), false);
-        document.querySelector("canvas").addEventListener('click', this.onClickHandler.bind(this), false);
     }
 
     onClickHandler(event) {
         event.preventDefault();
-        let intersections = this.getIntersections(event)
-        if (intersections.length > 0) {
-            // this code already called by mouseDown
-            //     if (intersections[0].index == this.selectedPointIndex) return
-            //     this.unselectPoint(this.selectedPointIndex, this.geometry)
-            //     this.selectedPointIndex =intersections[0].index
-            //     this.selectPoint()
-            return
-        }
-        if (!this.dragging) { // prevent from creating new points if drag event started
-            let pos = this.getMousePosition(event)
-            this.addVerticeToGeometry(this.pointCount, pos)
-            this.updateGeometryIndexes()
-            this.pointCount += 3
-            animate()
+        let intersections = projectScene.getIntersections(event, this.particles)
+        if (!this.dragging) {
+            if (intersections.length > 0) {
+                if (this.selectedPointIndex != null) {
+                    this.unselectPoint(this.selectedPointIndex, this.geometry)
+                }
+                if (this.selectedPointIndex != intersections[0].index) {
+                    this.selectedPointIndex = intersections[0].index
+                    this.selectPoint()
+                }
+            } else {
+                let pos = projectScene.getMousePosition(event)
+                this.addVerticeToGeometry(this.pointCount, pos)
+                this.updateGeometryIndexes()
+                this.pointCount += 3
+                projectScene.animate()
+            }
         }
     }
 
     addVerticeToGeometry(index, newCoordinates) {
         this.addNewPositionsToGeometry(index, newCoordinates)
         this.addNewColorsToGeometry(index, newCoordinates)
-    }
+     }
 
     addNewPositionsToGeometry(index, newCoordinates) {
         const positions = this.geometry.attributes.position.array;
@@ -125,14 +103,16 @@ export class OneGeometryPolygon {
         colorsArray[index + 1] = color.g
         colorsArray[index + 2] = color.b
         this.geometry.attributes.color.needsUpdate = true;
+        projectScene.animate()
     }
 
     unselectPoint() {
+        if (this.selectedPointIndex == null) return
         const colors = this.geometry.attributes.color.array;
         const defaultColor = new THREE.Color(this.DEFAULT_COLOR);
         this.changePointColor(this.selectedPointIndex * 3, defaultColor, colors)
         this.selectedPointIndex = null
-        selectedPointInfoDiv.innerHTML = this.SELECTION_TEXT
+        projectScene.selectedPointInfoDiv.innerHTML = projectScene.SELECTION_TEXT
     }
 
     selectPoint() {
@@ -143,11 +123,11 @@ export class OneGeometryPolygon {
     }
 
     addSelectedPointInfoText(index) {
-        selectedPointInfoDiv.innerHTML = this.SELECTION_TEXT + index
+        projectScene.selectedPointInfoDiv.innerHTML = projectScene.SELECTION_TEXT + index
         const btn = document.createElement("button")
         btn.textContent = "Delete"
         btn.addEventListener("click", (event) => this.deletePoint(this.selectedPointIndex))
-        selectedPointInfoDiv.appendChild(btn)
+        projectScene.selectedPointInfoDiv.appendChild(btn)
     }
 
     deletePoint(index) {
@@ -155,8 +135,8 @@ export class OneGeometryPolygon {
         this.removeVectorFromGeometry(index)
         this.pointCount -= 3
         this.removeIndexFromGeometry()
-        animate()
-        selectedPointInfoDiv.innerHTML = this.SELECTION_TEXT
+        projectScene.animate()
+        projectScene.selectedPointInfoDiv.innerHTML = projectScene.SELECTION_TEXT
     }
 
     removeIndexFromGeometry() {
@@ -187,23 +167,20 @@ export class OneGeometryPolygon {
     }
 
     mouseDown(event) {
-        let intersections = this.getIntersections(event)
+        let intersections = projectScene.getIntersections(event, this.particles)
         if (intersections.length > 0) {
-            if (intersections[0].index == this.selectedPointIndex) {
-                this.unselectPoint()
-            } else {
+            if (intersections[0].index != this.selectedPointIndex) {
                 this.unselectPoint()
                 this.selectedPointIndex = intersections[0].index
                 this.selectPoint()
             }
             this.dragging = true;
         }
-
     }
 
     mouseMove(event) {
         if (this.dragging && this.selectedPointIndex !== null) {
-            let pos = this.getMousePosition(event)
+            let pos = projectScene.getMousePosition(event)
             this.updateVerticePositions(this.geometry, this.selectedPointIndex * 3, pos)
             this.geometry.attributes.position.needsUpdate = true;
         }
@@ -213,26 +190,6 @@ export class OneGeometryPolygon {
         this.dragging = false;
     }
 
-    getMousePosition(event) {
-        const vec = new THREE.Vector3();
-        const pos = new THREE.Vector3();
-        vec.set(
-            (event.clientX / window.innerWidth) * 2 - 1,
-            -(event.clientY / window.innerHeight) * 2 + 1,
-            0.5);
-        vec.unproject(camera);
-        vec.sub(camera.position).normalize();
-        const distance = -camera.position.z / vec.z;
-        pos.copy(camera.position).add(vec.multiplyScalar(distance));
-        return pos
-    }
-
-    getIntersections(event) {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-        raycaster.setFromCamera(mouse, camera);
-        return raycaster.intersectObject(this.particles, true);
-    }
 }
 
 

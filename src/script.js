@@ -1,18 +1,21 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
-import {initScene, scene, mouse, raycaster, camera, renderer} from "./ProjectScene"
+import {projectScene} from "./ProjectScene"
 import {PolygonFactory} from "./PolygonFactory"
 
 
-let selectedPointInfoDiv, selectedShapeTab, selectedShape;
+let selectedShapeTab, selectedShape;
+let shapes = []
 let shapeTabs
 
-init()
+projectScene.initScene()
+
 initMenu()
 
 const polygonFactory = new PolygonFactory()
-const polygon = polygonFactory.create("singleGeometry")
-polygon.addToScene()
-polygon.init()
+
+initEventListeners()
+
+// polygon.init()
 
 
 function initMenu() {
@@ -24,7 +27,7 @@ function initMenu() {
 
 function selectTab(event) {
     changeTabColor(event)
-    selectedShape = getSelectedShape(event)
+    selectShape(event)
 }
 
 function changeTabColor() {
@@ -33,7 +36,44 @@ function changeTabColor() {
     event.target.style.backgroundColor = "darkolivegreen"
 }
 
-function getSelectedShape(event){
-
+function selectShape(event) {
+    switch (selectedShapeTab.id) {
+        case "singleGeometryPolygon":
+            selectedShape = polygonFactory.create("singleGeometry")
+            projectScene.addObjectToScene(selectedShape)
+            break
+        case "multiGeometryPolygon":
+            selectedShape = polygonFactory.create("multiGeometry")
+            projectScene.addObjectToScene(selectedShape)
+            break
+    }
 }
 
+
+function initEventListeners() {
+    window.addEventListener("mousedown", mouseDown, false);
+    window.addEventListener("mousemove", mouseMove, false);
+    window.addEventListener("mouseup", mouseUp, false);
+    document.querySelector("canvas").addEventListener('click', canvasClickClickHandler, false);
+}
+
+
+function canvasClickClickHandler(event){
+    if(selectedShape==undefined) return
+    selectedShape.onClickHandler(event)
+}
+
+function mouseDown(event){
+    if(selectedShape==undefined) return
+    selectedShape.mouseDown(event)
+}
+
+function mouseMove(event){
+    if(selectedShape==undefined) return
+    selectedShape.mouseMove(event)
+}
+
+function mouseUp(event){
+    if(selectedShape==undefined) return
+    selectedShape.mouseUp(event)
+}
