@@ -37,14 +37,18 @@ function changeTabColor() {
 }
 
 function selectShape(event) {
+    shapes.forEach(o=> projectScene.removeObjectFromScene(o))
+    shapes = []
     switch (selectedShapeTab.id) {
         case "singleGeometryPolygon":
             selectedShape = polygonFactory.create("singleGeometry")
             projectScene.addObjectToScene(selectedShape)
+            shapes.push(selectedShape)
             break
         case "multiGeometryPolygon":
             selectedShape = polygonFactory.create("multiGeometry")
             projectScene.addObjectToScene(selectedShape)
+            shapes.push(selectedShape)
             break
     }
 }
@@ -59,7 +63,10 @@ function initEventListeners() {
 
 
 function canvasClickClickHandler(event){
-    if(selectedShape==undefined) return
+    if(selectedShape==undefined) {
+        alert("Please select a shape")
+        return
+    }
     selectedShape.onClickHandler(event)
 }
 

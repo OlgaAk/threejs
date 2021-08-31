@@ -26,7 +26,7 @@ class ProjectScene{
 
     animate() {
         this.renderer.render(this.scene, this.camera);
-        requestAnimationFrame(this.animate.bind(this));
+       // requestAnimationFrame(this.animate.bind(this));
     }
 
     onWindowResize() {
@@ -53,6 +53,7 @@ class ProjectScene{
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
         this.raycaster.setFromCamera(this.mouse, this.camera);
+        if(Array.isArray(object)) return this.raycaster.intersectObjects(object, true);
         return this.raycaster.intersectObject(object, true);
     }
 
@@ -61,11 +62,12 @@ class ProjectScene{
     }
 
     removeObjectFromScene(object) {
-        object.geometry.dispose()
         object.elementsToAddToScene.forEach(o => {
-            o.matreial.dispose()
-            o.dispose()
+            this.scene.remove(o)
+            o.material.dispose()
         })
+        object.geometry.dispose()
+        this.animate()
     }
 
 }
