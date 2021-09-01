@@ -183,6 +183,7 @@ export class OneGeometryPolygon {
             let pos = projectScene.getMousePosition(event)
             this.updateVerticePositions(this.geometry, this.selectedPointIndex * 3, pos)
             this.geometry.attributes.position.needsUpdate = true;
+            projectScene.animate()
         }
     }
 

@@ -10,14 +10,14 @@ export class MultiGeometryPolygon {
         // this.points = []
         this.objects = [] // objects or points?
         this.pointCount = 0;
-        this.POINT_SIZE = 4;
+        this.POINT_SIZE = 2;
         this.selectedPoint = null;
         this.dragEvent = false
         // this.selectedPointIndex = null;
         this.dragging = false
         this.elementsToAddToScene = [area, line]
-        // this.DEFAULT_COLOR = "rgb(255, 255, 255)"
-        // this.SELECTION_COLOR = "rgb(18,161,32)"
+        this.DEFAULT_COLOR = "0xffffff"
+        this.SELECTION_COLOR = "0x12a120"
     }
 
     modifyVectorCoordinates(geometry, object) {
@@ -33,7 +33,7 @@ export class MultiGeometryPolygon {
     }
 
     addDot(x, y, z, index) {
-        const markerGeometry = new THREE.CircleGeometry(this.POINT_SIZE, 32);
+        const markerGeometry = new THREE.CircleGeometry(this.POINT_SIZE);
         const markerMaterial = new THREE.MeshBasicMaterial({
             color: "white",
             transparent: false,
@@ -100,7 +100,7 @@ export class MultiGeometryPolygon {
     selectPoint(intersection) {
         this.unselectAllPoints()
         this.selectedPoint = intersection.object
-        this.selectedPoint.material.color.setHex(0xffff00)
+        this.selectedPoint.material.color.setHex(this.SELECTION_COLOR)
         const index = this.objects.indexOf(this.selectedPoint)
         projectScene.selectedPointInfoDiv.innerHTML = "Selected point: " + (index + 1)
         const btn = document.createElement("button")
@@ -151,7 +151,7 @@ export class MultiGeometryPolygon {
     unselectAllPoints() {
         this.selectedPoint = null;
         this.objects.forEach(o => {
-            o.material.color.setHex(0xffffff)
+            o.material.color.setHex((this.DEFAULT_COLOR))
         })
     }
 

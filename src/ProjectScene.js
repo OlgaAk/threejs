@@ -41,7 +41,7 @@ class ProjectScene{
         vec.set(
             (event.clientX / window.innerWidth) * 2 - 1,
             -(event.clientY / window.innerHeight) * 2 + 1,
-            0.5);
+            0); // z-index should be 0.5 to be dynamic?
         vec.unproject(this.camera);
         vec.sub(this.camera.position).normalize();
         const distance = -this.camera.position.z / vec.z;
