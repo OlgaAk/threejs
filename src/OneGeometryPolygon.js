@@ -1,18 +1,19 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 import {projectScene} from "./ProjectScene"
+import {BasePolygon} from "./BasePolygon"
 
 
-export class OneGeometryPolygon {
-    constructor(geometry, area, particles) {
+export class OneGeometryPolygon extends BasePolygon {
+    constructor(geometry, area, particles, DEFAULT_COLOR, SELECTION_COLOR) {
+        super()
         this.geometry = geometry;
         this.area = area;
         this.particles = particles;
         this.pointCount = 0;
         this.selectedPointIndex = null;
-        this.dragging = false
         this.elementsToAddToScene = [area, particles]
-        this.DEFAULT_COLOR = "rgb(255, 255, 255)"
-        this.SELECTION_COLOR = "rgb(255, 255, 0)"
+        this.DEFAULT_COLOR = DEFAULT_COLOR
+        this.SELECTION_COLOR = SELECTION_COLOR
 
     }
 
@@ -79,6 +80,7 @@ export class OneGeometryPolygon {
         positions[index++] = newCoordinates.x;
         positions[index++] = newCoordinates.y;
         positions[index] = newCoordinates.z;
+        geometry.attributes.position.needsUpdate = true;
     }
 
 // indexes are used to form faces (triangles), example [1,2,0] -> [1,2,0,2,3,0] -> [1,2,0,2,3,0,3,4,0]
@@ -182,14 +184,11 @@ export class OneGeometryPolygon {
         if (this.dragging && this.selectedPointIndex !== null) {
             let pos = projectScene.getMousePosition(event)
             this.updateVerticePositions(this.geometry, this.selectedPointIndex * 3, pos)
-            this.geometry.attributes.position.needsUpdate = true;
             projectScene.animate()
         }
     }
 
-    mouseUp(event) {
-        this.dragging = false;
-    }
+
 
 }
 

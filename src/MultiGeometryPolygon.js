@@ -1,21 +1,20 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 import {projectScene} from "./ProjectScene"
+import {BasePolygon} from "./BasePolygon"
 
-
-export class MultiGeometryPolygon {
-    constructor(geometry, area, line) {
-        this.geometry = geometry;
+export class MultiGeometryPolygon  extends BasePolygon {
+    constructor(area, line, DEFAULT_COLOR, SELECTION_COLOR) {
+        super()
         this.area = area;
         this.line = line;
         this.points = []
         this.pointCount = 0;
         this.POINT_SIZE = 2;
         this.selectedPoint = null;
-        this.dragging = false;
         this.dragEvent = false // added to check if dragging has just happend
         this.elementsToAddToScene = [area, line]
-        this.DEFAULT_COLOR = "0xffffff"
-        this.SELECTION_COLOR = "0x12a120"
+        this.DEFAULT_COLOR = DEFAULT_COLOR
+        this.SELECTION_COLOR = SELECTION_COLOR
     }
 
     onClickHandler(event) {
@@ -55,20 +54,12 @@ export class MultiGeometryPolygon {
 
     addVerticeToGeometries(arrayOfObjects, pointCount, pos) {
         arrayOfObjects.forEach(o => {
-            this.addVerticeToGeometry(o.geometry, pointCount, pos)
+            super.addVerticeToGeometry(o.geometry, pointCount, pos)
             if (o.type === "Mesh") this.updateGeometryIndexes(o.geometry) // for area to update faces
         })
         this.pointCount += 3
     }
 
-    addVerticeToGeometry(geometry, index, newCoordinates) {
-        const positions = geometry.attributes.position.array;
-        positions[this.pointCount] = newCoordinates.x;
-        positions[this.pointCount + 1] = newCoordinates.y;
-        positions[this.pointCount + 2] = newCoordinates.z;
-        geometry.setDrawRange(0, (this.pointCount + 3) / 3)
-        geometry.attributes.position.needsUpdate = true;
-    }
 
     updateGeometryIndexes(geometry) {
         if (this.pointCount == 6) { // on the third dot add first face
@@ -112,7 +103,6 @@ export class MultiGeometryPolygon {
         const index = this.points.indexOf(pointObject)
         this.pointCount -= 3
         this.removeVectorFromGeometries([this.line, this.area], index)
-
         this.removeObjectFromObjectsArray(pointObject, index)
         projectScene.animate()
     }
@@ -201,7 +191,4 @@ export class MultiGeometryPolygon {
         })
     }
 
-    mouseUp(event) {
-        this.dragging = false;
-    }
 }
