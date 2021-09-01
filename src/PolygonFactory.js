@@ -58,7 +58,8 @@ export class PolygonFactory {
             opacity: 0.2,
             side: THREE.DoubleSide
         });
-        const area = new THREE.Mesh(geometry, areaMaterial);
+        const areaGeometry = geometry.clone()
+        const area = new THREE.Mesh(areaGeometry, areaMaterial);
 
         return new MultiGeometryPolygon(geometry, area, line)
     }
