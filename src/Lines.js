@@ -1,8 +1,13 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
-import {init, scene, mouse, raycaster, camera, renderer} from "./ProjectScene"
+import {projectScene} from "./ProjectScene"
+import { Line2 } from '../node_modules/three/examples/jsm/lines/Line2.js';
+import { LineMaterial } from '../node_modules/three/examples/jsm/lines/LineMaterial.js';
+import { LineGeometry } from '../node_modules/three/examples/jsm/lines/LineGeometry.js';
 
 // lines
-function drawDifferentLineTypes() {
+export function drawDifferentLineTypes() {
+console.log("lines")
+    //standard line
     const material = new THREE.LineBasicMaterial({color: 0x000000});
     const points = [];
     points.push(new THREE.Vector3(-100, 81, 0));
@@ -10,8 +15,9 @@ function drawDifferentLineTypes() {
 
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const line = new THREE.Line(geometry, material);
-    scene.add(line);
+    projectScene.scene.add(line);
 
+    // dashed line
     const dashedMaterial = new THREE.LineDashedMaterial({
         color: 0x000000,
         linewidth: 1,
@@ -25,28 +31,49 @@ function drawDifferentLineTypes() {
     const geometryDashed = new THREE.BufferGeometry().setFromPoints(pointsDashed);
     const dashedLine = new THREE.Line(geometryDashed, dashedMaterial);
     dashedLine.computeLineDistances();
-    scene.add(dashedLine);
+    projectScene.scene.add(dashedLine);
 
-    //Lawn
+    // //fat line
+    const fatGeometry = new LineGeometry();
+    fatGeometry.setPositions([-100,68,0, -70, 68, 0] );
+    // geometry.setColors( colors );
+
+    const fatMatLine = new LineMaterial( {
+        color: 0x000000,
+        linewidth: 0.01,
+        vertexColors: false,
+        dashed: false,
+        alphaToCoverage: true,
+    } );
+
+    const fatLine = new Line2( fatGeometry, fatMatLine );
+    fatLine.computeLineDistances();
+    fatLine.scale.set( 1, 1, 1 );
+    projectScene.scene.add( fatLine );
+
+
+    //Lawn line
     const materialLawn = new THREE.LineBasicMaterial({color: 0x339433});
     const pointsLawn = [];
-    pointsLawn.push(new THREE.Vector3(-100, 59, 0));
-    pointsLawn.push(new THREE.Vector3(-70, 60, 0));
-    pointsLawn.push(new THREE.Vector3(-62, 72, 0));
-    pointsLawn.push(new THREE.Vector3(-62, 85, 0));
-    pointsLawn.push(new THREE.Vector3(-40, 90, 0));
-    pointsLawn.push(new THREE.Vector3(-30, 70, 0));
+    pointsLawn.push(new THREE.Vector3(-100, 50, 0));
+    pointsLawn.push(new THREE.Vector3(-70, 50, 0));
+    pointsLawn.push(new THREE.Vector3(-62, 62, 0));
+    pointsLawn.push(new THREE.Vector3(-62, 75, 0));
+    pointsLawn.push(new THREE.Vector3(-40, 80, 0));
+    pointsLawn.push(new THREE.Vector3(-30, 60, 0));
 
     const geometryLawn = new THREE.BufferGeometry().setFromPoints(pointsLawn);
     const lineLawn = new THREE.Line(geometryLawn, materialLawn);
-    scene.add(lineLawn);
+    projectScene.scene.add(lineLawn);
 
     // Grass
     const materialLawnGrass = new THREE.LineBasicMaterial({color: 0x00A300});
     const pointsLawnGrass = getLawnLinePoints(pointsLawn);
     const geometryLawnGrass = new THREE.BufferGeometry().setFromPoints(pointsLawnGrass);
     const lineLawnGrass = new THREE.Line(geometryLawnGrass, materialLawnGrass);
-    scene.add(lineLawnGrass);
+    projectScene.scene.add(lineLawnGrass);
+
+    projectScene.animate()
 }
 
 function getLawnLinePoints(pointsLawnMainLine) {
