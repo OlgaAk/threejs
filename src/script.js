@@ -1,7 +1,7 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 import {projectScene} from "./ProjectScene"
 import {PolygonFactory} from "./PolygonFactory"
-import {drawDifferentLineTypes} from "./Lines"
+import {createDifferentLineTypes} from "./Lines"
 
 
 let selectedShapeTab, selectedShape;
@@ -12,7 +12,6 @@ projectScene.initScene()
 
 initMenu()
 
-drawDifferentLineTypes()
 
 const polygonFactory = new PolygonFactory()
 
@@ -53,6 +52,10 @@ function selectShape(event) {
             projectScene.addObjectToScene(selectedShape)
             shapes.push(selectedShape)
             break
+        case "lines":
+            selectedShape = createDifferentLineTypes()
+            projectScene.addObjectToScene(selectedShape)
+            shapes.push(selectedShape)
     }
 }
 
