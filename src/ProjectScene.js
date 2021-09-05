@@ -1,15 +1,15 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 
-class ProjectScene{
+class ProjectScene {
     constructor() {
         this.selectedPointInfoDiv = document.getElementById("selected-point-info")
 
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer(    );
         this.mouse = new THREE.Vector2();
         this.raycaster = new THREE.Raycaster();
 
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
 
         this.SELECTION_TEXT = "Selected point: ";
     }
@@ -26,7 +26,7 @@ class ProjectScene{
 
     animate() {
         this.renderer.render(this.scene, this.camera);
-       // requestAnimationFrame(this.animate.bind(this));
+        requestAnimationFrame(this.animate.bind(this));
     }
 
     onWindowResize() {
@@ -53,20 +53,22 @@ class ProjectScene{
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
         this.raycaster.setFromCamera(this.mouse, this.camera);
-        if(Array.isArray(object)) return this.raycaster.intersectObjects(object, true);
+        if (Array.isArray(object)) return this.raycaster.intersectObjects(object, true);
         return this.raycaster.intersectObject(object, true);
     }
 
     addObjectToScene(object) {
         object.elementsToAddToScene.forEach(o => this.scene.add(o))
+        this.animate()
     }
 
     removeObjectFromScene(object) {
         object.elementsToAddToScene.forEach(o => {
             this.scene.remove(o)
             o.material.dispose()
+            if (o.geometry != undefined) o.geometry.dispose()
         })
-        object.geometry.dispose()
+        if (object.geometry != undefined) object.geometry.dispose()
         this.animate()
     }
 

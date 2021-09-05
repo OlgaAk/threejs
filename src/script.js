@@ -1,6 +1,7 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 import {projectScene} from "./ProjectScene"
 import {PolygonFactory} from "./PolygonFactory"
+import {createDifferentLineTypes} from "./Lines"
 
 
 let selectedShapeTab, selectedShape;
@@ -11,11 +12,12 @@ projectScene.initScene()
 
 initMenu()
 
+
 const polygonFactory = new PolygonFactory()
 
-initEventListeners()
+//initEventListeners() //onclick add polygon vertices
 
-// polygon.init()
+
 
 
 function initMenu() {
@@ -50,6 +52,10 @@ function selectShape(event) {
             projectScene.addObjectToScene(selectedShape)
             shapes.push(selectedShape)
             break
+        case "lines":
+            selectedShape = createDifferentLineTypes()
+            projectScene.addObjectToScene(selectedShape)
+            shapes.push(selectedShape)
     }
 }
 
@@ -84,3 +90,7 @@ function mouseUp(event){
     if(selectedShape==undefined) return
     selectedShape.mouseUp(event)
 }
+
+
+
+
