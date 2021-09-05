@@ -75,24 +75,27 @@ export function createDifferentLineTypes() {
     glassLine = new THREE.Line(geometryLawnGrass, materialLawnGrass);
     elementsToAddToScene.push(glassLine);
 
-    //
-    const loader = new THREE.TextureLoader();
-    const texture = loader.load('/grass.png');
-    const map =  loader.load('/grass_on_black.png');
-    // texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    // texture.repeat.set( 10, 40 );
-    const geometrymesh = new THREE.PlaneBufferGeometry(20, 20);
-    const materialmesh = new THREE.MeshBasicMaterial({
-        map: texture,
-        alphaMap: map,
+    // Lawn with Mesh and Texture
+    const grassTexture = new THREE.TextureLoader().load('/grass.png');
+    const grassTextureAlphamap =  loader.load('/grass_on_black.png');
+    grassTexture.wrapS = THREE.RepeatWrapping;
+    grassTexture.wrapT = THREE.RepeatWrapping;
+    grassTexture.repeat.set( 10, 1 );
+    grassTextureAlphamap.wrapS = THREE.RepeatWrapping;
+    grassTextureAlphamap.wrapT = THREE.RepeatWrapping;
+    grassTextureAlphamap.repeat.set( 20, 1 );
+    const geometryGrassMesh = new THREE.PlaneBufferGeometry(40, 3);
+    const grassMeshMaterial = new THREE.MeshBasicMaterial({
+        map: grassTexture,
+        alphaMap: grassTextureAlphamap,
         color: "green",
         transparent: true,
         blending: 1
     });
 
-    const mesh = new THREE.Mesh(geometrymesh, materialmesh);
-    elementsToAddToScene.push(mesh);
-
+    const grassMesh = new THREE.Mesh(geometryGrassMesh, grassMeshMaterial);
+    grassMesh.position.set(-80, 40, 0)
+    elementsToAddToScene.push(grassMesh);
 
     return {elementsToAddToScene}
 }
