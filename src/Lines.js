@@ -77,7 +77,7 @@ export function createDifferentLineTypes() {
 
     // Lawn with Mesh and Texture
     const grassTexture = new THREE.TextureLoader().load('/grass.png');
-    const grassTextureAlphamap =  loader.load('/grass_on_black.png');
+    const grassTextureAlphamap =  new THREE.TextureLoader().load('/grass_on_black.png');
     grassTexture.wrapS = THREE.RepeatWrapping;
     grassTexture.wrapT = THREE.RepeatWrapping;
     grassTexture.repeat.set( 10, 1 );
