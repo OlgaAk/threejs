@@ -1,2 +1,2 @@
 line types
-![alt text](./public/lines.png)
+![alt text](./public/lines.jpg)
