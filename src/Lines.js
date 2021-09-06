@@ -198,13 +198,13 @@ function createGrassMesh() {
     grassMeshGeometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
     grassMeshGeometry.setIndex(new THREE.BufferAttribute(indices, 1));
 
-    const grassTexture = new THREE.TextureLoader().load('/grass.png');
-    const grassTextureAlphamap =  new THREE.TextureLoader().load('/grass_on_black.png');
+    const grassTexture = new THREE.TextureLoader().load('/grass3_flipped.png');
+    //const grassTextureAlphamap =  new THREE.TextureLoader().load('/grass_on_black.png');
 
     const grassMeshMaterial = new THREE.MeshBasicMaterial({
         map: grassTexture,
-        alphaMap: grassTextureAlphamap,
-        color: "green",
+       // alphaMap: grassTextureAlphamap,
+        //color: "green",
         transparent: true,
         blending: 1
     });
