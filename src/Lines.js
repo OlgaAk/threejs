@@ -9,7 +9,7 @@ const elementsToAddToScene = []
 
 // lines
 export function createDifferentLineTypes() {
-    //standard line
+    //Type1 standard line
     const material = new THREE.LineBasicMaterial({color: 0x000000});
     const points = [];
     points.push(new THREE.Vector3(-100, 81, 0));
@@ -19,7 +19,7 @@ export function createDifferentLineTypes() {
     line = new THREE.Line(geometry, material);
     elementsToAddToScene.push(line);
 
-    // dashed line
+    //Type2 dashed line
     const dashedMaterial = new THREE.LineDashedMaterial({
         color: 0x000000,
         linewidth: 1,
@@ -35,7 +35,7 @@ export function createDifferentLineTypes() {
     dashedLine.computeLineDistances();
     elementsToAddToScene.push(dashedLine);
 
-    // //fat line
+    //Type3 fat line
     const fatGeometry = new LineGeometry();
     fatGeometry.setPositions([-100, 68, 0, -70, 68, 0]);
     // geometry.setColors( colors );
@@ -54,7 +54,7 @@ export function createDifferentLineTypes() {
     elementsToAddToScene.push(fatLine);
 
 
-    //Lawn line
+    //Type4 (1 Variant) Lawn line
     const materialLawn = new THREE.LineBasicMaterial({color: 0x339433});
     const pointsLawn = [];
     pointsLawn.push(new THREE.Vector3(-100, 50, 0));
@@ -75,30 +75,13 @@ export function createDifferentLineTypes() {
     glassLine = new THREE.Line(geometryLawnGrass, materialLawnGrass);
     elementsToAddToScene.push(glassLine);
 
-    // Lawn with Mesh and Texture
-    const grassTexture = new THREE.TextureLoader().load('/grass.png');
-    const grassTextureAlphamap =  new THREE.TextureLoader().load('/grass_on_black.png');
-    grassTexture.wrapS = THREE.RepeatWrapping;
-    grassTexture.wrapT = THREE.RepeatWrapping;
-    grassTexture.repeat.set( 10, 1 );
-    grassTextureAlphamap.wrapS = THREE.RepeatWrapping;
-    grassTextureAlphamap.wrapT = THREE.RepeatWrapping;
-    grassTextureAlphamap.repeat.set( 20, 1 );
-    const geometryGrassMesh = new THREE.PlaneBufferGeometry(40, 3);
-    const grassMeshMaterial = new THREE.MeshBasicMaterial({
-        map: grassTexture,
-        alphaMap: grassTextureAlphamap,
-        color: "green",
-        transparent: true,
-        blending: 1
-    });
-
-    const grassMesh = new THREE.Mesh(geometryGrassMesh, grassMeshMaterial);
-    grassMesh.position.set(-80, 40, 0)
+    //Type4 (2 Variant) Lawn with Mesh and Texture
+    const grassMesh = createGrassMesh()
     elementsToAddToScene.push(grassMesh);
 
     return {elementsToAddToScene}
 }
+
 
 function getLawnLinePoints(pointsLawnMainLine) {
     const lawnHeight = 1.5
@@ -147,4 +130,85 @@ function getPointInBetweenByLen(pointA, pointB, length) {
 
 function removeAllLines() {
 
+}
+
+
+function createGrassMesh() {
+
+    const grassMeshPoints = [];
+    const mesh_vertices =
+        [-100.0, 45.0, 0.0,
+            -95.0, 45.0, 0.0,
+            -95.0, 40.0, 0.0,
+            -100.0, 40.0, 0.0, //
+            -95.0, 45.0, 0.0,
+            -90.0, 45.0, 0.0,
+            -90.0, 40.0, 0.0,
+            -95.0, 40.0, 0.0,//
+            -90.0, 45.0, 0.0,
+            -85.0, 45.0, 0.0,
+            -85.0, 40.0, 0.0,
+            -90.0, 40.0, 0.0,
+            -85.0, 45.0, 0.0,
+            -80.0, 45.0, 0.0,
+            -80.0, 40.0, 0.0,
+            -85.0, 40.0, 0.0,
+            -80.0, 45.0, 0.0,
+            -75.0, 45.0, 0.0,
+            -75.0, 40.0, 0.0,
+            -80.0, 40.0, 0.0
+        ];
+
+    const mesh_uvs =
+        [1.0, 1.0,
+            0.0, 1.0,
+            0.0, 0.0,
+            1.0, 0.0,//
+            1.0, 1.0,
+            0.0, 1.0,
+            0.0, 0.0,
+            1.0, 0.0,//
+            1.0, 1.0,
+            0.0, 1.0,
+            0.0, 0.0,
+            1.0, 0.0,//
+            1.0, 1.0,
+            0.0, 1.0,
+            0.0, 0.0,
+            1.0, 0.0,
+            1.0, 1.0,
+            0.0, 1.0,
+            0.0, 0.0,
+            1.0, 0.0
+        ];
+
+    const mesh_indices = [0, 2, 1, 0, 3, 2,
+        4, 6, 5, 4, 7, 6,
+        8, 10, 9, 8, 11, 10,
+        12, 14, 13, 12, 15, 14,
+        16, 18, 17, 16, 19, 18
+    ];
+
+    const grassMeshGeometry = new THREE.BufferGeometry();
+    const vertices = new Float32Array(mesh_vertices);
+    const uvs = new Float32Array(mesh_uvs);
+    const indices = new Uint32Array(mesh_indices)
+
+    grassMeshGeometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    grassMeshGeometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+    grassMeshGeometry.setIndex(new THREE.BufferAttribute(indices, 1));
+
+    const grassTexture = new THREE.TextureLoader().load('/grass.png');
+    const grassTextureAlphamap =  new THREE.TextureLoader().load('/grass_on_black.png');
+
+    const grassMeshMaterial = new THREE.MeshBasicMaterial({
+        map: grassTexture,
+        alphaMap: grassTextureAlphamap,
+        color: "green",
+        transparent: true,
+        blending: 1
+    });
+
+    const grassMesh = new THREE.Mesh(grassMeshGeometry, grassMeshMaterial);
+    return grassMesh
 }
