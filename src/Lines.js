@@ -132,79 +132,39 @@ function removeAllLines() {
 
 }
 
-
 function createGrassMesh() {
 
-    const grassMeshPoints = [];
-    const mesh_vertices =
-        [-100.0, 45.0, 0.0,
-            -95.0, 45.0, 0.0,
-            -95.0, 40.0, 0.0,
-            -100.0, 40.0, 0.0, //
-            -95.0, 45.0, 0.0,
-            -90.0, 45.0, 0.0,
-            -90.0, 40.0, 0.0,
-            -95.0, 40.0, 0.0,//
-            -90.0, 45.0, 0.0,
-            -85.0, 45.0, 0.0,
-            -85.0, 40.0, 0.0,
-            -90.0, 40.0, 0.0,
-            -85.0, 45.0, 0.0,
-            -80.0, 45.0, 0.0,
-            -80.0, 40.0, 0.0,
-            -85.0, 40.0, 0.0,
-            -80.0, 45.0, 0.0,
-            -75.0, 45.0, 0.0,
-            -75.0, 40.0, 0.0,
-            -80.0, 40.0, 0.0
-        ];
-
-    const mesh_uvs =
-        [1.0, 1.0,
-            0.0, 1.0,
-            0.0, 0.0,
-            1.0, 0.0,//
-            1.0, 1.0,
-            0.0, 1.0,
-            0.0, 0.0,
-            1.0, 0.0,//
-            1.0, 1.0,
-            0.0, 1.0,
-            0.0, 0.0,
-            1.0, 0.0,//
-            1.0, 1.0,
-            0.0, 1.0,
-            0.0, 0.0,
-            1.0, 0.0,
-            1.0, 1.0,
-            0.0, 1.0,
-            0.0, 0.0,
-            1.0, 0.0
-        ];
-
-    const mesh_indices = [0, 2, 1, 0, 3, 2,
-        4, 6, 5, 4, 7, 6,
-        8, 10, 9, 8, 11, 10,
-        12, 14, 13, 12, 15, 14,
-        16, 18, 17, 16, 19, 18
-    ];
-
     const grassMeshGeometry = new THREE.BufferGeometry();
-    const vertices = new Float32Array(mesh_vertices);
-    const uvs = new Float32Array(mesh_uvs);
-    const indices = new Uint32Array(mesh_indices)
 
-    grassMeshGeometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
-    grassMeshGeometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
-    grassMeshGeometry.setIndex(new THREE.BufferAttribute(indices, 1));
+    grassMeshGeometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(600), 3));
+    grassMeshGeometry.addAttribute('uv', new THREE.BufferAttribute(new Float32Array(400), 2));
+    grassMeshGeometry.setDrawRange(0, 0);
 
-    const grassTexture = new THREE.TextureLoader().load('/grass3_flipped.png');
+    const grassHeight = 3
+    const startX = -100
+
+    addVertextToGrassMesh(startX, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*2, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*3, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*4, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*5, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*6, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*7, 30, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*8, 30, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*9, 30, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*10, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*11, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*12, 40, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX+grassHeight*13, 45, 0, grassHeight, grassMeshGeometry)
+
+    const grassTexture = new THREE.TextureLoader().load('/grass3.png');
     //const grassTextureAlphamap =  new THREE.TextureLoader().load('/grass_on_black.png');
 
     const grassMeshMaterial = new THREE.MeshBasicMaterial({
         map: grassTexture,
-       // alphaMap: grassTextureAlphamap,
-        //color: "green",
+        // alphaMap: grassTextureAlphamap, //
+       // color: "green",
         transparent: true,
         blending: 1
     });
@@ -212,3 +172,102 @@ function createGrassMesh() {
     const grassMesh = new THREE.Mesh(grassMeshGeometry, grassMeshMaterial);
     return grassMesh
 }
+
+
+function addVertextToGrassMesh(x, y, z, grassHeight, geometry) {
+    addPositionsToGrassMesh(x, y, z, grassHeight, geometry)
+    addUVsToGrassMesh(geometry)
+    addIndexesToGrassMesh(geometry)
+}
+
+//adds three points forming a square, z coordinate stays the same, y coordinates are higer by the square side (grass height)
+// example -100.0, 45.0, 0.0, // -95.0, 45.0, 0.0, // -95.0, 50.0, 0.0, // -100.0, 50.0, 0.0,
+function addPositionsToGrassMesh(x, y, z, grassHeight, geometry) {
+    let positions = geometry.attributes.position.array;
+    let drawRange = geometry.drawRange.count
+    if (drawRange === 0) { // first dot doesnt form grass
+        positions[0] = x
+        positions[1] = y
+        positions[3] = z
+        geometry.setDrawRange(0, 1);
+        geometry.attributes.position.needsUpdate = true;
+        return
+    } else if (drawRange >= 1) {
+        let previuosPoint
+        if (drawRange === 1) {
+            previuosPoint = {x: positions[0], y: positions[1], z: positions[3]}
+            positions[3] = x
+            positions[4] = y
+            positions[5] = z
+            positions[6] = x
+            positions[7] = y + grassHeight
+            positions[8] = z
+            positions[9] = previuosPoint.x
+            positions[10] = previuosPoint.y + grassHeight
+            positions[11] = previuosPoint.z
+            geometry.setDrawRange(0, 4);
+        }
+        if (drawRange > 1) {
+            previuosPoint = {
+                x: positions[(drawRange - 3) * 3],
+                y: positions[(drawRange - 3) * 3 + 1],
+                z: positions[(drawRange - 3) * 3 + 2]
+            }
+            positions[drawRange * 3] = previuosPoint.x
+            positions[drawRange * 3 + 1] = previuosPoint.y
+            positions[drawRange * 3 + 2] = previuosPoint.z
+            positions[drawRange * 3 + 3] = x
+            positions[drawRange * 3 + 4] = y
+            positions[drawRange * 3 + 5] = z
+            positions[drawRange * 3 + 6] = x
+            positions[drawRange * 3 + 7] = y + grassHeight
+            positions[drawRange * 3 + 8] = z
+            positions[drawRange * 3 + 9] = previuosPoint.x
+            positions[drawRange * 3 + 10] = previuosPoint.y + grassHeight
+            positions[drawRange * 3 + 11] = previuosPoint.z
+            geometry.setDrawRange(0, drawRange + 4);
+        }
+    }
+    geometry.attributes.position.needsUpdate = true;
+}
+
+
+//uvs are the same for all faces (  0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0)
+function addUVsToGrassMesh(geometry) {
+    if (geometry.attributes.position.length >= 12) {
+        let uvs = geometry.attributes.uv.array;
+        let drawRange = geometry.drawRange.count
+        uvs[(drawRange - 4) * 2] = 0
+        uvs[(drawRange - 4) * 2 + 1] = 0
+        uvs[(drawRange - 4) * 2 + 2] = 1
+        uvs[(drawRange - 4) * 2 + 3] = 0
+        uvs[(drawRange - 4) * 2 + 4] = 1
+        uvs[(drawRange - 4) * 2 + 5] = 1
+        uvs[(drawRange - 4) * 2 + 6] = 0
+        uvs[(drawRange - 4) * 2 + 7] = 1
+        geometry.attributes.uv.needsUpdate = true;
+    }
+}
+
+// pattern is [0, 1, 2, 0, 2, 3]
+function addIndexesToGrassMesh(geometry) {
+    if (geometry.attributes.position.length > 0) {
+        let positions = geometry.attributes.position;
+        if (geometry.drawRange.count == 4) { // first triangle needs three vertices or 9 positions
+            geometry.setIndex([0, 1, 2, 0, 2, 3]) // first index
+            return
+        }
+        if (geometry.getIndex() && geometry.getIndex().count >= 6) { // if first triangle was already formed
+            let drawRange = geometry.drawRange.count
+            let newIndexes = Array.from(geometry.getIndex().array);
+            newIndexes.push(drawRange - 4)
+            newIndexes.push(drawRange - 3)
+            newIndexes.push(drawRange - 2)
+            newIndexes.push(drawRange - 4)
+            newIndexes.push(drawRange - 2)
+            newIndexes.push(drawRange - 1)
+            geometry.setIndex(newIndexes)
+        }
+    }
+}
+
