@@ -144,29 +144,30 @@ function createGrassMesh() {
     const startX = -100
 
     addVertextToGrassMesh(startX, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*2, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*3, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*4, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*5, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*6, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*7, 30, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*8, 30, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*9, 30, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*10, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*11, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*12, 40, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX+grassHeight*13, 45, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 2, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 3, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 4, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 5, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 6, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 7, 30, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 8, 30, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 9, 30, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 10, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 11, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 12, 40, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 13, 45, 0, grassHeight, grassMeshGeometry)
 
+    grassMeshGeometry.setDrawRange(0, 100); //tofix drarange vs pointcount
     const grassTexture = new THREE.TextureLoader().load('/grass3.png');
     //const grassTextureAlphamap =  new THREE.TextureLoader().load('/grass_on_black.png');
 
     const grassMeshMaterial = new THREE.MeshBasicMaterial({
         map: grassTexture,
         // alphaMap: grassTextureAlphamap, //
-       // color: "green",
+        // color: "green",
         transparent: true,
-        blending: 1
+       // blending: 1
     });
 
     const grassMesh = new THREE.Mesh(grassMeshGeometry, grassMeshMaterial);
@@ -199,12 +200,17 @@ function addPositionsToGrassMesh(x, y, z, grassHeight, geometry) {
             positions[3] = x
             positions[4] = y
             positions[5] = z
-            positions[6] = x
-            positions[7] = y + grassHeight
-            positions[8] = z
-            positions[9] = previuosPoint.x
-            positions[10] = previuosPoint.y + grassHeight
-            positions[11] = previuosPoint.z
+            let leftLowerCoordinate = getLeftLowerCoordinate(previuosPoint, x,y,z,grassHeight)
+            let newRightUpperCoordinate = getNewRightUpperCoordinate(x, y, z, leftLowerCoordinate, grassHeight)
+            let newLeftUpperCoordinate = getNewLeftUpperCoordinate(x, y, z, leftLowerCoordinate, grassHeight)
+
+            positions[6] = newRightUpperCoordinate.x
+            positions[7] = newRightUpperCoordinate.y
+            positions[8] = newRightUpperCoordinate.z
+
+            positions[9] = newLeftUpperCoordinate.x
+            positions[10] = newLeftUpperCoordinate.y
+            positions[11] = newLeftUpperCoordinate.z
             geometry.setDrawRange(0, 4);
         }
         if (drawRange > 1) {
@@ -213,22 +219,68 @@ function addPositionsToGrassMesh(x, y, z, grassHeight, geometry) {
                 y: positions[(drawRange - 3) * 3 + 1],
                 z: positions[(drawRange - 3) * 3 + 2]
             }
-            positions[drawRange * 3] = previuosPoint.x
-            positions[drawRange * 3 + 1] = previuosPoint.y
-            positions[drawRange * 3 + 2] = previuosPoint.z
+            let leftLowerCoordinate = getLeftLowerCoordinate(previuosPoint, x,y,z,grassHeight)
+            let newRightUpperCoordinate = getNewRightUpperCoordinate(x, y, z, leftLowerCoordinate, grassHeight)
+            let newLeftUpperCoordinate = getNewLeftUpperCoordinate(x, y, z, leftLowerCoordinate, grassHeight)
+            if (previuosPoint.y != y) {
+                console.log(x, y, previuosPoint)
+                console.log(newLeftUpperCoordinate)
+                console.log(newRightUpperCoordinate)
+            }
+            positions[drawRange * 3] = leftLowerCoordinate.x
+            positions[drawRange * 3 + 1] = leftLowerCoordinate.y
+            positions[drawRange * 3 + 2] = leftLowerCoordinate.z
             positions[drawRange * 3 + 3] = x
             positions[drawRange * 3 + 4] = y
             positions[drawRange * 3 + 5] = z
-            positions[drawRange * 3 + 6] = x
-            positions[drawRange * 3 + 7] = y + grassHeight
-            positions[drawRange * 3 + 8] = z
-            positions[drawRange * 3 + 9] = previuosPoint.x
-            positions[drawRange * 3 + 10] = previuosPoint.y + grassHeight
-            positions[drawRange * 3 + 11] = previuosPoint.z
+            positions[drawRange * 3 + 6] = newRightUpperCoordinate.x
+            positions[drawRange * 3 + 7] = newRightUpperCoordinate.y
+            positions[drawRange * 3 + 8] = newRightUpperCoordinate.z
+            positions[drawRange * 3 + 9] = newLeftUpperCoordinate.x
+            positions[drawRange * 3 + 10] = newLeftUpperCoordinate.y
+            positions[drawRange * 3 + 11] = newLeftUpperCoordinate.z
             geometry.setDrawRange(0, drawRange + 4);
         }
     }
     geometry.attributes.position.needsUpdate = true;
+}
+
+function getLeftLowerCoordinate(previuosPoint, x,y,z, grassHeight) {
+    let leftLowerCoordinate = previuosPoint
+    if (previuosPoint.y != y) {
+        const adjastedCoordinate = getCorrectLeftLowerCoordinateOfSquareGivenRightLowerCoordinate(previuosPoint, {x, y, z}, grassHeight)
+        leftLowerCoordinate.x = adjastedCoordinate.x
+        leftLowerCoordinate.y = adjastedCoordinate.y
+    }
+    console.log("previos vs new left lower")
+    console.log(previuosPoint)
+    console.log(leftLowerCoordinate)
+    return leftLowerCoordinate
+}
+
+function getNewRightUpperCoordinate(x, y, z, previuosPoint, grassHeight) {
+    let newRightUpperCoordinate = {x: x, y: y + grassHeight, z: z}
+    if (previuosPoint.y != y) { // if not a horizontal line, adjast coordinates to get a square shape
+        let diffX = x - previuosPoint.x
+        let diffY = y - previuosPoint.y
+        // z is assumed to be the same
+        newRightUpperCoordinate.x = x - diffY
+        newRightUpperCoordinate.y = y + diffX
+    }
+    return newRightUpperCoordinate
+}
+
+// to from a square given two coordinates we have to move same distanse but in opposite direction (ex ratio 4/2 => -2/-4)
+function getNewLeftUpperCoordinate(x, y, z, previuosPoint, grassHeight) {
+    let newLeftUpperCoordinate = {x: previuosPoint.x, y: previuosPoint.y + grassHeight, z: previuosPoint.z}
+    if (previuosPoint.y != y) { // if not a horizontal line, adjast coordinates to get a square shape
+        let diffX = x - previuosPoint.x
+        let diffY = y - previuosPoint.y
+        // z is assumed to be the same
+        newLeftUpperCoordinate.x = previuosPoint.x - diffY
+        newLeftUpperCoordinate.y = previuosPoint.y + diffX
+    }
+    return newLeftUpperCoordinate
 }
 
 
@@ -271,3 +323,61 @@ function addIndexesToGrassMesh(geometry) {
     }
 }
 
+
+function getSlopeFromTwoCoordinates(point1, point2) {
+    return (point2.y - point1.y) / (point2.x - point1.x)
+}
+
+function getAngleFromSlope(slope) {
+    return Math.atan(slope) * 180 / Math.PI;
+}
+
+function getOppositeGivenHypotenuseAndAngle(hypotenuse, angle) {
+    return hypotenuse * Math.sin(angle / (180 / Math.PI))
+}
+
+function getHypotenuseFromSideCoordinates(point1, point2) {
+    return Math.sqrt(Math.pow((point2.x - point1.x), 2) + Math.pow((point2.y - point1.y), 2))
+}
+
+function getHypotenuseFromSideSizes(size1, size2) {
+    return Math.sqrt(Math.pow(size1, 2) + Math.pow(size2, 2))
+}
+
+function getLowerCoordinatesOfSquareInBetween(point1, point2, squareSide) {
+    let leftCoordinate = point1;
+    let rightCoordinate = point2;
+    const slope = getSlopeFromTwoCoordinates(point1, point2)
+    const angle = getAngleFromSlope(slope)
+    const distanseBetweenTwoPoints = getHypotenuseFromSideCoordinates(point1, point2)
+    const outerDistanceFromPoints = (squareSide - distanseBetweenTwoPoints) / 2
+    const yShift = getOppositeGivenHypotenuseAndAngle(outerDistanceFromPoints, angle)
+    const xShift = getOppositeGivenHypotenuseAndAngle(outerDistanceFromPoints, 90 - angle)
+    if (slope <= 0) {
+        leftCoordinate.y = point1.y + yShift
+        rightCoordinate.y = point2.y - yShift
+    } else {
+        leftCoordinate.y = point1.y - yShift
+        rightCoordinate.y = point2.y + yShift
+    }
+    leftCoordinate.x = point1.x - xShift
+    rightCoordinate.x = point2.x + xShift
+    return {leftCoordinate, rightCoordinate}
+}
+
+function getCorrectLeftLowerCoordinateOfSquareGivenRightLowerCoordinate(point1, point2, squareSide) {
+    let coordinate = point1;
+    const sideOfBiggerSquare = getHypotenuseFromSideSizes(squareSide, squareSide)
+    const extraSize = sideOfBiggerSquare - squareSide
+    const slope = getSlopeFromTwoCoordinates(point1, point2)
+    const angle = getAngleFromSlope(slope)
+    const yShift = getOppositeGivenHypotenuseAndAngle(extraSize, angle)
+    const xShift = getOppositeGivenHypotenuseAndAngle(extraSize, 90 - angle)
+    if (slope <= 0) {
+        coordinate.y = point1.y - yShift
+    } else {
+        coordinate.y = point1.y + yShift
+    }
+    coordinate.x = point1.x + xShift
+    return coordinate
+}
