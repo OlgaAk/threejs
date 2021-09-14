@@ -8,7 +8,9 @@ let selectedShapeTab, selectedShape;
 let shapes = []
 let shapeTabs
 
-const points = [
+const DEFAULT_CAMERA_Z = 250
+// test shape
+let points = [
     {x: -100,y: 81,z:0},
     {x: -80,y: 61,z:0},
     {x: -70,y: 41,z:0},
@@ -18,11 +20,21 @@ const points = [
     {x: -120,y: 70,z:0},
 ]
 
+
 projectScene.initScene()
 initMenu()
 const polygonFactory = new PolygonFactory()
 
 initEventListeners() //onclick add polygon vertices
+
+changeScaleOfTestShapes(5)
+
+function changeScaleOfTestShapes(scale=2){
+    projectScene.camera.position.z = 1400; // max value 1500
+    points = points.map(coords=>{
+        return {x:coords.x*scale, y:coords.y*scale, z:coords.z}
+    })
+}
 
 
 function initMenu() {

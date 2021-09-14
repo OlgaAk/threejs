@@ -9,7 +9,7 @@ class ProjectScene {
         this.raycaster = new THREE.Raycaster();
 
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+        this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1500);
 
         this.SELECTION_TEXT = "Selected point: ";
     }

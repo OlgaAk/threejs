@@ -53,7 +53,7 @@ export class PolygonFactory {
         const SELECTION_COLOR = "0x12a120"
 
         const geometry = new THREE.BufferGeometry();
-        const MAX_POINTS = 50;
+        const MAX_POINTS = 20000;
         const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         const material = new THREE.LineBasicMaterial({color: "grey"});
