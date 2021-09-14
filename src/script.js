@@ -8,7 +8,7 @@ let selectedShapeTab, selectedShape;
 let shapes = []
 let shapeTabs
 
-const DEFAULT_CAMERA_Z = 250
+const DEFAULT_CAMERA_Z = 1
 // test shape
 let points = [
     {x: -100,y: 81,z:0},
