@@ -192,10 +192,9 @@ export class MultiGeometryPolygon  extends BasePolygon {
     }
 
     createTestShape(points){
-        let extendedCoordinates = this.addCoordinatesInBetween(points, 3)
-        for(let i=0; i<extendedCoordinates.length; i++){
-            this.addDot(extendedCoordinates[i].x, extendedCoordinates[i].y, extendedCoordinates[i].z)
-            this.addVerticeToGeometries([this.line, this.area], this.pointCount, extendedCoordinates[i])
+        for(let i=0; i<points.length; i++){
+            this.addDot(points[i].x, points[i].y, points[i].z)
+            this.addVerticeToGeometries([this.line, this.area], this.pointCount, points[i])
         }
         projectScene.animate()
     }

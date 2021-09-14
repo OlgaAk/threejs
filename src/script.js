@@ -12,9 +12,12 @@ const DEFAULT_CAMERA_Z = 250
 // test shape
 let points = [
     {x: -100,y: 81,z:0},
-    {x: -80,y: 61,z:0},
-    {x: -70,y: 41,z:0},
-    {x: -70,y: 0,z:0},
+    {x: -80,y: 71,z:0},
+    {x: -60,y: 61,z:0},
+    {x: -20,y: 41,z:0},
+    {x: 0,y: 0,z:0},
+    {x: -10,y: -10,z:0},
+    {x: -60,y: -50,z:0},
     {x: -120,y: -10,z:0},
     {x: -150,y: 30,z:0},
     {x: -120,y: 70,z:0},
@@ -27,15 +30,15 @@ const polygonFactory = new PolygonFactory()
 
 initEventListeners() //onclick add polygon vertices
 
-changeScaleOfTestShapes(5)
+changeScaleOfTestShapes(500)
 
 function changeScaleOfTestShapes(scale=2){
-    projectScene.camera.position.z = 1400; // max value 1500
+    projectScene.camera.position.z = DEFAULT_CAMERA_Z*scale; // max value set in projectscene
     points = points.map(coords=>{
         return {x:coords.x*scale, y:coords.y*scale, z:coords.z}
     })
+    points = addCoordinatesInBetween(points, scale)
 }
-
 
 function initMenu() {
     shapeTabs = document.querySelectorAll(".shape")
@@ -111,6 +114,35 @@ function mouseUp(event){
     selectedShape.mouseUp(event)
 }
 
+
+function addCoordinatesInBetween(coordinates, coordsMultiplyBy) {
+    let extendedCoordinates = []
+    for (let i = 0; i < coordinates.length; i++) {
+        extendedCoordinates.push(coordinates[i])
+        if (i + 1 < coordinates.length) {
+            let xStep = (coordinates[i + 1].x - coordinates[i].x) / coordsMultiplyBy;
+            let yStep = (coordinates[i + 1].y - coordinates[i].y) / coordsMultiplyBy;
+            addCoordinates(coordinates, coordsMultiplyBy, xStep, yStep, extendedCoordinates, i)
+        } else if (i + 1 === coordinates.length) {
+            let xStep = (coordinates[0].x - coordinates[i].x) / coordsMultiplyBy;
+            let yStep = (coordinates[0].y - coordinates[i].y) / coordsMultiplyBy;
+            addCoordinates(coordinates, coordsMultiplyBy, xStep, yStep, extendedCoordinates, i)
+        }
+    }
+    console.log(extendedCoordinates.length)
+    return extendedCoordinates
+}
+
+
+function addCoordinates(coordinates, coordsMultiplyBy, xStep, yStep, extendedCoordinates, i) {
+    for (let j = 1; j < coordsMultiplyBy; j++) {
+        extendedCoordinates.push({
+            x: coordinates[i].x + xStep * j,
+            y: coordinates[i].y + yStep * j,
+            z: coordinates[i].z
+        })
+    }
+}
 
 
 
