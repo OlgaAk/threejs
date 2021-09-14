@@ -188,6 +188,15 @@ export class OneGeometryPolygon extends BasePolygon {
         }
     }
 
+    createTestShape(points){
+        for(let i=0; i<points.length; i++){
+            this.addVerticeToGeometry(this.pointCount, points[i])
+            this.updateGeometryIndexes()
+            this.pointCount += 3
+        }
+        projectScene.animate()
+    }
+
 
 
 }

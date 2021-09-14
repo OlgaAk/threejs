@@ -8,16 +8,21 @@ let selectedShapeTab, selectedShape;
 let shapes = []
 let shapeTabs
 
+const points = [
+    {x: -100,y: 81,z:0},
+    {x: -80,y: 61,z:0},
+    {x: -70,y: 41,z:0},
+    {x: -70,y: 0,z:0},
+    {x: -120,y: -10,z:0},
+    {x: -150,y: 30,z:0},
+    {x: -120,y: 70,z:0},
+]
+
 projectScene.initScene()
-
 initMenu()
-
-
 const polygonFactory = new PolygonFactory()
 
-//initEventListeners() //onclick add polygon vertices
-
-
+initEventListeners() //onclick add polygon vertices
 
 
 function initMenu() {
@@ -46,16 +51,19 @@ function selectShape(event) {
             selectedShape = polygonFactory.create("singleGeometry")
             projectScene.addObjectToScene(selectedShape)
             shapes.push(selectedShape)
+            selectedShape.createTestShape(points)
             break
         case "multiGeometryPolygon":
             selectedShape = polygonFactory.create("multiGeometry")
             projectScene.addObjectToScene(selectedShape)
             shapes.push(selectedShape)
+            selectedShape.createTestShape(points)
             break
         case "lines":
             selectedShape = createDifferentLineTypes()
             projectScene.addObjectToScene(selectedShape)
             shapes.push(selectedShape)
+            selectedShape.createTestShape(points)
     }
 }
 

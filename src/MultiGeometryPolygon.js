@@ -191,4 +191,12 @@ export class MultiGeometryPolygon  extends BasePolygon {
         })
     }
 
+    createTestShape(points){
+        for(let i=0; i<points.length; i++){
+            this.addDot(points[i].x, points[i].y, points[i].z)
+            this.addVerticeToGeometries([this.line, this.area], this.pointCount, points[i])
+        }
+        projectScene.animate()
+    }
+
 }

@@ -150,13 +150,13 @@ function createGrassMesh() {
     addVertextToGrassMesh(startX + grassHeight * 4, 35, 0, grassHeight, grassMeshGeometry)
     addVertextToGrassMesh(startX + grassHeight * 5, 35, 0, grassHeight, grassMeshGeometry)
     addVertextToGrassMesh(startX + grassHeight * 6, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX + grassHeight * 7, 30, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX + grassHeight * 8, 30, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX + grassHeight * 9, 30, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 7, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 8, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 9, 35, 0, grassHeight, grassMeshGeometry)
     addVertextToGrassMesh(startX + grassHeight * 10, 35, 0, grassHeight, grassMeshGeometry)
     addVertextToGrassMesh(startX + grassHeight * 11, 35, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX + grassHeight * 12, 40, 0, grassHeight, grassMeshGeometry)
-    addVertextToGrassMesh(startX + grassHeight * 13, 45, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 12, 35, 0, grassHeight, grassMeshGeometry)
+    addVertextToGrassMesh(startX + grassHeight * 13, 35, 0, grassHeight, grassMeshGeometry)
 
     grassMeshGeometry.setDrawRange(0, 100); //tofix drarange vs pointcount
     const grassTexture = new THREE.TextureLoader().load('/grass3.png');
