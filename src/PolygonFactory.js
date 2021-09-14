@@ -16,6 +16,7 @@ export class PolygonFactory {
 
         const DEFAULT_COLOR = "rgb(255, 255, 255)"
         const SELECTION_COLOR = "rgb(255, 255, 0)"
+        const POINT_SIZE = 10
 
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(), 3));
@@ -35,7 +36,7 @@ export class PolygonFactory {
         const sprite = new THREE.TextureLoader().load('/circle.png');
         const markerMaterial = new THREE.PointsMaterial({
             vertexColors: true,
-            size: 14,
+            size: POINT_SIZE,
             map: sprite,
             //blending: THREE.AdditiveBlending,
             transparent: true, depthTest: false
@@ -51,9 +52,10 @@ export class PolygonFactory {
 
         const DEFAULT_COLOR = "0xffffff"
         const SELECTION_COLOR = "0x12a120"
+        const POINT_SIZE = 2
 
         const geometry = new THREE.BufferGeometry();
-        const MAX_POINTS = 20000;
+        const MAX_POINTS = 20000; // Important Value !
         const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         const material = new THREE.LineBasicMaterial({color: "grey"});
@@ -69,6 +71,6 @@ export class PolygonFactory {
         const areaGeometry = geometry.clone()
         const area = new THREE.Mesh(areaGeometry, areaMaterial);
 
-        return new MultiGeometryPolygon(area, line, DEFAULT_COLOR, SELECTION_COLOR)
+        return new MultiGeometryPolygon(area, line, DEFAULT_COLOR, SELECTION_COLOR, POINT_SIZE)
     }
 }

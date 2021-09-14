@@ -189,8 +189,9 @@ export class OneGeometryPolygon extends BasePolygon {
     }
 
     createTestShape(points){
-        for(let i=0; i<points.length; i++){
-            this.addVerticeToGeometry(this.pointCount, points[i])
+        let extendedCoordinates = this.addCoordinatesInBetween(points, 3)
+        for(let i=0; i<extendedCoordinates.length; i++){
+            this.addVerticeToGeometry(this.pointCount, extendedCoordinates[i])
             this.updateGeometryIndexes()
             this.pointCount += 3
         }

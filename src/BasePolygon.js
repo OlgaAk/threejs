@@ -15,4 +15,25 @@ export class BasePolygon {
     mouseUp(event) {
         this.dragging = false;
     }
+
+    addCoordinatesInBetween(coordinates, coordsMultiplyBy) {
+        console.log(coordinates)
+        let extendedCoordinates = []
+        for (let i = 0; i < coordinates.length; i ++) {
+            extendedCoordinates.push(coordinates[i])
+            if (i + 1 < coordinates.length) {
+                let xStep = (coordinates[i + 1].x - coordinates[i].x) / coordsMultiplyBy;
+                let yStep = (coordinates[i + 1].y - coordinates[i].y) / coordsMultiplyBy;
+                for (let j = 1; j < coordsMultiplyBy; j++) {
+                    extendedCoordinates.push({
+                        x: coordinates[i].x + xStep * j,
+                        y: coordinates[i].y + yStep * j,
+                        z: coordinates[i].z
+                    })
+                }
+            }
+        }
+        console.log(extendedCoordinates)
+        return extendedCoordinates
+    }
 }

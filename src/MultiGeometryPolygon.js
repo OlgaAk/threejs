@@ -3,13 +3,13 @@ import {projectScene} from "./ProjectScene"
 import {BasePolygon} from "./BasePolygon"
 
 export class MultiGeometryPolygon  extends BasePolygon {
-    constructor(area, line, DEFAULT_COLOR, SELECTION_COLOR) {
+    constructor(area, line, DEFAULT_COLOR, SELECTION_COLOR, POINT_SIZE) {
         super()
         this.area = area;
         this.line = line;
         this.points = []
         this.pointCount = 0;
-        this.POINT_SIZE = 2;
+        this.POINT_SIZE = POINT_SIZE;
         this.selectedPoint = null;
         this.dragEvent = false // added to check if dragging has just happend
         this.elementsToAddToScene = [area, line]
@@ -192,9 +192,10 @@ export class MultiGeometryPolygon  extends BasePolygon {
     }
 
     createTestShape(points){
-        for(let i=0; i<points.length; i++){
-            this.addDot(points[i].x, points[i].y, points[i].z)
-            this.addVerticeToGeometries([this.line, this.area], this.pointCount, points[i])
+        let extendedCoordinates = this.addCoordinatesInBetween(points, 3)
+        for(let i=0; i<extendedCoordinates.length; i++){
+            this.addDot(extendedCoordinates[i].x, extendedCoordinates[i].y, extendedCoordinates[i].z)
+            this.addVerticeToGeometries([this.line, this.area], this.pointCount, extendedCoordinates[i])
         }
         projectScene.animate()
     }
